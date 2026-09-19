@@ -1,0 +1,451 @@
+
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+// ─────────────────────────────────────────────────────────────
+// Footer — extracted from inline Tailwind classes
+// ─────────────────────────────────────────────────────────────
+
+/* Same content width and gutter as every landing section, so the
+   footer's edges line up with the page above it. */
+.ft-wrap {
+  @include d.container;
+  @apply mt-20 space-y-8 font-syne pb-12;
+}
+
+.ft-bg-grid {
+  @apply absolute inset-0 opacity-[0.08] dark:opacity-[0.04] pointer-events-none;
+  background-image: radial-gradient(currentColor 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* ── Security & compliance banner ── */
+.ft-sec-banner {
+  @apply bg-[#2d2e2f] dark:bg-[#2d2e2f] rounded-2xl px-8 md:px-14 py-7 md:py-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl transition-colors duration-300;
+}
+
+.ft-sec-copy {
+  @apply flex flex-col gap-2 z-10 max-w-lg;
+}
+
+.ft-sec-eyebrow-row {
+  @apply flex items-center gap-2 mb-0.5;
+}
+
+.ft-sec-shield {
+  @apply w-4 h-4 text-[#0645fb];
+}
+
+.ft-sec-eyebrow {
+  @apply text-[10px] font-bold uppercase tracking-[0.18em] text-[#0645fb];
+}
+
+.ft-sec-title {
+  @apply text-xl md:text-2xl font-bold tracking-tight text-white font-syne leading-snug;
+}
+
+.ft-sec-desc {
+  @apply text-xs text-zinc-400 leading-relaxed max-w-sm;
+}
+
+.ft-sec-link {
+  @apply mt-1 text-xs text-zinc-400 hover:text-white transition-colors duration-200 flex items-center gap-1 w-fit;
+}
+
+.ft-badges {
+  @apply grid grid-cols-2 sm:flex sm:items-center gap-y-4 gap-x-0 sm:gap-0 shrink-0 w-full sm:w-auto;
+}
+
+.ft-badge {
+  @apply flex flex-col items-center gap-2 py-2 sm:py-0 px-4 sm:px-6;
+
+  &:not(:last-child) {
+    @apply sm:border-r border-white/10;
+  }
+}
+
+.ft-badge-icon {
+  @apply w-12 h-12 flex items-center justify-center;
+}
+
+.ft-badge-svg {
+  @apply w-12 h-12;
+}
+
+.ft-badge-img {
+  @apply w-full h-full object-contain;
+  filter: brightness(0) invert(1);
+}
+
+.ft-badge-text {
+  @apply text-center;
+}
+
+.ft-badge-label {
+  @apply text-white text-[11px] font-bold leading-none;
+}
+
+.ft-badge-status {
+  @apply text-[#0645fb] text-[9px] font-semibold uppercase tracking-wider mt-0.5;
+}
+
+/* ── Newsletter + laptop mockup ── */
+.ft-news {
+  @apply bg-[#16161A] dark:bg-[#f4f4f5] text-white dark:text-zinc-950 rounded-2xl p-8 md:p-14 flex flex-col lg:flex-row items-center justify-between gap-12 overflow-hidden relative shadow-2xl border border-white/10 dark:border-zinc-200 transition-colors duration-300;
+}
+
+.ft-news-left {
+  @apply max-w-xl space-y-6 text-left z-10 w-full lg:w-auto;
+}
+
+.ft-news-logo {
+  @apply h-[48px] w-auto object-contain select-none mb-4;
+}
+
+.ft-news-title {
+  @apply text-4xl md:text-5xl font-semibold tracking-tight text-white dark:text-zinc-950 font-syne leading-tight transition-colors duration-300;
+}
+
+.ft-news-desc {
+  @apply text-sm md:text-base text-zinc-400 dark:text-zinc-600 font-medium leading-relaxed max-w-md transition-colors duration-300;
+}
+
+.ft-news-form {
+  @apply relative max-w-sm w-full;
+}
+
+.ft-news-pill {
+  @apply flex items-center bg-[#111114] dark:bg-white rounded-full p-1.5 shadow-xl border border-white/10 dark:border-zinc-300 focus-within:ring-2 focus-within:ring-blue-500 transition-all;
+}
+
+.ft-news-mail {
+  @apply pl-4 text-zinc-500 dark:text-zinc-400;
+}
+
+.ft-news-mail-icon {
+  @apply w-5 h-5;
+}
+
+.ft-news-input {
+  @apply w-full bg-transparent border-0 outline-none text-white dark:text-zinc-800 text-sm py-2 px-3 font-medium transition-colors duration-300;
+
+  &::placeholder {
+    @apply text-zinc-500 dark:text-zinc-400;
+  }
+}
+
+.ft-news-btn {
+  @apply bg-[#0645fb] hover:bg-blue-700 active:scale-95 text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-full transition-all duration-200 shadow-md flex items-center gap-1 shrink-0 cursor-pointer;
+}
+
+.ft-news-toast {
+  @apply absolute top-[calc(100%+8px)] left-2 flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-emerald-950/20 px-3 py-1.5 rounded-full shadow border dark:border-emerald-500/10;
+}
+
+.ft-news-toast-icon {
+  @apply w-4 h-4;
+}
+
+/* ── Laptop mockup ── */
+.ft-laptop-wrap {
+  @apply relative w-full lg:w-[480px] h-[280px] flex items-center justify-center lg:justify-end select-none mt-6 lg:mt-0;
+}
+
+.ft-laptop-glow {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[190px] bg-blue-500/10 blur-[80px] rounded-full;
+}
+
+.ft-laptop-3d {
+  position: relative;
+  transform: perspective(1000px) rotateY(-18deg) rotateX(12deg) rotateZ(-3deg);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+
+  &:hover {
+    transform: perspective(1000px) rotateY(-18deg) rotateX(12deg) rotateZ(-3deg) scale(1.03);
+  }
+}
+
+.ft-laptop-screen {
+  @apply w-[325px] h-[200px] bg-[#111115] border-[6px] border-[#222227] rounded-xl shadow-2xl relative overflow-hidden flex flex-col;
+}
+
+.ft-laptop-cam {
+  @apply absolute top-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-[#1A1A20] rounded-b flex items-center justify-center;
+}
+
+.ft-laptop-cam-dot {
+  @apply w-1 h-1 rounded-full bg-blue-500/30;
+}
+
+.ft-screen {
+  @apply w-full h-full bg-[#08080A] text-white p-2 flex flex-col justify-between overflow-hidden relative;
+}
+
+.ft-screen-grid {
+  @apply absolute inset-0 opacity-40;
+  background-image: radial-gradient(#ffffff03 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.ft-screen-bar {
+  @apply flex items-center justify-between border-b border-white/5 pb-1 relative z-10;
+}
+
+.ft-screen-bar-left {
+  @apply flex items-center gap-1;
+}
+
+.ft-screen-logo {
+  @apply w-3.5 h-3.5 rounded-full bg-blue-600 flex items-center justify-center font-bold text-[6px];
+}
+
+.ft-screen-brand {
+  @apply text-[6px] font-extrabold font-space tracking-tighter;
+}
+
+.ft-screen-nav {
+  @apply flex gap-1.5 text-[5px] text-white/50 font-medium;
+}
+
+.ft-screen-launch {
+  @apply bg-blue-600 text-[4px] px-1 py-0.5 rounded-full text-white scale-90;
+}
+
+.ft-screen-main {
+  @apply grid grid-cols-2 gap-2 my-auto relative z-10;
+}
+
+.ft-screen-hero {
+  @apply flex flex-col justify-center space-y-1;
+}
+
+.ft-screen-headline {
+  @apply text-[8px] md:text-[9px] leading-tight font-black font-syne uppercase tracking-tight;
+}
+
+.ft-screen-headline-accent {
+  @apply text-blue-400;
+}
+
+.ft-screen-desc {
+  @apply text-[4px] text-white/40 leading-tight;
+}
+
+.ft-screen-chips {
+  @apply flex flex-wrap gap-0.5 mt-1 scale-90 origin-left;
+}
+
+.ft-screen-chip {
+  @apply text-[3px] bg-white/10 rounded border border-white/5;
+  padding: 1px 3px; // px-0.8 py-0.2 (not valid Tailwind steps)
+}
+
+.ft-screen-chip--accent {
+  @apply bg-blue-500/10 text-blue-400 border-blue-500/10;
+}
+
+.ft-screen-chip--secure {
+  @apply bg-emerald-500/10 text-emerald-400 border-emerald-500/10;
+}
+
+.ft-screen-demo-btns {
+  @apply flex gap-1 pt-1 scale-90 origin-left;
+}
+
+.ft-screen-demo-btn {
+  @apply w-7 h-2 bg-blue-600 rounded flex items-center justify-center text-[3px] font-bold;
+}
+
+.ft-screen-demo-btn--ghost {
+  @apply bg-white/5 border border-white/10;
+}
+
+.ft-screen-chart-col {
+  @apply relative flex items-center justify-center;
+}
+
+.ft-screen-chart {
+  @apply w-full h-24 bg-gradient-to-b from-[#1E293B]/20 to-[#0F172A]/50 border border-blue-500/15 rounded-lg overflow-hidden flex flex-col justify-between p-1;
+}
+
+.ft-screen-chart-pulse {
+  @apply absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/10 to-transparent;
+  animation: ft-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.ft-screen-chart-svg {
+  @apply w-full h-full opacity-60 text-blue-400;
+}
+
+.ft-screen-chart-meta {
+  @apply flex items-center justify-between text-[3px] font-mono text-white/50 relative z-10 scale-95 origin-bottom;
+}
+
+.ft-screen-live {
+  @apply flex items-center gap-0.5;
+}
+
+.ft-screen-live-dot {
+  @apply w-1 h-1 rounded-full bg-blue-500;
+  animation: ft-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.ft-screen-footer {
+  @apply flex items-center justify-between border-t border-white/5 pt-0.5 text-[3.5px] text-white/35 font-bold uppercase tracking-wider relative z-10;
+}
+
+.ft-laptop-base {
+  @apply w-[342px] h-[10px] bg-zinc-600 dark:bg-zinc-400 border border-zinc-700 dark:border-zinc-500 rounded-b-xl relative -mt-0.5 -ml-[8px] flex justify-center shadow-xl transition-colors duration-300;
+}
+
+.ft-laptop-base-inner {
+  @apply w-[280px] h-[3px] bg-zinc-700/80 mt-0.5 flex justify-between px-2;
+  border-radius: var(--r-control);
+}
+
+.ft-laptop-base-line {
+  @apply w-full bg-zinc-800/90 h-[2px];
+  border-radius: var(--r-control);
+}
+
+.ft-laptop-notch {
+  @apply w-14 h-1 bg-zinc-800 absolute bottom-0.5 left-1/2 -translate-x-1/2 rounded-full;
+}
+
+.ft-laptop-shadow {
+  @apply absolute -bottom-6 left-1/2 -translate-x-1/2 w-[310px] h-5 bg-zinc-950/65 rounded-full blur-md -z-10;
+}
+
+/* ── Directory ── */
+.ft-dir {
+  @apply bg-[#111114] dark:bg-white text-white dark:text-zinc-950 rounded-2xl p-4 sm:p-8 md:p-14 shadow-xl border border-white/5 dark:border-zinc-200 transition-colors duration-300;
+}
+
+.ft-dir-grid {
+  @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-y-8 gap-x-3 md:gap-x-4 xl:gap-x-6 pb-10 border-b border-white/5 dark:border-zinc-200 font-syne text-left;
+}
+
+.ft-dir-col {
+  @apply flex flex-col space-y-4;
+}
+
+.ft-dir-col--follow {
+  @apply col-span-2 sm:col-span-1;
+}
+
+.ft-dir-heading {
+  @apply font-syne font-semibold text-xs uppercase tracking-[0.14em] text-white dark:text-zinc-900 pb-1 border-b border-white/10 dark:border-zinc-100;
+}
+
+.ft-dir-list {
+  @apply space-y-2.5 text-xs font-semibold;
+}
+
+.ft-dir-item {
+  @apply flex items-center;
+}
+
+.ft-dir-link {
+  @apply text-zinc-400 dark:text-zinc-600 hover:text-[#60a5fa] dark:hover:text-[#0645fb] transition-all duration-200 cursor-pointer text-left flex items-center;
+}
+
+.ft-dir-dash {
+  @apply overflow-hidden text-[#60a5fa] dark:text-[#0645fb] font-black shrink-0 transition-all duration-200;
+  width: 0;
+  opacity: 0;
+}
+
+.ft-dir-link:hover .ft-dir-dash {
+  width: 0.75rem; // group-hover:w-3
+  opacity: 1;
+}
+
+/* ── Follow us ── */
+.ft-social {
+  @apply grid grid-cols-4 gap-2 text-zinc-300 dark:text-zinc-700 pb-1;
+}
+
+.ft-social-link {
+  @apply w-8 h-8 flex items-center justify-center rounded-full border border-white/10 dark:border-zinc-200 hover:bg-[#60a5fa]/15 hover:text-[#60a5fa] hover:border-[#60a5fa] dark:hover:bg-[#0645fb]/15 dark:hover:text-[#0645fb] dark:hover:border-[#0645fb] transition-all duration-200 cursor-pointer shrink-0;
+}
+
+.ft-social-icon {
+  @apply w-4 h-4;
+}
+
+.ft-social-svg {
+  width: 16px;
+  height: 16px;
+}
+
+.ft-contact {
+  @apply flex flex-col gap-2 text-[10px] text-zinc-400 dark:text-zinc-600 font-semibold font-syne;
+}
+
+.ft-contact-link {
+  @apply flex items-center gap-2 hover:text-[#60a5fa] dark:hover:text-[#0645fb] hover:translate-x-1 transition-all duration-200;
+}
+
+.ft-contact-row {
+  @apply flex items-center gap-2;
+}
+
+.ft-contact-icon {
+  @apply w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0;
+}
+
+/* ── Bottom bar ── */
+.ft-bottom {
+  @apply pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4;
+}
+
+.ft-bottom-logo {
+  @apply h-[40px] w-auto object-contain select-none;
+}
+
+.ft-copy {
+  @apply text-[10px] md:text-xs text-zinc-500 dark:text-zinc-400 font-bold font-mono tracking-tight;
+}
+
+.ft-bottom-right {
+  @apply flex items-center gap-3 text-[10px] font-mono text-zinc-400 dark:text-zinc-500;
+}
+
+.ft-status {
+  @apply flex items-center gap-2;
+}
+
+.ft-status-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0;
+  animation: ft-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.ft-status-slash {
+  @apply text-zinc-600 dark:text-zinc-600;
+}
+
+.ft-status-link {
+  @apply hover:text-[#60a5fa] dark:hover:text-[#0645fb] transition-colors cursor-pointer;
+}
+
+/* ── Keyframes ── */
+@keyframes ft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ft-ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

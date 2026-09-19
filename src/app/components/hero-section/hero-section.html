@@ -1,0 +1,569 @@
+<section #sectionEl id="hero" class="hero-fade-in hero-section">
+  <!-- Top glow line -->
+  <div class="hs-topline"></div>
+
+  <!-- GSAP-animated background orbs -->
+  <div #orb1 class="hs-orb hs-orb--1"></div>
+  <div #orb2 class="hs-orb hs-orb--2"></div>
+
+  <!-- Dot grid -->
+  <div class="hs-dot-grid"></div>
+
+  <!-- Sidebar markings -->
+
+
+  <div class="hs-container">
+
+    <!-- Hero two-column grid -->
+    <div class="hs-grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="hs-left">
+
+        <!-- Tagline pill -->
+        <div class="hero-anim-1 hs-pill">
+          <lucide-icon [img]="Sparkles" class="hs-pill-icon"></lucide-icon>
+          <span>Architecting Digital Excellence</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="hero-anim-2 hs-headline">
+          Digital Twin Viewer Platform for <br class="hs-headline-br" />
+          <span class="hs-headline-block">
+            <app-rotating-text [texts]="rotatingTexts" mainClassName="hs-rotating-pill" staggerFrom="last"
+              [staggerDuration]="0.015" [rotationInterval]="2500"
+              (indexChange)="onRotatingIndexChange($event)"></app-rotating-text>
+          </span>
+        </h1>
+
+        <!-- Body copy -->
+        <p class="hero-anim-3 hs-body">
+          AxisXD is a digital twin viewer platform that brings together IFC models, point cloud data, and panoramic site
+          reality in a single unified environment. It enables clear spatial understanding and effective review of
+          physical environments using BIM and reality capture data.
+
+          <!-- Badges -->
+        <div class="hero-anim-4 hs-badges">
+          <span class="hero-badge">BIM &amp; CAD</span>
+          @for (label of tagBadges; track label; let i = $index) {
+          <span class="hero-badge" [style.animation-delay.ms]="500 + i * 70">
+            {{ label }}
+          </span>
+          }
+        </div>
+
+        <!-- CTA buttons -->
+        <div class="hero-anim-5 hs-cta-row">
+          <a [href]="portalLoginUrl" target="_blank" rel="noopener noreferrer" class="hero-cta-primary">
+            <span>Try Free Demo</span>
+            <lucide-icon [img]="ChevronRight" class="hs-cta-icon"></lucide-icon>
+          </a>
+
+          <button (click)="liveModels.open()" class="hero-cta-secondary">
+            <span>View Live Models</span>
+            <lucide-icon [img]="ArrowUpRight" class="hs-cta-icon hs-cta-icon--secondary"></lucide-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: realistic demo viewer -->
+      <div class="hero-anim-6 hs-viewer">
+        <div class="hs-viewer-glow"></div>
+        <div class="hs-viewer-frame">
+          <div class="hs-viewer-coord">
+            COORD_LOCK: {{ activeHighlight ? 'TRUE' : 'STANDBY' }}
+          </div>
+          <div class="hs-viewer-index">
+            INDEX: CL-109_CALIBRATED
+          </div>
+          <!-- Layer badge -->
+          <div class="hs-viewer-layer">
+            <span class="hs-viewer-layer-dot"></span>
+            <span class="hs-viewer-layer-text">
+              {{ activeHighlight ? activeHighlight.toUpperCase() : 'HOVER' }}
+            </span>
+          </div>
+        </div>
+
+        <div class="hs-viewer-card">
+
+          <svg viewBox="0 0 500 400" class="hero-svg-floorplan" fill="none" stroke="currentColor" stroke-width="1.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <!-- 2D Floor Plan (isometric view) -->
+            <g transform="rotate(-30) skewX(30) scale(0.765) translate(-420, 250)">
+              <g [class]="floorPlanClass" stroke-width="1.2">
+                <rect x="57" y="57" width="386" height="286" rx="3" stroke-width="1" fill="none" />
+                <rect x="60" y="60" width="380" height="280" rx="2" stroke-width="0.6" fill="none"
+                  class="hs-fp-faint" />
+                <rect x="187" y="57" width="126" height="286" stroke-width="0.8" fill="none" />
+                <rect x="190" y="60" width="120" height="280" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <rect x="57" y="57" width="136" height="126" stroke-width="0.8" fill="none" />
+                <rect x="60" y="60" width="130" height="120" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <line x1="188" y1="105" x2="188" y2="135" stroke-width="8" class="hs-fp-door" />
+                <line x1="190" y1="108" x2="190" y2="132" stroke-width="6" class="hs-fp-door" />
+                <path d="M 188 108 A 20 20 0 0 1 168 128" stroke-width="0.8" fill="none" />
+                <rect x="57" y="177" width="136" height="106" stroke-width="0.8" fill="none" />
+                <rect x="60" y="180" width="130" height="100" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <line x1="105" y1="177" x2="135" y2="177" stroke-width="8" class="hs-fp-door" />
+                <line x1="108" y1="178" x2="132" y2="178" stroke-width="6" class="hs-fp-door" />
+                <path d="M 132 178 A 20 20 0 0 0 112 198" stroke-width="0.8" fill="none" />
+                <rect x="57" y="277" width="136" height="66" stroke-width="0.8" fill="none" />
+                <rect x="60" y="280" width="130" height="60" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <rect x="307" y="57" width="136" height="96" stroke-width="0.8" fill="none" />
+                <rect x="310" y="60" width="130" height="90" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <line x1="307" y1="90" x2="307" y2="120" stroke-width="8" class="hs-fp-door" />
+                <line x1="308" y1="93" x2="308" y2="117" stroke-width="6" class="hs-fp-door" />
+                <path d="M 308 93 A 20 20 0 0 0 328 113" stroke-width="0.8" fill="none" />
+                <rect x="307" y="147" width="136" height="136" stroke-width="0.8" fill="none" />
+                <rect x="310" y="150" width="130" height="130" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <line x1="307" y1="195" x2="307" y2="225" stroke-width="8" class="hs-fp-door" />
+                <line x1="308" y1="198" x2="308" y2="222" stroke-width="6" class="hs-fp-door" />
+                <path d="M 308 198 A 20 20 0 0 0 328 218" stroke-width="0.8" fill="none" />
+                <rect x="307" y="277" width="136" height="66" stroke-width="0.8" fill="none" />
+                <rect x="310" y="280" width="130" height="60" stroke-width="0.4" fill="none" class="hs-fp-faint" />
+                <line x1="307" y1="305" x2="307" y2="335" stroke-width="8" class="hs-fp-door" />
+                <line x1="308" y1="308" x2="308" y2="332" stroke-width="6" class="hs-fp-door" />
+                <path d="M 308 308 A 20 20 0 0 0 328 328" stroke-width="0.8" fill="none" />
+                <line x1="200" y1="315" x2="300" y2="315" stroke-width="0.6" />
+                <line x1="200" y1="322" x2="300" y2="322" stroke-width="0.6" />
+                <line x1="200" y1="329" x2="300" y2="329" stroke-width="0.6" />
+                <line x1="215" y1="315" x2="215" y2="329" stroke-width="0.6" />
+                <line x1="250" y1="315" x2="250" y2="329" stroke-width="0.6" />
+                <line x1="285" y1="315" x2="285" y2="329" stroke-width="0.6" />
+                <line x1="250" y1="335" x2="250" y2="345" stroke-width="0.6" marker-end="url(#arrow)" />
+                <text x="85" y="115" font-size="6" class="hs-fp-label" stroke="none" font-weight="600">OFFICE A</text>
+                <text x="85" y="230" font-size="6" class="hs-fp-label" stroke="none" font-weight="600">KITCHEN</text>
+                <text x="330" y="105" font-size="6" class="hs-fp-label" stroke="none" font-weight="600">CONF. RM</text>
+                <text x="330" y="210" font-size="6" class="hs-fp-label" stroke="none" font-weight="600">OPEN PLAN</text>
+                <g class="hs-fp-dim-group" stroke-width="0.4" stroke-dasharray="2,2">
+                  <line x1="57" y1="42" x2="443" y2="42" />
+                  <line x1="57" y1="37" x2="57" y2="47" />
+                  <line x1="443" y1="37" x2="443" y2="47" />
+                  <text x="250" y="39" font-size="5" text-anchor="middle" class="hs-fp-dim" stroke="none"
+                    font-family="monospace">48.0 m</text>
+                </g>
+
+                <!-- WALL EXTRUSIONS -->
+                <g clip-path="url(#wallGrowthClip)">
+                  <g class="hs-layer" [class.hs-layer-on]="activeHighlight === 'ifc'">
+                    <polygon class="hs-wall-a" stroke-width="0.5" points="57,57 443,57 495,12 109,12" />
+                    <polygon class="hs-wall-a" stroke-width="0.5" points="443,57 443,343 495,298 495,12" />
+                    <polygon class="hs-wall-b" stroke-width="0.5" points="313,57 313,343 365,298 365,12" />
+                    <polygon class="hs-wall-b" stroke-width="0.5" points="307,153 443,153 495,108 359,108" />
+                    <polygon class="hs-wall-b" stroke-width="0.5" points="307,283 443,283 495,238 359,238" />
+                    <polygon class="hs-wall-c" stroke-width="0.6" points="187,57 187,343 239,298 239,12" />
+                    <polygon class="hs-wall-c" stroke-width="0.6" points="57,183 187,183 239,138 109,138" />
+                    <polygon class="hs-wall-c" stroke-width="0.6" points="57,283 187,283 239,238 109,238" />
+                    <polygon class="hs-wall-d" stroke-width="0.9" points="57,57 57,343 109,298 109,12" />
+                    <polygon class="hs-wall-d" stroke-width="0.9" points="57,343 443,343 495,298 109,298" />
+                  </g>
+                  <g class="hs-layer" [class.hs-layer-on]="activeHighlight === 'rol'">
+                    <polygon fill="#8a7860" stroke="#706448" stroke-width="0.4" points="57,57 443,57 495,12 109,12" />
+                    <polygon fill="#e2cfa0" stroke="#c8b480" stroke-width="0.5"
+                      points="443,57 443,343 495,298 495,12" />
+                    <polygon fill="#c8b48a" stroke="#b0987a" stroke-width="0.4"
+                      points="313,57 313,343 365,298 365,12" />
+                    <polygon fill="#7a6850" stroke="#685840" stroke-width="0.4"
+                      points="307,153 443,153 495,108 359,108" />
+                    <polygon fill="#7a6850" stroke="#685840" stroke-width="0.4"
+                      points="307,283 443,283 495,238 359,238" />
+                    <polygon fill="#d0b888" stroke="#b8a070" stroke-width="0.4"
+                      points="187,57 187,343 239,298 239,12" />
+                    <polygon fill="#5a4e3c" stroke="#4a3e2c" stroke-width="0.4"
+                      points="57,183 187,183 239,138 109,138" />
+                    <polygon fill="#5a4e3c" stroke="#4a3e2c" stroke-width="0.4"
+                      points="57,283 187,283 239,238 109,238" />
+                    <polygon fill="#181210" stroke="#100e0c" stroke-width="0.6" points="57,57 57,343 109,298 109,12" />
+                    <polygon fill="#201a14" stroke="#181210" stroke-width="0.6"
+                      points="57,343 443,343 495,298 109,298" />
+                  </g>
+                </g>
+              </g>
+
+              <!-- ROL FLOOR LIGHT & SHADOW -->
+              <g class="hs-layer hs-layer--slow" [class.hs-layer-on]="activeHighlight === 'rol'">
+                <rect x="57" y="57" width="386" height="286" fill="url(#floorLightGrad)" />
+                <rect x="313" y="57" width="130" height="286" fill="#fbbf24" opacity="0.12" />
+                <rect x="187" y="57" width="126" height="286" fill="#0f172a" opacity="0.28" />
+                <rect x="57" y="57" width="130" height="286" fill="#0f172a" opacity="0.40" />
+                <polygon fill="#fef3c7" opacity="0.22" points="443,78 443,105 375,122 375,95" />
+                <polygon fill="#fef3c7" opacity="0.18" points="443,160 443,185 375,202 375,177" />
+                <polygon fill="#fef3c7" opacity="0.15" points="443,240 443,262 375,279 375,257" />
+                <rect x="57" y="57" width="386" height="35" fill="#fef3c7" opacity="0.08" />
+              </g>
+
+              <!-- POINT CLOUD WALL SCATTER -->
+              <g class="hs-layer hs-layer--slow" [class.hs-layer-on]="activeHighlight === 'pointcloud'" stroke="none">
+                @for (dot of pointCloudDots; track $index) {
+                <circle [attr.cx]="dot.cx" [attr.cy]="dot.cy" [attr.r]="dot.r" [attr.opacity]="dot.opacity"
+                  [attr.fill]="dot.color" />
+                }
+              </g>
+            </g><!-- end isometric transform -->
+
+            <!-- ROL SOLAR RAYS -->
+            <g class="hs-layer hs-layer--slow" [class.hs-layer-dim]="activeHighlight !== 'rol'">
+              @for (d of solarRayPaths; track d) {
+              <path [attr.d]="d" fill="none" stroke="#d4b060" stroke-width="0.4" stroke-dasharray="2,8" opacity="0.4" />
+              }
+            </g>
+            <g class="hs-layer hs-layer--slow" [class.hs-layer-on]="activeHighlight === 'rol'">
+              <polygon fill="url(#godRayGrad)" opacity="0.20" points="400,80 255,350 310,350" />
+              <polygon fill="url(#godRayGrad)" opacity="0.25" points="400,80 340,355 400,355" />
+              <polygon fill="url(#godRayGrad)" opacity="0.22" points="400,80 415,355 475,335" />
+              <polygon fill="url(#godRayGrad)" opacity="0.17" points="400,80 465,315 490,295" />
+              <polygon fill="url(#godRayGrad)" opacity="0.14" points="400,80 185,325 215,330" />
+              <polygon fill="url(#godRayGrad)" opacity="0.10" points="400,80 128,238 155,248" />
+              <polygon fill="url(#godRayGrad)" opacity="0.16" points="400,80 465,195 490,210" />
+              <ellipse cx="282" cy="348" rx="22" ry="7" fill="#fbbf24" opacity="0.35" filter="url(#glowBlur)" />
+              <ellipse cx="368" cy="355" rx="28" ry="9" fill="#fbbf24" opacity="0.40" filter="url(#glowBlur)" />
+              <ellipse cx="444" cy="348" rx="22" ry="7" fill="#fbbf24" opacity="0.35" filter="url(#glowBlur)" />
+              <ellipse cx="475" cy="325" rx="18" ry="6" fill="#fbbf24" opacity="0.28" filter="url(#glowBlur)" />
+              <ellipse cx="200" cy="326" rx="18" ry="6" fill="#fbbf24" opacity="0.22" filter="url(#glowBlur)" />
+              @for (ray of godRays; track ray.d) {
+              <path [attr.d]="ray.d" fill="none" stroke="#fbbf24" [attr.stroke-width]="ray.w" [attr.opacity]="ray.op" />
+              }
+              <circle cx="400" cy="80" r="90" fill="url(#sunGlowEnhanced)" />
+              <circle cx="400" cy="80" r="48" fill="#fbbf24" opacity="0.18" filter="url(#glowBlur)" />
+              <circle cx="400" cy="80" r="24" fill="#fef3c7" opacity="0.30" filter="url(#glowBlur)" />
+              <circle cx="400" cy="80" r="11" fill="#fef9e7" opacity="0.98" />
+              <circle cx="400" cy="80" r="15" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.70" />
+              <circle cx="400" cy="80" r="20" fill="none" stroke="#fbbf24" stroke-width="0.6" opacity="0.35" />
+            </g>
+
+            <defs>
+              <filter id="blur">
+                <feGaussianBlur stdDeviation="3" />
+              </filter>
+              <filter id="glowBlur">
+                <feGaussianBlur stdDeviation="10" />
+              </filter>
+              <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="currentColor" stop-opacity="0.35" />
+                <stop offset="50%" stop-color="currentColor" stop-opacity="0.12" />
+                <stop offset="100%" stop-color="currentColor" stop-opacity="0" />
+              </radialGradient>
+              <radialGradient id="sunGlowEnhanced" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.55" />
+                <stop offset="35%" stop-color="#fbbf24" stop-opacity="0.28" />
+                <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.10" />
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="godRayGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.90" />
+                <stop offset="45%" stop-color="#fbbf24" stop-opacity="0.35" />
+                <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="floorLightGrad" gradientUnits="userSpaceOnUse" x1="443" y1="57" x2="57" y2="343">
+                <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.28" />
+                <stop offset="40%" stop-color="#fbbf24" stop-opacity="0.06" />
+                <stop offset="70%" stop-color="#1e2840" stop-opacity="0.10" />
+                <stop offset="100%" stop-color="#0f172a" stop-opacity="0.40" />
+              </linearGradient>
+              <clipPath id="wallGrowthClip">
+                <rect #wallClipRect x="-10" y="343" width="520" height="0" />
+              </clipPath>
+            </defs>
+
+            <!-- CONNECTOR TRACES -->
+            @if (activeHighlight) {
+            <g>
+              @if (activeHighlight === 'ifc') {
+              <path d="M 30 136 C 80 136, 100 230, 160 270" fill="none" class="hs-conn--ifc" stroke-width="1.5"
+                stroke-dasharray="3,3" />
+              }
+              @if (activeHighlight === 'dxf') {
+              <path d="M 190 70 C 215 70, 225 170, 240 200" fill="none" class="hs-conn--dxf" stroke-width="1.5"
+                stroke-dasharray="3,3" />
+              }
+              @if (activeHighlight === 'pointcloud') {
+              <path d="M 480 60 C 445 60, 380 130, 250 250" fill="none" class="hs-conn--pc" stroke-width="1.5"
+                stroke-dasharray="3,3" />
+              <circle cx="250" cy="250" r="2" fill="currentColor" class="hs-conn-dot--pc" />
+              }
+              @if (activeHighlight === 'rol') {
+              <path d="M 470 192 C 435 192, 420 140, 400 80" fill="none" class="hs-conn--rol" stroke-width="1.5"
+                stroke-dasharray="3,3" />
+              <circle cx="400" cy="80" r="2" fill="currentColor" class="hs-conn-dot--rol" />
+              }
+            </g>
+            }
+          </svg>
+
+          <!-- Layer telemetry panel — bottom overlay -->
+          @if (activeHighlight) {
+          @for (k of [activeHighlight]; track k) {
+          <div class="hs-telemetry">
+            <div class="hs-telemetry-grid">
+              <span class="hs-telemetry-label">{{ activeSpecs.layerName }}</span>
+              <span class="hs-telemetry-strong--blue">{{ activeSpecs.pointsCount }}</span>
+              <span class="hs-telemetry-label">Tolerance: <span class="hs-telemetry-strong--emerald">{{
+                  activeSpecs.tolerance }}</span></span>
+              <span class="hs-telemetry-label hs-telemetry-label--right">Scale: <span
+                  class="hs-telemetry-strong--amber">{{ activeSpecs.scaleAccuracy }}</span></span>
+            </div>
+          </div>
+          }
+          }
+
+          <!-- PIN 1 — IFC -->
+          <div class="hs-pin hs-pin--p1" [class.hs-pin--raised]="activeHighlight === 'ifc'"
+            (mouseenter)="setHighlight('ifc')" (mouseleave)="restoreHighlight()">
+            <div role="button" aria-label="Highlight IFC layer" class="hs-pin-btn"
+              [class]="activeHighlight === 'ifc' ? 'hs-pin-btn--active-blue' : 'hs-pin-btn--idle'">
+              <div class="hs-pin-iconbox" [class.hs-pin-iconbox--active]="activeHighlight === 'ifc'"
+                [class.hs-pin-iconbox--blue]="activeHighlight !== 'ifc'">
+                <lucide-icon [img]="Box" class="hs-pin-icon" [class.hs-pin-icon--active]="activeHighlight === 'ifc'"
+                  [class.hs-pin-icon--blue]="activeHighlight !== 'ifc'"></lucide-icon>
+              </div>
+              <div class="hs-pin-copy">
+                <span class="hs-pin-title" [class.hs-pin-title--active]="activeHighlight === 'ifc'"
+                  [class.hs-pin-title--idle]="activeHighlight !== 'ifc'">IFC</span>
+                <span class="hs-pin-sub" [class.hs-pin-sub--active-blue]="activeHighlight === 'ifc'"
+                  [class.hs-pin-sub--idle]="activeHighlight !== 'ifc'">148K TRI</span>
+              </div>
+              @if (activeHighlight === 'ifc') {
+              <span class="hs-pin-badge">
+                <span class="hs-pin-badge-inner">
+                  <span class="hs-pin-badge-ping hs-pin-badge-ping--blue"></span>
+                  <span class="hs-pin-badge-dot"></span>
+                </span>
+              </span>
+              }
+              <span class="hs-attn-dot hs-attn-dot--blue" [class.hs-attn-dot--on]="attentionDotIndex === 0"></span>
+            </div>
+          </div>
+
+          <!-- PIN 2 — DXF / 2D -->
+          <div class="hs-pin hs-pin--p2" [class.hs-pin--raised]="activeHighlight === 'dxf'"
+            (mouseenter)="setHighlight('dxf')" (mouseleave)="restoreHighlight()">
+            <div role="button" aria-label="Highlight DXF layer" class="hs-pin-btn"
+              [class]="activeHighlight === 'dxf' ? 'hs-pin-btn--active-blue' : 'hs-pin-btn--idle'">
+              <div class="hs-pin-iconbox" [class.hs-pin-iconbox--active]="activeHighlight === 'dxf'"
+                [class.hs-pin-iconbox--blue]="activeHighlight !== 'dxf'">
+                <lucide-icon [img]="Layers" class="hs-pin-icon" [class.hs-pin-icon--active]="activeHighlight === 'dxf'"
+                  [class.hs-pin-icon--blue]="activeHighlight !== 'dxf'"></lucide-icon>
+              </div>
+              <div class="hs-pin-copy">
+                <span class="hs-pin-title" [class.hs-pin-title--active]="activeHighlight === 'dxf'"
+                  [class.hs-pin-title--idle]="activeHighlight !== 'dxf'">DXF / 2D</span>
+                <span class="hs-pin-sub" [class.hs-pin-sub--active-blue]="activeHighlight === 'dxf'"
+                  [class.hs-pin-sub--idle]="activeHighlight !== 'dxf'">12.9K NODES</span>
+              </div>
+              @if (activeHighlight === 'dxf') {
+              <span class="hs-pin-badge">
+                <span class="hs-pin-badge-inner">
+                  <span class="hs-pin-badge-ping hs-pin-badge-ping--blue"></span>
+                  <span class="hs-pin-badge-dot"></span>
+                </span>
+              </span>
+              }
+              <span class="hs-attn-dot hs-attn-dot--blue" [class.hs-attn-dot--on]="attentionDotIndex === 1"></span>
+            </div>
+          </div>
+
+          <!-- PIN 3 — Point Cloud -->
+          <div class="hs-pin hs-pin--p3" [class.hs-pin--raised]="activeHighlight === 'pointcloud'"
+            (mouseenter)="setHighlight('pointcloud')" (mouseleave)="restoreHighlight()">
+            <div role="button" aria-label="Highlight Point Cloud layer" class="hs-pin-btn"
+              [class]="activeHighlight === 'pointcloud' ? 'hs-pin-btn--active-emerald' : 'hs-pin-btn--idle'">
+              <div class="hs-pin-iconbox" [class.hs-pin-iconbox--active]="activeHighlight === 'pointcloud'"
+                [class.hs-pin-iconbox--emerald]="activeHighlight !== 'pointcloud'">
+                <lucide-icon [img]="Sliders" class="hs-pin-icon"
+                  [class.hs-pin-icon--active]="activeHighlight === 'pointcloud'"
+                  [class.hs-pin-icon--emerald]="activeHighlight !== 'pointcloud'"></lucide-icon>
+              </div>
+              <div class="hs-pin-copy">
+                <span class="hs-pin-title" [class.hs-pin-title--active]="activeHighlight === 'pointcloud'"
+                  [class.hs-pin-title--idle]="activeHighlight !== 'pointcloud'">POINT CLOUD</span>
+                <span class="hs-pin-sub" [class.hs-pin-sub--active-emerald]="activeHighlight === 'pointcloud'"
+                  [class.hs-pin-sub--idle]="activeHighlight !== 'pointcloud'">42.9M PTS</span>
+              </div>
+              @if (activeHighlight === 'pointcloud') {
+              <span class="hs-pin-badge">
+                <span class="hs-pin-badge-inner">
+                  <span class="hs-pin-badge-ping hs-pin-badge-ping--emerald"></span>
+                  <span class="hs-pin-badge-dot"></span>
+                </span>
+              </span>
+              }
+              <span class="hs-attn-dot hs-attn-dot--emerald" [class.hs-attn-dot--on]="attentionDotIndex === 2"></span>
+            </div>
+          </div>
+
+          <!-- PIN 4 — ROL -->
+          <div class="hs-pin hs-pin--p4" [class.hs-pin--raised]="activeHighlight === 'rol'"
+            (mouseenter)="setHighlight('rol')" (mouseleave)="restoreHighlight()">
+            <div role="button" aria-label="Highlight ROL layer" class="hs-pin-btn"
+              [class]="activeHighlight === 'rol' ? 'hs-pin-btn--active-amber' : 'hs-pin-btn--idle'">
+              <div class="hs-pin-iconbox" [class.hs-pin-iconbox--active]="activeHighlight === 'rol'"
+                [class.hs-pin-iconbox--amber]="activeHighlight !== 'rol'">
+                <lucide-icon [img]="Sun" class="hs-pin-icon" [class.hs-pin-icon--active]="activeHighlight === 'rol'"
+                  [class.hs-pin-icon--amber]="activeHighlight !== 'rol'"></lucide-icon>
+              </div>
+              <div class="hs-pin-copy">
+                <span class="hs-pin-title" [class.hs-pin-title--active]="activeHighlight === 'rol'"
+                  [class.hs-pin-title--idle]="activeHighlight !== 'rol'">ROL</span>
+                <span class="hs-pin-sub" [class.hs-pin-sub--active-amber]="activeHighlight === 'rol'"
+                  [class.hs-pin-sub--idle]="activeHighlight !== 'rol'">8 SOL RAYS</span>
+              </div>
+              @if (activeHighlight === 'rol') {
+              <span class="hs-pin-badge">
+                <span class="hs-pin-badge-inner">
+                  <span class="hs-pin-badge-ping hs-pin-badge-ping--amber"></span>
+                  <span class="hs-pin-badge-dot"></span>
+                </span>
+              </span>
+              }
+              <span class="hs-attn-dot hs-attn-dot--amber" [class.hs-attn-dot--on]="attentionDotIndex === 3"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTNERS MARQUEE STRIP -->
+    <!-- <div class="hs-marquee-wrap">
+      <p class="hs-marquee-label">
+        Trusted by industry leaders
+      </p>
+
+      <div class="hs-marquee-viewport">
+        <div class="hs-marquee-track animate-marquee">
+          @for (logo of partnerLogos; track $index) {
+            <img
+              [src]="logo.src"
+              [alt]="logo.alt"
+              referrerpolicy="no-referrer"
+              class="hs-marquee-logo"
+            />
+          }
+        </div>
+      </div>
+    </div> -->
+
+    <!-- STATS BENTO GRID -->
+
+    <div class="hs-stats">
+
+      <div class="hs-fade hs-stats-header">
+        <lucide-icon [img]="Scan" class="hs-stats-header-icon"></lucide-icon>
+        <h3 class="hs-stats-header-title">
+          Trusted Across the Industry
+        </h3>
+      </div>
+
+      <div class="hs-fade hs-stats-grid">
+        <!-- Card 1 — 5,000+ Buildings -->
+        <div class="hs-stagger-item hs-stat-card hs-stat-card--c3 hs-stat-card--blue hs-stagger-item--d0">
+          <div class="hs-stat-topline hs-stat-topline--blue"></div>
+          <div class="hs-stat-head">
+            <lucide-icon [img]="Compass" class="hs-stat-icon hs-stat-icon--blue"></lucide-icon>
+            <span class="hs-stat-chip">SYS_BIM</span>
+          </div>
+          <div class="hs-stat-metric">
+            <div #c1 class="hs-stat-count">5,000+</div>
+            <div class="hs-stat-label">Buildings digitized</div>
+          </div>
+          <p class="hs-stat-desc">
+            Structured IFC assemblies validated with extreme accuracy bounds across core metropolitan sectors.
+          </p>
+        </div>
+
+        <!-- Card 2 — 30+ Teams -->
+        <div class="hs-stagger-item hs-stat-card hs-stat-card--c4 hs-stat-card--indigo hs-stagger-item--d1">
+          <div class="hs-stat-topline hs-stat-topline--indigo"></div>
+          <div class="hs-stat-head">
+            <lucide-icon [img]="Users" class="hs-stat-icon hs-stat-icon--indigo"></lucide-icon>
+            <span class="hs-stat-chip hs-stat-chip--right">ISO_19650</span>
+          </div>
+          <div class="hs-stat-metric hs-stat-metric--tight">
+            <div class="hs-stat-count hs-stat-count--indigo">
+              <div #c2 class="hs-stat-count-inline">30+</div>
+              <span class="hs-stat-count-note">active teams</span>
+            </div>
+            <div class="hs-stat-label hs-stat-label--bold">Trusted Scan-to-BIM experts</div>
+          </div>
+          <div class="hs-stat-footer">
+            <div class="hs-cert-stack">
+              @for (badge of certBadges; track badge[0]) {
+              <div class="hs-cert-badge" [ngClass]="badge[1]">{{ badge[0] }}</div>
+              }
+            </div>
+            <span class="hs-cert-note">Coordinate managers certified</span>
+          </div>
+        </div>
+
+        <!-- Card 3 — 230M sq ft -->
+        <div class="hs-stagger-item hs-stat-card hs-stat-card--c5 hs-stat-card--blue hs-stagger-item--d2">
+          <div class="hs-stat-topline hs-stat-topline--blue"></div>
+          <div class="hs-stat-head">
+            <span class="hs-stat-dsi">Digital Surface Index</span>
+            <span class="hs-sensor-badge">
+              <span class="hs-sensor-dot"></span>SENSORS_STABLE
+            </span>
+          </div>
+          <div class="hs-stat-metric hs-stat-metric--tight">
+            <div #c3 class="hs-stat-count">230 Million</div>
+            <div class="hs-stat-label">Square feet processed</div>
+          </div>
+          <div class="hs-coverage">
+            <div class="hs-coverage-col">
+              <span class="hs-coverage-label">COVERAGE RAILS:</span>
+              <span class="hs-coverage-value">99.21% URBAN</span>
+            </div>
+            <div class="hs-coverage-divider"></div>
+            <div class="hs-coverage-col">
+              <span class="hs-coverage-label">SCAN QUALITY:</span>
+              <span class="hs-coverage-value hs-coverage-value--emerald">9.86 / 10 RMS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — 98% On-time -->
+        <div class="hs-stagger-item hs-stat-card hs-stat-card--c12 hs-stat-card--emerald hs-stagger-item--d3">
+          <div class="hs-stat4-grid">
+
+            <div class="hs-stat4-cell">
+              <div class="hs-stat4-ring">
+                <svg viewBox="0 0 36 36" class="hs-stat4-ring-svg">
+                  <circle cx="18" cy="18" r="16" fill="none" class="hs-ring-track" stroke-width="2.5" />
+                  <circle cx="18" cy="18" r="16" fill="none" class="hs-ring-progress hs-progress-ring"
+                    stroke-width="2.5" stroke-dasharray="100" stroke-dashoffset="100" />
+                </svg>
+                <div class="hs-stat4-ring-label">98%</div>
+              </div>
+              <div>
+                <div #c4 class="hs-stat4-value">98%</div>
+                <p class="hs-stat4-label">On-time delivery</p>
+              </div>
+            </div>
+
+            <div class="hs-stat4-mid">
+              <div class="hs-stat4-mid-head">
+                <lucide-icon [img]="CheckCircle2" class="hs-stat4-mid-icon"></lucide-icon>
+                <span>Extreme Schedule Fidelity Guaranteed</span>
+              </div>
+              <p class="hs-stat4-mid-copy">
+                Every point cloud slice, IFC architectural model, and integrated metadata index is exported precisely
+                within contractual windows using agile sync controls to avoid schedule drift.
+              </p>
+            </div>
+
+            <div class="hs-stat4-meta">
+              <div class="hs-stat4-meta-col">
+                <div>AVG SLA EXPORT</div>
+                <div class="hs-stat4-meta-value">24.5 HOURS</div>
+              </div>
+              <div class="hs-stat4-meta-divider">
+                <div>DRIFT RATIO</div>
+                <div class="hs-stat4-meta-value hs-stat4-meta-value--emerald">0.02% MAX</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

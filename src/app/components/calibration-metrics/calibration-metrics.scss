@@ -1,0 +1,236 @@
+@use '../../../styles/design' as d;
+
+
+:host {
+  display: block;
+}
+// ─────────────────────────────────────────────────────────────
+// Calibration Metrics — extracted from inline Tailwind classes
+// ─────────────────────────────────────────────────────────────
+
+/* ── Section ── */
+.cm-section {
+  @include d.section;
+  @include d.section-rule;
+}
+
+.cm-container {
+  @include d.container;
+}
+
+/* ── Header ── */
+.cm-header {
+  @include d.heading-content-gap;
+}
+
+.cm-eyebrow {
+  @include d.heading-eyebrow;
+  @apply text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 font-mono;
+}
+
+.cm-title {
+  @apply text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-tight text-zinc-950 dark:text-zinc-100 font-syne;
+}
+
+/* ── Dividers ── */
+.cm-divider {
+  @apply border-b border-zinc-200 dark:border-white/5 mb-12;
+}
+
+.cm-divider--tight {
+  margin-bottom: 2.5rem;
+}
+
+/* ── Row 1 — Primary metrics ── */
+.cm-metrics {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-12;
+}
+
+.cm-metric-value {
+  @apply block font-mono text-4xl md:text-5xl font-bold text-zinc-950 dark:text-zinc-100;
+}
+
+.cm-metric-label {
+  @apply block mt-2 text-[9px] font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400;
+}
+
+.cm-metric-desc {
+  @apply mt-3 text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-light;
+}
+
+.cm-badges {
+  @apply flex items-center gap-2 mb-1;
+}
+
+.cm-badge {
+  @apply w-7 h-7 rounded-full border-2 border-white dark:border-zinc-950 flex items-center justify-center text-[9px] font-black font-mono text-white;
+}
+
+/* Badge color modifiers (returned by certBadges in the TS) */
+.cm-badge--en {
+  @apply bg-blue-600;
+}
+
+.cm-badge--bm {
+  @apply bg-indigo-600;
+}
+
+.cm-badge--ld {
+  @apply bg-zinc-800 dark:bg-zinc-700;
+}
+
+/* ── Row 2 — Digital Surface Index ── */
+.cm-dsi {
+  @apply flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12;
+}
+
+.cm-kicker {
+  @apply text-[9px] font-mono font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500;
+}
+
+.cm-dsi-title {
+  @apply mt-1 text-xl sm:text-2xl font-bold uppercase tracking-tight text-zinc-950 dark:text-zinc-100 font-syne;
+}
+
+.cm-dsi-right {
+  @apply flex items-center gap-4;
+}
+
+.cm-status-badge {
+  @apply flex items-center gap-1.5 text-[9px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20;
+}
+
+.cm-status-dot {
+  @apply w-1 h-1 rounded-full bg-emerald-500;
+  animation: cm-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes cm-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.cm-dsi-number {
+  @apply block font-mono text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400;
+}
+
+.cm-dsi-number-label {
+  @apply block text-xs text-zinc-500 dark:text-zinc-400 font-light;
+}
+
+/* ── Row 3 — Coverage / Quality ── */
+.cm-coverage {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12;
+}
+
+.cm-coverage-value {
+  @apply mt-1 font-mono text-3xl md:text-4xl font-bold text-zinc-950 dark:text-zinc-100;
+}
+
+.cm-coverage-value--accent {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+/* ── Row 4 — Delivery stats ── */
+.cm-delivery {
+  @apply mb-10;
+}
+
+.cm-delivery-row {
+  @apply flex flex-col md:flex-row md:items-center gap-6 md:gap-10;
+}
+
+.cm-delivery-left {
+  @apply flex items-center gap-4 shrink-0;
+}
+
+.cm-delivery-number {
+  @apply font-mono text-4xl md:text-5xl font-bold text-zinc-950 dark:text-zinc-100;
+}
+
+.cm-delivery-label {
+  @apply text-[9px] font-mono font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 max-w-[80px] leading-tight;
+}
+
+.cm-delivery-copy {
+  @apply flex-1;
+}
+
+.cm-delivery-heading {
+  @apply text-xs text-blue-600 dark:text-blue-400 font-semibold font-mono uppercase tracking-widest mb-1;
+}
+
+.cm-delivery-text {
+  @apply text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed font-light max-w-lg;
+}
+
+.cm-delivery-stats {
+  @apply mt-6 pt-6 border-t border-zinc-200 dark:border-white/5 flex flex-wrap gap-8 font-mono text-[9px] text-zinc-500 dark:text-zinc-400;
+}
+
+.cm-delivery-stat-label {
+  @apply uppercase tracking-widest;
+}
+
+.cm-delivery-stat-value {
+  @apply block font-bold text-zinc-950 dark:text-zinc-100 text-xs mt-0.5;
+}
+
+.cm-delivery-stat-value--accent {
+  @apply text-emerald-600 dark:text-emerald-400;
+}
+
+.cm-stat-divider {
+  @apply w-px bg-zinc-200 dark:bg-white/5;
+}
+
+/* ── Row 5 — Trust footer ── */
+.cm-footer {
+  @apply text-xs text-zinc-400 dark:text-zinc-500 max-w-2xl leading-relaxed font-light;
+}
+
+/* ── Scroll-in animations ── */
+.cm-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cm-fade.cm-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cm-fade .cm-stagger-item {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Stagger delays were previously set via inline styles — now via nth-child */
+.cm-stagger-item:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.cm-stagger-item:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+.cm-stagger-item:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+.cm-fade.cm-in-view .cm-stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}

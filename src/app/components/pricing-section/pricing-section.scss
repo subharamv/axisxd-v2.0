@@ -1,0 +1,147 @@
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+@keyframes ps-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.ps-section {
+  @include d.section;
+  @include d.section-rule;
+  @apply overflow-hidden text-zinc-900 dark:text-zinc-100;
+}
+
+.ps-glow {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none;
+}
+
+.ps-container {
+  @include d.container;
+
+  > * + * {
+    margin-top: d.$heading-content-gap;
+  }
+}
+
+.ps-header {
+  @apply text-center;
+}
+
+.ps-eyebrow {
+  @include d.heading-eyebrow;
+  @apply text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest font-mono;
+}
+
+.ps-title {
+  @apply text-3xl md:text-5xl font-semibold uppercase tracking-tight text-zinc-950 dark:text-white transition-colors duration-300;
+}
+
+.ps-title-accent {
+  @apply text-blue-600 dark:text-blue-500;
+}
+
+.ps-subtitle {
+  @include d.heading-lead;
+  @include d.heading-lead-type;
+  @apply max-w-md mx-auto text-zinc-500 dark:text-white/50 font-light transition-colors duration-300;
+}
+
+.ps-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch;
+}
+
+.ps-card {
+  @apply relative bg-white dark:bg-[#111114] border rounded-3xl p-7 flex flex-col justify-between transition-all duration-300;
+}
+.ps-card--popular {
+  @apply border-blue-500 shadow-[0_0_35px_rgba(59,130,246,0.12)];
+}
+.ps-card--standard {
+  @apply border-zinc-200 dark:border-white/5 hover:border-zinc-300 dark:hover:border-white/15;
+}
+
+.ps-badge {
+  @apply absolute top-4 right-4 bg-blue-600 text-white text-[8px] font-black uppercase tracking-widest px-3 py-1 rounded-full flex items-center gap-1 z-10;
+}
+.ps-badge-icon {
+  @apply w-2.5 h-2.5;
+  animation: ps-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.ps-card-body {
+  @apply space-y-5;
+}
+
+.ps-card-name {
+  @apply text-sm font-semibold uppercase text-zinc-950 dark:text-white tracking-widest transition-colors duration-300;
+}
+.ps-card-desc {
+  @apply text-[10px] text-zinc-500 dark:text-white/45 mt-1.5 leading-relaxed font-light transition-colors duration-300;
+}
+
+.ps-price-box {
+  @apply bg-zinc-50 dark:bg-white/[0.025] p-3 rounded-2xl border border-zinc-200 dark:border-white/5 transition-colors duration-300;
+}
+.ps-price-row {
+  @apply flex items-baseline gap-2;
+}
+.ps-price-old {
+  @apply text-sm font-semibold text-zinc-400 dark:text-zinc-500 line-through decoration-2;
+}
+.ps-price {
+  @apply text-3xl font-semibold text-zinc-950 dark:text-white transition-colors duration-300;
+}
+.ps-price-period {
+  @apply text-[10px] text-zinc-500 dark:text-white/50 font-mono font-bold uppercase;
+}
+
+.ps-features {
+  @apply space-y-2.5 pt-4 border-t border-zinc-200 dark:border-white/5 transition-colors duration-300;
+}
+.ps-feature {
+  @apply flex items-start gap-2 text-[11px] text-zinc-600 dark:text-white/70 transition-colors duration-300;
+}
+.ps-feature-icon-box {
+  @apply p-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 mt-0.5 shrink-0;
+}
+.ps-feature-icon {
+  @apply w-3 h-3;
+}
+.ps-feature-text {
+  @apply font-light leading-snug;
+}
+
+.ps-cta {
+  @apply block w-full text-center text-xs font-semibold uppercase tracking-wider py-3.5 rounded-2xl mt-7 transition-all cursor-pointer no-underline;
+}
+.ps-cta--popular {
+  @apply bg-blue-600 hover:bg-blue-500 text-white shadow-[0_4px_20px_rgba(59,130,246,0.3)] border-none;
+}
+.ps-cta--standard {
+  @apply bg-zinc-950 dark:bg-white/10 hover:bg-zinc-800 dark:hover:bg-white/15 text-white border border-zinc-900 dark:border-white/10;
+}
+
+.ps-banner {
+  @apply bg-white dark:bg-[#111114]/50 border border-zinc-200 dark:border-white/5 p-4 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left shadow-sm dark:shadow-none transition-colors duration-300;
+}
+.ps-banner-info {
+  @apply flex items-center gap-3;
+}
+.ps-banner-icon-box {
+  @apply p-2.5 bg-blue-500/10 rounded-xl text-blue-600 dark:text-blue-400;
+}
+.ps-banner-icon {
+  @apply w-5 h-5;
+}
+.ps-banner-title {
+  @apply text-xs font-bold text-zinc-950 dark:text-white uppercase tracking-tight transition-colors duration-300;
+}
+.ps-banner-desc {
+  @apply text-[10px] text-zinc-500 dark:text-white/45 font-light leading-relaxed transition-colors duration-300 font-syne;
+}
+.ps-banner-cta {
+  @apply text-[9px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 border border-blue-500/20 dark:border-blue-500/10 bg-blue-500/5 hover:bg-blue-500/10 px-4 py-2 rounded-xl transition-all cursor-pointer whitespace-nowrap;
+}

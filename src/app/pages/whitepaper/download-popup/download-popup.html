@@ -1,0 +1,133 @@
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" (click)="close()"></div>
+
+  <div class="relative bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/10 rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden">
+    <button
+      (click)="close()"
+      class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-zinc-100 dark:bg-white/5 flex items-center justify-center text-zinc-500 dark:text-white/40 hover:text-zinc-900 dark:hover:text-white transition-colors"
+    >
+      <lucide-icon [img]="X" class="w-4 h-4"></lucide-icon>
+    </button>
+
+    @if (!downloadSuccess) {
+      <div class="p-8">
+        <div class="text-center mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center mx-auto mb-4">
+            <lucide-icon [img]="FileText" class="w-6 h-6 text-indigo-500"></lucide-icon>
+          </div>
+          <h2 class="font-syne font-semibold text-lg uppercase tracking-tight text-zinc-950 dark:text-white mb-2">
+            Download Whitepaper
+          </h2>
+          <p class="text-xs text-zinc-500 dark:text-white/40 font-light">
+            Please fill in your details to download the whitepaper.
+          </p>
+        </div>
+
+        <form (submit)="handleFormSubmit($event)" class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="wp-firstName" class="block text-[10px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-white/50 mb-1.5 font-mono">
+                First Name *
+              </label>
+              <input
+                id="wp-firstName"
+                type="text"
+                [ngModel]="formData.firstName"
+                (ngModelChange)="updateField('firstName', $event)"
+                name="firstName"
+                placeholder="John"
+                [class]="'w-full h-10 px-3 rounded-xl border text-sm bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none transition-all ' + (formErrors['firstName'] ? 'border-red-400 focus:border-red-500' : 'border-zinc-200 dark:border-white/10 focus:border-[#0645fb] dark:focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(6,69,251,0.08)]')"
+              />
+              @if (formErrors['firstName']) {
+                <p class="text-[10px] text-red-500 mt-1">{{ formErrors['firstName'] }}</p>
+              }
+            </div>
+            <div>
+              <label for="wp-lastName" class="block text-[10px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-white/50 mb-1.5 font-mono">
+                Last Name
+              </label>
+              <input
+                id="wp-lastName"
+                type="text"
+                [ngModel]="formData.lastName"
+                (ngModelChange)="updateField('lastName', $event)"
+                name="lastName"
+                placeholder="Doe"
+                class="w-full h-10 px-3 rounded-xl border border-zinc-200 dark:border-white/10 text-sm bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none focus:border-[#0645fb] dark:focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(6,69,251,0.08)] transition-all"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="wp-email" class="block text-[10px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-white/50 mb-1.5 font-mono">
+              Company Email *
+            </label>
+            <input
+              id="wp-email"
+              type="email"
+              [ngModel]="formData.email"
+              (ngModelChange)="updateField('email', $event)"
+              name="email"
+              placeholder="john@company.com"
+              [class]="'w-full h-10 px-3 rounded-xl border text-sm bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none transition-all ' + (formErrors['email'] ? 'border-red-400 focus:border-red-500' : 'border-zinc-200 dark:border-white/10 focus:border-[#0645fb] dark:focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(6,69,251,0.08)]')"
+            />
+            @if (formErrors['email']) {
+              <p class="text-[10px] text-red-500 mt-1">{{ formErrors['email'] }}</p>
+            }
+          </div>
+
+          <div>
+            <label for="wp-phone" class="block text-[10px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-white/50 mb-1.5 font-mono">
+              Phone Number *
+            </label>
+            <input
+              id="wp-phone"
+              type="tel"
+              [ngModel]="formData.phone"
+              (ngModelChange)="updateField('phone', $event)"
+              name="phone"
+              placeholder="+1 (555) 000-0000"
+              [class]="'w-full h-10 px-3 rounded-xl border text-sm bg-zinc-50 dark:bg-white/5 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none transition-all ' + (formErrors['phone'] ? 'border-red-400 focus:border-red-500' : 'border-zinc-200 dark:border-white/10 focus:border-[#0645fb] dark:focus:border-blue-500 focus:shadow-[0_0_0_3px_rgba(6,69,251,0.08)]')"
+            />
+            @if (formErrors['phone']) {
+              <p class="text-[10px] text-red-500 mt-1">{{ formErrors['phone'] }}</p>
+            }
+          </div>
+
+          <label class="flex items-start gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              [ngModel]="formData.marketingOptIn"
+              (ngModelChange)="updateField('marketingOptIn', $event)"
+              name="marketingOptIn"
+              class="mt-0.5 w-4 h-4 rounded border-zinc-300 dark:border-white/20 text-[#0645fb] focus:ring-[#0645fb]"
+            />
+            <span class="text-[11px] text-zinc-500 dark:text-white/40 leading-relaxed font-light">
+              I want to receive electronic marketing from AxisXD on news, trends, offers, and events. Unsubscribe anytime.
+            </span>
+          </label>
+
+          <button
+            type="submit"
+            class="wp-download-btn"
+          >
+            <lucide-icon [img]="Download" class="w-4 h-4"></lucide-icon>
+            Download Whitepaper
+          </button>
+        </form>
+      </div>
+    } @else {
+      <div class="p-8 text-center space-y-4">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto">
+          <lucide-icon [img]="CheckCircle" class="w-8 h-8 text-emerald-500"></lucide-icon>
+        </div>
+        <h2 class="font-syne font-semibold text-lg uppercase tracking-tight text-zinc-950 dark:text-white">
+          Thank you for your interest!
+        </h2>
+        <p class="text-sm text-zinc-500 dark:text-white/40 font-light">
+          Your whitepaper download has started. Check your email for a copy.
+        </p>
+      </div>
+    }
+  </div>
+</div>

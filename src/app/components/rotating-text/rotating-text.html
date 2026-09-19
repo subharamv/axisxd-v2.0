@@ -1,0 +1,19 @@
+<span class="text-rotate" [ngClass]="mainClassName">
+  <span class="text-rotate-sr-only">{{ texts[currentTextIndex] }}</span>
+  <span class="text-rotate" [attr.aria-hidden]="true" [attr.data-index]="currentTextIndex">
+    @for (wordObj of elements; track currentTextIndex + '-' + $index; let wordIndex = $index) {
+      <span class="text-rotate-word" [ngClass]="splitLevelClassName">
+        @for (char of wordObj.characters; track currentTextIndex + '-' + $index; let charIndex = $index) {
+          <span
+            class="text-rotate-element"
+            [ngClass]="elementLevelClassName"
+            [style.animation-delay.s]="staggerDelay(previousCharsCount(wordIndex) + charIndex)"
+          >{{ char }}</span>
+        }
+        @if (wordObj.needsSpace) {
+          <span class="text-rotate-space">&nbsp;</span>
+        }
+      </span>
+    }
+  </span>
+</span>

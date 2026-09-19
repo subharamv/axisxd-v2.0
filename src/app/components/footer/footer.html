@@ -1,0 +1,455 @@
+<div class="ft-wrap">
+  <div class="ft-bg-grid"></div>
+
+  <!-- SECURITY & COMPLIANCE BANNER -->
+  <div class="ft-sec-banner">
+    <div class="ft-sec-copy">
+      <div class="ft-sec-eyebrow-row">
+        <lucide-icon [img]="ShieldCheck" class="ft-sec-shield" [strokeWidth]="2.5"></lucide-icon>
+        <span class="ft-sec-eyebrow">Trusted. Secure. Compliant.</span>
+      </div>
+      <h2 class="ft-sec-title">Enterprise-Grade Security &amp; Compliance</h2>
+      <p class="ft-sec-desc">
+        Your data is protected through globally recognized security, privacy, and compliance standards. AXIS XD is committed to safeguarding customer information with industry-leading controls and transparent governance.
+      </p>
+      <a href="#" class="ft-sec-link">view privacy policy &rarr;</a>
+    </div>
+
+    <div class="ft-badges">
+      <div class="ft-badge">
+        <div class="ft-badge-icon">
+          <svg viewBox="0 0 48 48" fill="none" class="ft-badge-svg">
+            <circle cx="24" cy="24" r="23" fill="white" />
+            @for (star of gdprStars; track $index) {
+              <polygon
+                points="0,-2.2 0.65,-0.9 2.1,-0.9 1.05,0.1 1.45,1.5 0,0.6 -1.45,1.5 -1.05,0.1 -2.1,-0.9 -0.65,-0.9"
+                fill="#1a1a3e"
+                [attr.transform]="'translate(' + star.x + ',' + star.y + ')'"
+              />
+            }
+            <path d="M17 24.5l5 5 9-9" stroke="#1a1a3e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          </svg>
+        </div>
+        <div class="ft-badge-text">
+          <p class="ft-badge-label">GDPR</p>
+          <p class="ft-badge-status">Compliant</p>
+        </div>
+      </div>
+
+      <div class="ft-badge">
+        <div class="ft-badge-icon">
+          <img src="assets/images/misc/iso-2-1.svg" alt="ISO" class="ft-badge-img" />
+        </div>
+        <div class="ft-badge-text">
+          <p class="ft-badge-label">ISO 19650</p>
+          <p class="ft-badge-status">Certified</p>
+        </div>
+      </div>
+
+      <div class="ft-badge">
+        <div class="ft-badge-icon">
+          <img src="assets/images/misc/iso-2-1.svg" alt="ISO" class="ft-badge-img" />
+        </div>
+        <div class="ft-badge-text">
+          <p class="ft-badge-label">ISO 27001</p>
+          <p class="ft-badge-status">Certified</p>
+        </div>
+      </div>
+
+      <div class="ft-badge">
+        <div class="ft-badge-icon">
+          <svg viewBox="0 0 48 48" fill="none" class="ft-badge-svg">
+            <circle cx="24" cy="24" r="22" fill="#0645fb" />
+            <text x="24" y="21" text-anchor="middle" fill="white" font-size="6" font-weight="800" font-family="Arial,Helvetica,sans-serif" letter-spacing="0.8">AICPA</text>
+            <text x="24" y="31" text-anchor="middle" fill="white" font-size="10" font-weight="900" font-family="Arial,Helvetica,sans-serif" letter-spacing="1">SOC</text>
+          </svg>
+        </div>
+        <div class="ft-badge-text">
+          <p class="ft-badge-label">SOC 2 TYPE II</p>
+          <p class="ft-badge-status">Certified</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER + LAPTOP MOCKUP -->
+  <div class="ft-news">
+    <div class="ft-news-left">
+      <img
+        [src]="isDark ? 'assets/images/logos/xd_blue_logo.png' : 'assets/images/logos/xd_white_logo.png'"
+        alt="AxisXD"
+        class="ft-news-logo"
+        [style.filter]="isDark ? 'brightness(0)' : null"
+      />
+      <h2 class="ft-news-title">Stay in the Loop</h2>
+      <p class="ft-news-desc">
+        Get weekly updates on new features, case studies, and digital twin insights delivered to your inbox. No spam, ever.
+      </p>
+
+      <form (submit)="handleSubscribe($event)" class="ft-news-form">
+        <div class="ft-news-pill">
+          <label for="footer-email" class="ft-news-mail">
+            <lucide-icon [img]="Mail" class="ft-news-mail-icon"></lucide-icon>
+          </label>
+          <input
+            id="footer-email"
+            type="email"
+            required
+            placeholder="Enter your email address"
+            [(ngModel)]="email"
+            name="footerEmail"
+            class="ft-news-input"
+          />
+          <button type="submit" class="ft-news-btn">
+            {{ subscribed ? 'Subscribed' : 'Subscribe' }}
+          </button>
+        </div>
+
+        @if (subscribed) {
+          <div class="ft-news-toast">
+            <lucide-icon [img]="CheckCircle2" class="ft-news-toast-icon"></lucide-icon>
+            <span>Subscription successful! Thank you.</span>
+          </div>
+        }
+      </form>
+    </div>
+
+    <!-- 3D Laptop mockup -->
+    <div class="ft-laptop-wrap">
+      <div class="ft-laptop-glow"></div>
+
+      <div class="ft-laptop-3d">
+        <div class="ft-laptop-screen">
+          <div class="ft-laptop-cam">
+            <div class="ft-laptop-cam-dot"></div>
+          </div>
+
+          <div class="ft-screen">
+            <div class="ft-screen-grid"></div>
+
+            <div class="ft-screen-bar">
+              <div class="ft-screen-bar-left">
+                <div class="ft-screen-logo">X</div>
+                <span class="ft-screen-brand">AXISXD</span>
+              </div>
+              <div class="ft-screen-nav">
+                <span>Products</span>
+                <span>Resources</span>
+                <span>Pricing</span>
+                <span>Contact</span>
+              </div>
+              <button class="ft-screen-launch">Launch XD</button>
+            </div>
+
+            <div class="ft-screen-main">
+              <div class="ft-screen-hero">
+                <h4 class="ft-screen-headline">
+                  Reimagine Construction with <span class="ft-screen-headline-accent">AxisXD</span>
+                </h4>
+                <p class="ft-screen-desc">
+                  Your all-in-one digital twin solution. Integrates IFC models, point clouds, deviation analysis, and Rights of Light.
+                </p>
+                <div class="ft-screen-chips">
+                  <span class="ft-screen-chip">BIM &amp; CAD</span>
+                  <span class="ft-screen-chip ft-screen-chip--accent">ACCURATE</span>
+                  <span class="ft-screen-chip ft-screen-chip--secure">SECURE</span>
+                </div>
+                <div class="ft-screen-demo-btns">
+                  <div class="ft-screen-demo-btn">Try Free Demo</div>
+                  <div class="ft-screen-demo-btn ft-screen-demo-btn--ghost">Launch Video</div>
+                </div>
+              </div>
+
+              <div class="ft-screen-chart-col">
+                <div class="ft-screen-chart">
+                  <div class="ft-screen-chart-pulse"></div>
+
+                  <svg viewBox="0 0 100 80" class="ft-screen-chart-svg" stroke="currentColor" stroke-width="0.5" fill="none">
+                    <line x1="10" y1="50" x2="50" y2="20" />
+                    <line x1="50" y1="20" x2="90" y2="50" />
+                    <line x1="10" y1="50" x2="55" y2="75" />
+                    <line x1="55" y1="75" x2="90" y2="50" />
+                    <line x1="10" y1="50" x2="10" y2="30" />
+                    <line x1="50" y1="20" x2="50" y2="5" />
+                    <line x1="90" y1="50" x2="90" y2="30" />
+                    <line x1="55" y1="75" x2="55" y2="55" />
+                    <line x1="10" y1="30" x2="50" y2="5" stroke-dasharray="2,2" />
+                    <line x1="50" y1="5" x2="90" y2="30" />
+                    <line x1="10" y1="30" x2="55" y2="55" />
+                    <line x1="55" y1="55" x2="90" y2="30" stroke-dasharray="1,1" />
+                    <circle cx="30" cy="35" r="1.2" fill="#3B82F6" stroke="none" />
+                    <circle cx="45" cy="28" r="1.5" fill="#10B981" stroke="none" stroke-width="0" />
+                    <circle cx="65" cy="40" r="1" fill="#EF4444" stroke="none" />
+                    <circle cx="58" cy="48" r="1.3" fill="#3B82F6" stroke="none" />
+                  </svg>
+
+                  <div class="ft-screen-chart-meta">
+                    <div class="ft-screen-live">
+                      <span class="ft-screen-live-dot"></span>
+                      <span>POINT CLOUD LIVE</span>
+                    </div>
+                    <span>DEV_INDX: 84%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ft-screen-footer">
+              <span>AUTODESK DEVIATIONS</span>
+              <span>CLOVE CONVERGENT</span>
+              <span>ACCENTURE STRATEGY</span>
+              <span>NavVis INDOOR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ft-laptop-base">
+          <div class="ft-laptop-base-inner">
+            <div class="ft-laptop-base-line"></div>
+          </div>
+          <div class="ft-laptop-notch"></div>
+          <div class="ft-laptop-shadow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIRECTORY -->
+  <div class="ft-dir">
+    <div class="ft-dir-grid">
+      <!-- Viewers -->
+      <div class="ft-dir-col">
+        <h3 class="ft-dir-heading">Viewers</h3>
+        <ul class="ft-dir-list">
+          @for (item of viewerLinks; track item.path) {
+            <li class="ft-dir-item">
+              <button (click)="navigate(item.path)" class="ft-dir-link">
+                <span class="ft-dir-dash">- </span>
+                <span>{{ item.label }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Analysis -->
+      <div class="ft-dir-col">
+        <h3 class="ft-dir-heading">Analysis</h3>
+        <ul class="ft-dir-list">
+          @for (item of analysisLinks; track item.path) {
+            <li class="ft-dir-item">
+              <button (click)="navigate(item.path)" class="ft-dir-link">
+                <span class="ft-dir-dash">- </span>
+                <span>{{ item.label }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Solutions -->
+      <div class="ft-dir-col">
+        <h3 class="ft-dir-heading">Solutions</h3>
+        <ul class="ft-dir-list">
+          <li class="ft-dir-item">
+            <button (click)="navigate('/viewer/digital-twin')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Digital Twin</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="scrollToPricing()" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Pilot Suite Bundle</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="openConsultation()" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Audit Proposal</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="ft-dir-col">
+        <h3 class="ft-dir-heading">Resources</h3>
+        <ul class="ft-dir-list">
+          <li class="ft-dir-item">
+            <button (click)="navigate('/docs')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Documentation</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <a href="#viewer" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>API Reference</span>
+            </a>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/resources')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Blog</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/resources')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Case Studies</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/webinars')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Webinars</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/glossary')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Glossary</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="ft-dir-col">
+        <h3 class="ft-dir-heading">Company</h3>
+        <ul class="ft-dir-list">
+          <li class="ft-dir-item">
+            <button (click)="navigate('/contact')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Contact Us</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/careers')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Careers</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/contact')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Contact</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="openConsultation()" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Book a Demo</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="navigate('/partners')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Partners</span>
+            </button>
+          </li>
+          <li class="ft-dir-item">
+            <button (click)="openConsultation()" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>Press</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="ft-dir-col">
+        <h3 class="ft-dir-heading">Support</h3>
+        <ul class="ft-dir-list">
+          @for (label of supportLabels; track label) {
+            <li class="ft-dir-item">
+              <button (click)="openConsultation()" class="ft-dir-link">
+                <span class="ft-dir-dash">- </span>
+                <span>{{ label }}</span>
+              </button>
+            </li>
+          }
+          <li class="ft-dir-item">
+            <button (click)="navigate('/faq')" class="ft-dir-link">
+              <span class="ft-dir-dash">- </span>
+              <span>FAQ</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Follow Us -->
+      <div class="ft-dir-col ft-dir-col--follow">
+        <h3 class="ft-dir-heading">Follow Us</h3>
+
+        <div class="ft-social">
+          <a href="#" class="ft-social-link" aria-label="Facebook">
+            <lucide-icon [img]="Facebook" class="ft-social-icon"></lucide-icon>
+          </a>
+          <a href="https://x.com/axissxd/" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="X / Twitter">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="ft-social-svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/axisxd" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="LinkedIn">
+            <lucide-icon [img]="Linkedin" class="ft-social-icon"></lucide-icon>
+          </a>
+          <a href="https://www.reddit.com/user/GasPlastic3360/" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="Reddit">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="ft-social-svg"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.77 7.54c.8 0 1.45.65 1.45 1.45 0 .6-.36 1.1-.87 1.33.05.15.08.3.08.47 0 2.47-3.07 4.47-6.86 4.47S4.86 13.26 4.86 10.8c0-.16.03-.32.08-.47a1.46 1.46 0 0 1-.53-1.12c0-.8.65-1.45 1.45-1.45.4 0 .76.17 1.03.43 1.03-.73 2.45-1.2 4.04-1.25l.91-4.1a.2.2 0 0 1 .24-.16l2.83.6a1.03 1.03 0 0 1 .96-.64c.56 0 1.02.46 1.02 1.03 0 .56-.46 1.02-1.02 1.02-.43 0-.8-.26-.95-.64l-2.53-.54-.82 3.7c1.6.06 3.02.52 4.05 1.26.26-.27.63-.44 1.03-.44zM8.7 11.8c0 .64.52 1.16 1.16 1.16.64 0 1.15-.52 1.15-1.16 0-.63-.51-1.15-1.15-1.15-.64 0-1.16.52-1.16 1.15zm4.27 2.52c.76.76 2 .76 2.76 0 .25-.25.66-.25.9 0 .26.26.26.66 0 .92-1.25 1.25-3.3 1.25-4.55 0a.595.595 0 0 1 0-.92c.25-.25.66-.25.9 0 .76.76 2 .76 2.76 0zm.18-2.52c0 .64.52 1.16 1.16 1.16.64 0 1.15-.52 1.15-1.16 0-.63-.5-1.15-1.15-1.15-.64 0-1.16.52-1.16 1.15z" /></svg>
+          </a>
+          <a href="https://www.instagram.com/axisxd/?hl=en" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="Instagram">
+            <lucide-icon [img]="Instagram" class="ft-social-icon"></lucide-icon>
+          </a>
+          <a href="https://www.pinterest.com/axisxd1/" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="ft-social-svg"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" /></svg>
+          </a>
+          <a href="https://www.youtube.com/channel/UCnPxFA4WUiAR-t89UMGLj1Q" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="YouTube">
+            <lucide-icon [img]="Youtube" class="ft-social-icon"></lucide-icon>
+          </a>
+          <a href="https://medium.com/@axisxd" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="Medium">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="ft-social-svg"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75c.66 0 1.19 2.58 1.19 5.75z" /></svg>
+          </a>
+          <a href="https://www.quora.com/profile/AxisXD-1" target="_blank" rel="noopener noreferrer" class="ft-social-link" aria-label="Quora">
+            <svg viewBox="0 0 24 24" fill="none" class="ft-social-svg"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.8" /><line x1="15.3" y1="15.3" x2="20.5" y2="20.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+          </a>
+        </div>
+
+        <div class="ft-contact">
+          <a href="mailto:contact@axisxd.com" class="ft-contact-link">
+            <lucide-icon [img]="Mail" class="ft-contact-icon"></lucide-icon>
+            <span>contact&#64;axisxd.com</span>
+          </a>
+          <div class="ft-contact-row">
+            <lucide-icon [img]="MapPin" class="ft-contact-icon"></lucide-icon>
+            <span>United States of America</span>
+          </div>
+          <!-- Phone number hidden for now — restore when confirmed.
+          <a href="tel:3196832735" class="ft-contact-link">
+            <lucide-icon [img]="Phone" class="ft-contact-icon"></lucide-icon>
+            <span>(319) 683-2735</span>
+          </a>
+          -->
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom copyrights -->
+    <div class="ft-bottom">
+      <img
+        [src]="isDark ? 'assets/images/logos/xd_blue_logo.png' : 'assets/images/logos/xd_white_logo.png'"
+        alt="AxisXD"
+        class="ft-bottom-logo"
+        [style.filter]="isDark ? 'brightness(0)' : null"
+      />
+      <p class="ft-copy">&#169; 2026 AXIS XD. ALL RIGHTS RESERVED.</p>
+      <div class="ft-bottom-right">
+        <span class="ft-status">
+          <span class="ft-status-dot"></span>
+          <span>ALL SYSTEMS OPERATIONAL</span>
+        </span>
+        <span class="ft-status-slash">/</span>
+        <button (click)="navigate('/sitemap')" class="ft-status-link">SITEMAP</button>
+      </div>
+    </div>
+  </div>
+</div>

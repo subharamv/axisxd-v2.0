@@ -1,0 +1,242 @@
+<div class="min-h-screen pt-[68px] flex flex-col bg-zinc-50 dark:bg-[#080810] text-zinc-900 dark:text-zinc-100">
+
+  <!-- Docs top bar -->
+  <div class="sticky top-[68px] z-30 border-b flex items-center gap-4 px-4 md:px-6 h-11
+    bg-white/95 border-zinc-200 dark:bg-[#080810]/95 dark:border-zinc-800
+    backdrop-blur-md">
+    <!-- Mobile sidebar toggle -->
+    <button
+      (click)="toggleSidebar()"
+      class="md:hidden flex items-center gap-2 text-xs text-zinc-400 hover:text-zinc-100 transition-colors"
+    >
+      <lucide-icon [img]="Menu" [size]="16"></lucide-icon>
+      Menu
+    </button>
+    <!-- Breadcrumb -->
+    <div class="hidden md:flex items-center gap-1.5 text-xs text-zinc-500">
+      <span>Documentation</span>
+      <span class="text-zinc-700">›</span>
+      <span class="text-zinc-700 dark:text-zinc-300">{{ currentDoc?.title ?? 'Introduction' }}</span>
+    </div>
+    <!-- Right: search hint -->
+    <div class="ml-auto flex items-center gap-2">
+      <span class="hidden sm:flex items-center gap-1 text-[10px] text-zinc-600">
+        <kbd class="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 font-mono text-zinc-400">⌘</kbd>
+        <kbd class="px-1.5 py-0.5 rounded bg-zinc-800 border border-zinc-700 font-mono text-zinc-400">K</kbd>
+        to search
+      </span>
+    </div>
+  </div>
+
+  <div class="flex flex-1 min-h-0">
+
+    <!-- DESKTOP SIDEBAR -->
+    <aside class="hidden md:flex flex-col w-60 shrink-0 sticky top-[68px] h-[calc(100vh-68px)] overflow-hidden
+      border-r border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-[#0a0a12]">
+      <ng-container [ngTemplateOutlet]="sidebarTpl"></ng-container>
+    </aside>
+
+    <!-- MOBILE SIDEBAR OVERLAY -->
+    @if (sidebarOpen) {
+      <div class="md:hidden fixed inset-0 z-[60] flex">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" (click)="closeSidebar()"></div>
+        <div class="relative w-72 max-w-[85vw] flex flex-col h-full
+          bg-white dark:bg-[#0a0a12] border-r border-zinc-200 dark:border-zinc-800">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
+            <span class="text-sm font-semibold text-zinc-200">Documentation</span>
+            <button (click)="closeSidebar()" class="text-zinc-400 hover:text-zinc-100">
+              <lucide-icon [img]="X" [size]="16"></lucide-icon>
+            </button>
+          </div>
+          <div class="flex-1 overflow-hidden">
+            <ng-container [ngTemplateOutlet]="sidebarTpl"></ng-container>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- MAIN CONTENT -->
+    <main
+      #contentEl
+      class="flex-1 min-w-0 overflow-y-auto h-[calc(100vh-68px)] scroll-smooth prose-custom"
+    >
+      <div class="max-w-3xl mx-auto px-6 md:px-10 py-10 pb-24">
+
+        <!-- Page title -->
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold tracking-tight mb-2">{{ currentDoc?.title ?? 'Documentation' }}</h1>
+          <div class="h-px bg-gradient-to-r from-blue-500/30 via-zinc-700/30 to-transparent"></div>
+        </div>
+
+        <!-- Content -->
+        @if (currentDoc) {
+          <div [innerHTML]="currentHtml"></div>
+        } @else {
+          <div class="flex flex-col items-center justify-center py-24 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center mb-4 text-2xl">📄</div>
+            <h2 class="text-lg font-semibold text-zinc-700 dark:text-zinc-300 mb-2">{{ placeholderTitle }}</h2>
+            <p class="text-sm text-zinc-600">This documentation page is coming soon.</p>
+          </div>
+        }
+
+        <!-- Prev / Next nav -->
+        <div class="mt-16 pt-8 border-t border-zinc-800 grid grid-cols-2 gap-4">
+          @if (prevItem) {
+            <button (click)="navigateDoc(prevItem.id)"
+              class="flex flex-col items-start p-4 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/50 transition-all group">
+              <span class="text-[10px] text-zinc-600 uppercase tracking-wider mb-1">← Previous</span>
+              <span class="text-sm font-semibold text-zinc-600 dark:text-zinc-300 group-hover:text-white transition-colors">{{ prevItem.title }}</span>
+            </button>
+          } @else {
+            <div></div>
+          }
+          @if (nextItem) {
+            <button (click)="navigateDoc(nextItem.id)"
+              class="flex flex-col items-end p-4 rounded-xl border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/50 transition-all group">
+              <span class="text-[10px] text-zinc-600 uppercase tracking-wider mb-1">Next →</span>
+              <span class="text-sm font-semibold text-zinc-600 dark:text-zinc-300 group-hover:text-white transition-colors">{{ nextItem.title }}</span>
+            </button>
+          }
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT TOC -->
+    @if (currentToc.length > 0) {
+      <aside class="hidden xl:flex flex-col w-52 shrink-0 sticky top-[68px] h-[calc(100vh-68px)] overflow-y-auto
+        py-8 px-4">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-600 mb-3">On this page</p>
+        <nav class="flex flex-col gap-1">
+          @for (entry of currentToc; track entry.id) {
+            <button
+              (click)="scrollToSection(entry.id)"
+              class="text-left text-xs py-1 px-2 rounded-lg transition-all"
+              [ngClass]="[
+                entry.level === 3 ? 'ml-3 text-[11px]' : '',
+                activeSection === entry.id ? 'text-blue-400 bg-blue-500/10' : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/40'
+              ]"
+            >
+              {{ entry.title }}
+            </button>
+          }
+        </nav>
+        <div class="mt-8 pt-6 border-t border-zinc-800">
+          <p class="text-[10px] text-zinc-600 mb-2">Question?</p>
+          <a
+            href="mailto:support@axisxd.com"
+            class="text-[11px] text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+          >
+            Give us feedback <lucide-icon [img]="ArrowUpRight" [size]="12"></lucide-icon>
+          </a>
+        </div>
+      </aside>
+    }
+
+  </div>
+
+  <!-- Minimal docs footer -->
+  <footer class="shrink-0 border-t flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-4
+    border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#080810]">
+    <img
+      [src]="isDark ? 'assets/images/logos/xd_white_logo.png' : 'assets/images/logos/xd_blue_logo.png'"
+      alt="AxisXD"
+      class="h-[22px] w-auto object-contain select-none shrink-0"
+    />
+    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400 dark:text-zinc-600">
+      © 2026 AXIS XD. ALL RIGHTS RESERVED.
+    </p>
+    <div class="flex items-center gap-5 pr-16">
+      @for (lnk of footerLinks; track lnk.label) {
+        <a
+          routerLink="/resources"
+          class="text-[10px] font-medium uppercase tracking-wider transition-colors
+            text-zinc-400 hover:text-zinc-700 dark:text-zinc-600 dark:hover:text-zinc-300"
+        >
+          {{ lnk.label }}
+        </a>
+      }
+    </div>
+  </footer>
+
+</div>
+
+<!-- Sidebar template (shared between desktop + mobile) -->
+<ng-template #sidebarTpl>
+  <div class="flex flex-col h-full">
+    <!-- Search -->
+    <div class="px-4 py-3 border-b border-zinc-800">
+      <div class="relative">
+        <lucide-icon [img]="Search" [size]="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"></lucide-icon>
+        <input
+          type="text"
+          placeholder="Search docs..."
+          [(ngModel)]="searchQuery"
+          class="w-full pl-8 pr-3 py-2 text-xs bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-300 placeholder-zinc-600
+            focus:outline-none focus:border-blue-500/60 focus:ring-1 focus:ring-blue-500/30 transition-all"
+        />
+        @if (searchQuery) {
+          <button (click)="clearSearch()" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+            <lucide-icon [img]="X" [size]="12"></lucide-icon>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Nav groups -->
+    <nav class="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
+      @for (group of filteredGroups; track group.id) {
+        <div>
+          <button
+            (click)="toggleGroup(group.id)"
+            class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-colors
+              text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60 group"
+          >
+            <lucide-icon [img]="group.icon" [size]="14" class="shrink-0 text-zinc-500 group-hover:text-zinc-300 transition-colors"></lucide-icon>
+            <span class="text-xs font-semibold uppercase tracking-wider flex-1">{{ group.title }}</span>
+            <lucide-icon
+              [img]="ChevronDown"
+              [size]="12"
+              class="text-zinc-600 transition-transform duration-200"
+              [class.rotate-180]="isGroupOpen(group.id)"
+            ></lucide-icon>
+          </button>
+
+          @if (isGroupOpen(group.id)) {
+            <div class="ml-3 mt-0.5 mb-1 pl-3 border-l border-zinc-800 flex flex-col gap-0.5">
+              @for (item of group.items; track item.id) {
+                <button
+                  (click)="navigateDoc(item.id)"
+                  class="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all text-xs"
+                  [ngClass]="activeDoc === item.id
+                    ? 'bg-blue-600/15 text-blue-400 font-semibold border border-blue-500/20'
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50'"
+                >
+                  <span class="flex-1 leading-tight">{{ item.title }}</span>
+                  @if (item.badge) {
+                    <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 font-semibold">
+                      {{ item.badge }}
+                    </span>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      }
+    </nav>
+
+    <!-- Footer CTA -->
+    <div class="p-4 border-t border-zinc-800">
+      <a
+        href="https://axisxd.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center justify-between w-full p-3 rounded-xl bg-blue-600/10 border border-blue-500/20
+          hover:bg-blue-600/20 transition-all group text-xs text-blue-400 font-medium"
+      >
+        Try a Live Demo
+        <lucide-icon [img]="ArrowUpRight" [size]="14" class="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></lucide-icon>
+      </a>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,4 @@
+/* Extracted from inline Tailwind classes for maintainability */
+.wp-download-btn {
+  @apply w-full h-11 bg-gradient-to-r from-[#0645fb] to-blue-500 hover:from-blue-600 hover:to-blue-600 text-white text-sm font-semibold rounded-xl shadow-[0_4px_16px_rgba(6,69,251,0.25)] hover:shadow-[0_6px_24px_rgba(6,69,251,0.35)] transition-all duration-200 flex items-center justify-center gap-2;
+}

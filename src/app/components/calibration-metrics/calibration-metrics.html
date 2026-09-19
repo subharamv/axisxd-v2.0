@@ -1,0 +1,93 @@
+<section #sectionEl class="cm-section">
+  <div class="cm-container">
+    <!-- Section Header -->
+    <div class="cm-fade cm-header">
+      <span class="cm-eyebrow">
+        AXISXD_SCALE
+      </span>
+      <h2 class="cm-title">
+        Digital Twin Platform Metrics
+      </h2>
+    </div>
+
+    <div class="cm-divider"></div>
+
+    <!-- Row 1 — Primary Metrics -->
+    <div class="cm-fade cm-metrics">
+      <div class="cm-stagger-item">
+        <span #c1 class="cm-metric-value">
+          5,000+
+        </span>
+        <span class="cm-metric-label">
+          Buildings digitized
+        </span>
+        <p class="cm-metric-desc">
+          IFC and BIM models unified into live digital twins in AxisXD, with full-fidelity geometry across core metropolitan sectors.
+        </p>
+      </div>
+
+      <div class="cm-stagger-item">
+        <span #c2 class="cm-metric-value">
+          30+
+        </span>
+        <span class="cm-metric-label">
+          Active teams
+        </span>
+        <p class="cm-metric-desc">
+          Running AxisXD's IFC, Point Cloud, Panorama, CAD/DXF, and 3D Mesh viewers in production.
+        </p>
+      </div>
+
+      <div class="cm-stagger-item">
+        <div class="cm-badges">
+          @for (badge of certBadges; track badge[0]) {
+            <div class="cm-badge" [ngClass]="badge[1]">
+              {{ badge[0] }}
+            </div>
+          }
+        </div>
+        <span class="cm-metric-label">
+          Coordinate managers certified
+        </span>
+        <p class="cm-metric-desc">
+          Certified coordination managers ensuring ISO 19650 compliance across every AxisXD project workflow.
+        </p>
+      </div>
+    </div>
+
+    <div class="cm-divider"></div>
+
+    <!-- Row 2 — Digital Surface Index -->
+    <div class="cm-fade cm-dsi">
+      <div>
+        <span class="cm-kicker">
+          DSI
+        </span>
+        <h3 class="cm-dsi-title">
+          Digital Surface Index
+        </h3>
+      </div>
+      <div class="cm-dsi-right">
+        <span class="cm-status-badge">
+          <span class="cm-status-dot"></span>
+          SENSORS_STABLE
+        </span>
+        <div>
+          <span #c3 class="cm-dsi-number">
+            230 Million
+          </span>
+          <span class="cm-dsi-number-label">
+            square feet processed
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cm-divider cm-divider--tight"></div>
+
+    <!-- Row 5 — Trust Footer -->
+    <p class="cm-fade cm-footer">
+      Every point cloud scan, IFC/BIM model, panorama capture, CAD/DXF drawing, and 3D mesh processed in AxisXD is exported with full traceability, ensuring data integrity from capture to delivery across every digital twin workflow.
+    </p>
+  </div>
+</section>

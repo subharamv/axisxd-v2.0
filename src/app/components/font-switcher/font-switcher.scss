@@ -1,0 +1,163 @@
+/* TEMPORARY type-testing control. Chrome intentionally mirrors
+   glass-navbar's .gn-nav-btn / .gn-dropdown so it sits in the header
+   without looking bolted on. */
+
+.fs-root {
+  @apply relative;
+}
+
+/* ── Trigger ── */
+.fs-trigger {
+  @apply px-3 py-2 rounded-full text-sm font-medium cursor-pointer flex items-center gap-1.5;
+  transition: background-color 90ms ease-out, color 90ms ease-out;
+}
+
+.fs-trigger--dark {
+  @apply text-white/65 hover:text-white hover:bg-white/[0.08];
+}
+
+.fs-trigger--light {
+  @apply text-zinc-600 hover:text-zinc-950 hover:bg-black/[0.05];
+}
+
+.fs-trigger--open-dark {
+  @apply bg-white/[0.10] text-white;
+}
+
+.fs-trigger--open-light {
+  @apply bg-black/[0.06] text-zinc-950;
+}
+
+.fs-trigger-icon {
+  @apply w-3.5 h-3.5 opacity-80;
+}
+
+.fs-trigger-label {
+  @apply whitespace-nowrap;
+}
+
+.fs-chevron {
+  @apply w-3.5 h-3.5 opacity-70 transition-transform duration-200;
+}
+
+/* ── Menu ── */
+.fs-menu {
+  @apply absolute top-[calc(100%+10px)] right-0 rounded-2xl border overflow-hidden p-1.5 space-y-0.5;
+  width: 268px;
+  z-index: 60;
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  animation: fs-in 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fs-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fs-menu--dark {
+  @apply border-white/[0.07];
+  background: rgba(10, 10, 16, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.fs-menu--light {
+  @apply border-black/[0.08];
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.fs-menu-head,
+.fs-menu-foot {
+  @apply px-3 text-[10px] font-semibold uppercase tracking-[0.09em];
+}
+
+.fs-menu-head {
+  @apply pt-2 pb-1.5;
+}
+
+.fs-menu-foot {
+  @apply pt-2 pb-1.5 normal-case tracking-normal font-normal text-[10px] leading-snug;
+}
+
+.fs-menu-head--dark,
+.fs-menu-foot--dark {
+  @apply text-white/40;
+}
+
+.fs-menu-head--light,
+.fs-menu-foot--light {
+  @apply text-zinc-400;
+}
+
+/* ── Options ── */
+.fs-option {
+  @apply w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-150 hover:translate-x-0.5;
+}
+
+.fs-option--dark {
+  @apply hover:bg-white/[0.06];
+}
+
+.fs-option--light {
+  @apply hover:bg-black/[0.04];
+}
+
+.fs-option--on-dark {
+  @apply bg-white/[0.08];
+}
+
+.fs-option--on-light {
+  @apply bg-black/[0.05];
+}
+
+.fs-option-copy {
+  @apply flex-1 min-w-0 flex flex-col gap-0.5;
+}
+
+.fs-option-label {
+  @apply text-sm font-semibold leading-tight;
+}
+
+.fs-option--dark .fs-option-label {
+  @apply text-white;
+}
+
+.fs-option--light .fs-option-label {
+  @apply text-zinc-950;
+}
+
+.fs-option-note {
+  @apply text-[11px] leading-snug;
+}
+
+.fs-option-note--dark {
+  @apply text-white/45;
+}
+
+.fs-option-note--light {
+  @apply text-zinc-500;
+}
+
+/* Specimen line — the actual reason this control exists. */
+.fs-option-sample {
+  @apply text-[13px] leading-tight mt-1 truncate;
+}
+
+.fs-option--dark .fs-option-sample {
+  @apply text-white/70;
+}
+
+.fs-option--light .fs-option-sample {
+  @apply text-zinc-600;
+}
+
+.fs-option-check {
+  @apply w-4 h-4 shrink-0 text-blue-600;
+}

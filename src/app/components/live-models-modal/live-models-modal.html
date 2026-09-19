@@ -1,0 +1,59 @@
+@if (liveModels.isOpen()) {
+  <div
+    class="lmm-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="live-models-title"
+    (click)="close()"
+  >
+    <div class="lmm-panel" (click)="$event.stopPropagation()">
+      <div class="lmm-glow lmm-glow--tr"></div>
+      <div class="lmm-glow lmm-glow--bl"></div>
+
+      <!-- Header -->
+      <div class="lmm-header">
+        <div>
+          <div class="lmm-eyebrow">
+            <lucide-icon [img]="Sparkles" class="lmm-eyebrow-icon"></lucide-icon>
+            <span>Live Demo Models</span>
+          </div>
+          <h2 id="live-models-title" class="lmm-title">
+            Unified Digital Twin <span class="lmm-title-accent">Platforms</span>
+          </h2>
+          <p class="lmm-subtitle">
+            Open any viewer to explore a real demo model in your browser.
+          </p>
+        </div>
+        <button (click)="close()" class="lmm-close" aria-label="Close">
+          <lucide-icon [img]="X" class="lmm-close-icon"></lucide-icon>
+        </button>
+      </div>
+
+      <!-- Viewer cards -->
+      <div class="lmm-body">
+        <div class="lmm-grid">
+          @for (m of models; track m.url) {
+            <a
+              [href]="m.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="lmm-card"
+            >
+              <div class="lmm-card-media">
+                <img [src]="m.image" [alt]="m.title + ' demo model'" class="lmm-card-img" />
+                <span class="lmm-card-tag">{{ m.tag }}</span>
+              </div>
+              <div class="lmm-card-body">
+                <div class="lmm-card-head">
+                  <h3 class="lmm-card-title">{{ m.title }}</h3>
+                  <lucide-icon [img]="ArrowUpRight" class="lmm-card-icon"></lucide-icon>
+                </div>
+                <p class="lmm-card-text">{{ m.blurb }}</p>
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

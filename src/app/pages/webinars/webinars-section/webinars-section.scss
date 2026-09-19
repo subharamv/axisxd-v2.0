@@ -1,0 +1,8 @@
+/* Extracted from inline Tailwind classes for maintainability */
+.ws-tab-btn {
+  @apply relative flex items-center gap-1.5 px-4 py-2 rounded-xl text-[11px] font-semibold font-syne uppercase tracking-wider whitespace-nowrap transition-colors;
+}
+
+.ws-tab-active-bg {
+  @apply absolute inset-0 rounded-xl bg-[#0645fb] shadow-[0_4px_12px_rgba(6,69,251,0.3)];
+}

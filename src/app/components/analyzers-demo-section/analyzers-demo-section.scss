@@ -1,0 +1,573 @@
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+// ─────────────────────────────────────────────────────────────
+// Analyzers Demo Section — extracted from inline Tailwind classes
+// ─────────────────────────────────────────────────────────────
+
+$ads-brand: #0645fb;
+$ads-card-bg: rgba(255, 255, 255, 0.03);
+$ads-card-border: rgba(255, 255, 255, 0.07);
+
+/* ── Section shell ── */
+/* Second deliberate dark band. Shares the exact colour and feathered
+   edges of the tools dock so the two read as one device, and goes
+   transparent in dark mode where the page wash already covers it. */
+.ads-section {
+  @include d.section;
+  @include d.dark-band;
+  overflow: hidden;
+}
+
+/* ── Background layers ── */
+.ads-glow--left {
+  @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-blue-600/10 blur-[180px] rounded-full pointer-events-none;
+}
+
+.ads-glow--right {
+  @apply absolute top-1/4 right-0 w-[400px] h-[400px] blur-[120px] rounded-full pointer-events-none;
+  background: rgba(124, 58, 237, 0.06);
+}
+
+.ads-grid {
+  @apply absolute inset-0 pointer-events-none;
+  opacity: 0.025;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.9) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.ads-container {
+  @include d.container;
+}
+
+/* ── Header ── */
+.analyzers-heading {
+  @include d.heading-content-gap;
+  @apply flex flex-col gap-6;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.ads-heading-text {
+  @apply text-center lg:text-left;
+}
+
+.ads-eyebrow {
+  @apply inline-flex items-center gap-2 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-blue-400 bg-blue-500/10 border border-blue-500/20 px-3 py-1.5 rounded-full;
+  margin-bottom: d.$heading-eyebrow-gap;
+}
+
+.ads-eyebrow-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-blue-400;
+  animation: ads-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes ads-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.ads-title {
+  @apply font-semibold uppercase tracking-tight text-white font-syne leading-tight;
+  font-size: clamp(1.5rem, 3.4vw, 3rem);
+}
+
+.ads-title-accent {
+  color: $ads-brand;
+}
+
+.ads-lead {
+  @include d.heading-lead;
+  @include d.heading-lead-type;
+  @apply text-zinc-400 max-w-md mx-auto lg:mx-0;
+}
+
+/* ── Global KPI strip ── */
+.analyzers-kpi-strip {
+  @apply flex items-center gap-4 justify-center lg:justify-end flex-wrap shrink-0;
+}
+
+.ads-kpi {
+  @apply flex flex-col items-center gap-0.5 min-w-[56px];
+}
+
+.ads-kpi-value {
+  @apply text-xl font-bold text-white font-mono-num leading-none;
+}
+
+.ads-kpi-label {
+  @apply text-[9px] font-mono text-zinc-500 uppercase tracking-widest;
+}
+
+/* ── Tab bar ── */
+.analyzers-tab-bar {
+  @apply flex items-center gap-1 p-1 bg-white/[0.04] border border-white/[0.06] rounded-2xl w-full lg:w-fit mb-8 overflow-x-auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.ads-tab {
+  @apply relative flex-shrink-0 px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest font-syne transition-colors duration-200 whitespace-nowrap;
+}
+
+.ads-tab--active {
+  color: #ffffff;
+}
+
+.ads-tab-pill {
+  @apply absolute inset-0 bg-[#0645fb] rounded-xl;
+}
+
+.ads-tab-label {
+  @apply relative z-10 flex items-center gap-1.5;
+}
+
+/* ── Content grid ── */
+.ads-stage {
+  @apply relative;
+  /* The panel slides horizontally inside this box — clip it so the motion
+     never spills into the page or raises a horizontal scrollbar. */
+  overflow-x: clip;
+}
+
+.ads-content {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch;
+  will-change: transform, opacity;
+}
+
+/* ── Demo viewer panel ── */
+.ads-viewer-panel {
+  @apply relative overflow-hidden rounded-2xl;
+  aspect-ratio: 4 / 3;
+  max-height: clamp(280px, 52vh, 460px);
+  perspective: 800px;
+
+  @media (min-width: 1024px) {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+}
+
+.ads-tilt {
+  @apply w-full h-full;
+  background-color: #18181b;
+}
+
+.ads-image-in {
+  @apply w-full h-full object-cover;
+  animation: ads-image-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes ads-image-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.ads-shimmer-wrap {
+  @apply absolute inset-0 z-10 bg-zinc-800 overflow-hidden;
+}
+
+.ads-shimmer {
+  @apply absolute inset-0;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: ads-shimmer-slide 1.8s ease-in-out infinite;
+}
+
+@keyframes ads-shimmer-slide {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.ads-vignette {
+  @apply absolute inset-0 pointer-events-none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1) 50%, transparent);
+}
+
+/* ── Floating overlays ── */
+.ads-float-badge {
+  @apply absolute inline-flex items-center gap-1.5 border px-2.5 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest backdrop-blur-md;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.ads-float-badge--tl {
+  @apply top-4 left-4 gap-2 px-3 py-1.5 font-mono;
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.ads-float-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-blue-400;
+  animation: ads-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Badge color modifiers (returned by badgeClass()) */
+.ads-badge--popular {
+  @apply bg-white text-zinc-900 border-white/80;
+}
+
+.ads-badge--new {
+  @apply bg-zinc-500 text-white border-zinc-400;
+}
+
+.ads-badge--beta {
+  @apply bg-zinc-950 text-white border-zinc-700;
+}
+
+.ads-badge--live {
+  @apply bg-emerald-500 text-white border-emerald-400;
+}
+
+.ads-badge--default {
+  @apply bg-white/10 text-white/60 border-white/10;
+}
+
+/* ── Bottom metric float ── */
+.ads-metrics {
+  @apply absolute bottom-4 left-4 right-4 hidden sm:flex items-end justify-between gap-3;
+}
+
+.ads-metric-primary {
+  @apply inline-flex items-center gap-3 bg-black/80 backdrop-blur-md border border-white/10 px-4 py-2.5 rounded-xl;
+}
+
+.ads-metric-icon {
+  @apply w-4 h-4 shrink-0;
+}
+
+.ads-metric-value {
+  @apply text-base font-bold text-white font-mono-num leading-none;
+}
+
+.ads-metric-label {
+  @apply text-[7px] font-mono text-zinc-400 uppercase tracking-widest mt-0.5;
+}
+
+.ads-metric-secondary {
+  @apply flex flex-wrap gap-2;
+}
+
+.ads-metric-chip {
+  @apply flex flex-col items-center bg-black/70 backdrop-blur-md border border-white/10 px-3 py-2 rounded-xl;
+}
+
+.ads-metric-chip-value {
+  @apply text-sm font-bold text-white font-mono-num leading-none;
+}
+
+.ads-metric-chip-label {
+  @apply text-[7px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5 whitespace-nowrap;
+}
+
+/* ── Right column ── */
+.ads-side {
+  @apply flex flex-col gap-4;
+}
+
+/* ── Cards ── */
+.ads-card {
+  @apply flex flex-col gap-4 rounded-2xl border;
+  padding: clamp(0.875rem, 1.6vw, 1.25rem);
+  border-color: $ads-card-border;
+  background: $ads-card-bg;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.ads-card--capabilities {
+  @apply flex-1;
+}
+
+.ads-card-header {
+  @apply flex items-start justify-between gap-3;
+}
+
+.ads-card-eyebrow {
+  @apply text-[7px] font-mono text-zinc-500 uppercase tracking-[0.25em] mb-1;
+}
+
+.ads-card-eyebrow--cap {
+  letter-spacing: 0.2em;
+  margin-bottom: 0;
+}
+
+.ads-card-title {
+  @apply text-lg font-semibold text-white font-syne leading-tight;
+}
+
+.ads-card-desc {
+  @apply text-[11px] text-zinc-400 leading-relaxed mt-1 max-w-xs;
+  /* Clamped so tabs with longer copy do not make the panel taller than the
+     rest — the stage stays one height across all four. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+
+  @media (min-width: 1024px) {
+    -webkit-line-clamp: 3;
+  }
+}
+
+/* ── Badges ── */
+.ads-badge {
+  @apply shrink-0 inline-flex items-center gap-1.5 border px-2.5 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest;
+}
+
+/* ── Stats grid ── */
+.ads-stats {
+  @apply grid grid-cols-2 gap-2 pt-1 border-t border-white/[0.06];
+}
+
+.ads-stat {
+  @apply relative bg-white/[0.03] border border-white/[0.05] rounded-xl p-3 overflow-hidden transition-colors;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.ads-stat-head {
+  @apply flex items-center justify-between mb-1.5;
+}
+
+.ads-stat-label {
+  @apply text-[7px] font-mono text-zinc-500 uppercase tracking-widest leading-none;
+}
+
+.ads-stat-icon {
+  @apply w-3 h-3 shrink-0;
+}
+
+.ads-stat-value-row {
+  @apply flex items-baseline gap-0.5;
+}
+
+.ads-stat-value {
+  @apply font-bold text-white font-mono-num leading-none;
+  font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+}
+
+.ads-stat-suffix {
+  @apply text-xs font-bold text-zinc-400 ml-0.5 font-mono-num;
+}
+
+.ads-stat-glow {
+  @apply absolute -bottom-4 -right-4 w-14 h-14 rounded-full blur-xl opacity-0 transition-opacity duration-500 pointer-events-none;
+}
+
+.ads-stat:hover .ads-stat-glow {
+  opacity: 0.3;
+}
+
+/* ── Capabilities list ── */
+.ads-features {
+  @apply grid grid-cols-2 gap-x-4 gap-y-2 flex-1;
+}
+
+.ads-feature {
+  @apply flex items-start gap-2;
+}
+
+.ads-feature-icon {
+  @apply flex-shrink-0 w-3.5 h-3.5 rounded-full bg-[#0645fb]/10 border border-[#0645fb]/30 flex items-center justify-center mt-0.5 transition-colors;
+}
+
+.ads-feature:hover .ads-feature-icon {
+  background-color: rgba(6, 69, 251, 0.2);
+}
+
+.ads-feature-icon-svg {
+  @apply w-2 h-2;
+  color: $ads-brand;
+}
+
+.ads-feature-text {
+  @apply text-[10px] leading-relaxed text-zinc-400 transition-colors;
+}
+
+.ads-feature:hover .ads-feature-text {
+  color: #e4e4e7;
+}
+
+/* ── Card footer / trust / CTA ── */
+.ads-card-footer {
+  @apply flex flex-col gap-2.5 border-t border-white/[0.06] pt-4;
+
+  @media (min-width: 395px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.ads-trust {
+  @apply flex items-center gap-2 shrink-0;
+}
+
+.ads-avatars {
+  @apply flex;
+
+  & > * + * {
+    margin-left: -6px;
+  }
+}
+
+.ads-avatar {
+  @apply w-5 h-5 rounded-full border-2 border-zinc-900;
+}
+
+.ads-trust-text {
+  @apply text-[10px] text-zinc-500;
+}
+
+.ads-trust-strong {
+  @apply text-zinc-300 font-mono-num;
+}
+
+.ads-cta {
+  @apply flex items-center justify-center gap-2 bg-[#0645fb] text-white px-4 py-2.5 rounded-xl font-syne font-bold text-[10px] uppercase tracking-widest cursor-pointer w-full;
+  box-shadow: 0 6px 20px rgba(6, 69, 251, 0.35);
+
+  @media (min-width: 395px) {
+    width: auto;
+    flex-shrink: 0;
+  }
+}
+
+.ads-cta-icon {
+  @apply w-3.5 h-3.5;
+  transition: transform 0.2s ease;
+}
+
+.ads-cta:hover .ads-cta-icon {
+  transform: translate(2px, -2px);
+}
+
+/* ── Mobile dots ── */
+.ads-dots {
+  @apply flex items-center justify-center gap-2 mt-8 lg:hidden;
+}
+
+.ads-dot {
+  @apply rounded-full bg-zinc-700 transition-all duration-300;
+  width: 0.5rem;
+  height: 0.5rem;
+
+  &:not(.ads-dot--active):hover {
+    background-color: #52525b;
+  }
+}
+
+.ads-dot--active {
+  width: 1.5rem;
+  height: 0.5rem;
+  background-color: $ads-brand;
+}
+
+/* ── Entrance animations (tab switches) ── */
+@keyframes ads-fade-x-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ads-fade-y-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ads-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ads-stat-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ads-feat-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ads-fade-x-in {
+  animation: ads-fade-x-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ads-fade-y-in {
+  animation: ads-fade-y-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ads-content-in {
+  animation: ads-content-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ads-stat-in {
+  animation: ads-stat-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ads-feat-in {
+  animation: ads-feat-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}

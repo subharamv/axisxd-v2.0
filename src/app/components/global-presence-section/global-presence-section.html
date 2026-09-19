@@ -1,0 +1,134 @@
+<section #sectionEl class="gps-section">
+  <!-- Ambient glow -->
+  <div class="gps-glow-wrap">
+    <div class="gps-glow"></div>
+  </div>
+
+  <div class="gps-container">
+
+    <!-- Header -->
+    <div class="gps-fade gps-header" [class.gps-in]="inView">
+      <span class="gps-eyebrow">
+        Global Reach
+      </span>
+      <h2 class="gps-title">
+        Trusted by AEC teams<br />across 6 continents
+      </h2>
+      <p class="gps-subtitle">
+        From Dubai high-rises to Sydney infrastructure projects, AxisXD powers digital twin
+        visualization for over 2,400 AECO organizations worldwide.
+      </p>
+    </div>
+
+    <div class="gps-fade-scale gps-map-card" [class.gps-in]="inView">
+      <div class="gps-map-toolbar">
+        <div class="gps-explorer-heading">
+          <span class="gps-live-dot" aria-hidden="true"></span>
+          <span>Explore our global presence</span>
+          <span class="gps-organization-count">2,400+ active organizations</span>
+        </div>
+        <div class="gps-regions" role="group" aria-label="Filter map by region">
+          @for (region of regions; track region) {
+            <button type="button" class="gps-region-badge" [class.gps-region-active]="activeRegion === region"
+              [attr.aria-pressed]="activeRegion === region" (click)="selectRegion(region)">{{ region }}</button>
+          }
+        </div>
+      </div>
+      <div class="gps-explorer-body">
+        <div class="gps-map-wrap">
+          <div #mapContainer class="gps-map" role="region" aria-label="Interactive map of project locations"></div>
+          <div class="gps-map-controls" role="group" aria-label="Map controls">
+            <button type="button" (click)="zoomMap(1)" [disabled]="zoom >= 8" aria-label="Zoom in">+</button>
+            <button type="button" (click)="zoomMap(-1)" [disabled]="zoom <= 0" aria-label="Zoom out">−</button>
+            <button type="button" class="gps-reset" (click)="resetMap()" aria-label="Reset view" title="Reset view">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 11A8 8 0 1 0 18 16.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M20 5v6h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+          @if (tilesFailed) {
+            <div class="gps-map-status" role="status">Map tiles unavailable. You can still explore cities.
+              <button type="button" (click)="retryTiles()">Retry</button>
+            </div>
+          }
+        </div>
+        <aside class="gps-city-panel" aria-label="City project details">
+          <label for="gps-city-select" class="gps-city-label">Explore a city</label>
+          <select id="gps-city-select" [value]="selectedLocation.label" (change)="selectCity($any($event.target).value)">
+            @for (location of visibleLocations; track location.label) {
+              <option [value]="location.label">{{ location.label }}</option>
+            }
+          </select>
+          <div class="gps-city-details" aria-live="polite" aria-atomic="true">
+            <p class="gps-city-region">{{ selectedLocation.region }}</p>
+            <h3>{{ selectedLocation.label }}</h3>
+            <p class="gps-project-count">{{ selectedLocation.count }}<span>projects</span></p>
+            <p class="gps-city-context">Project presence in {{ selectedLocation.label }}.</p>
+          </div>
+          <p class="gps-visible-count">{{ visibleLocations.length }} featured {{ visibleLocations.length === 1 ? 'city' : 'cities' }} · {{ activeRegion }}</p>
+        </aside>
+      </div>
+    </div>
+    <!-- Testimonials -->
+    @if (showTestimonials) {
+      <div class="gps-testimonials">
+        @for (t of testimonials; track t.name; let i = $index) {
+          <div
+            class="gps-fade gps-testimonial"
+            [class.gps-in]="inView"
+            [style.transition-delay.ms]="inView ? 300 + i * 120 : 0"
+          >
+            <!-- Company logo card -->
+            <div class="gps-t-top">
+              <div class="gps-t-company">
+                <span class="gps-t-company-name">
+                  {{ t.company }}
+                </span>
+              </div>
+              <div class="gps-t-dot"></div>
+            </div>
+  
+            <lucide-icon [img]="Quote" class="gps-t-quote"></lucide-icon>
+  
+            <p class="gps-t-text">
+              {{ t.text }}
+            </p>
+  
+            <div class="gps-t-author">
+              <div class="gps-t-avatar">
+                {{ t.avatar }}
+              </div>
+              <div>
+                <p class="gps-t-name">
+                  {{ t.name }}
+                </p>
+                <p class="gps-t-title">
+                  {{ t.title }}
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Stats bar -->
+    <div
+      class="gps-fade gps-stats"
+      [class.gps-in]="inView"
+    >
+      @for (stat of stats; track stat.label) {
+        <div class="gps-stat">
+          <p class="gps-stat-value">
+            {{ stat.value }}
+          </p>
+          <p class="gps-stat-label">
+            {{ stat.label }}
+          </p>
+        </div>
+      }
+    </div>
+
+  </div>
+</section>

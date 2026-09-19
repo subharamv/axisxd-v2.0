@@ -1,0 +1,14 @@
+<app-card-nav
+  logoAlt="AXISXD Civil Calibrations"
+  [items]="items"
+  ctaText="Try XD for Free"
+  (ctaClick)="navigateLogin()"
+  (logoClick)="navigateHome()"
+  (openConsultation)="openConsultation()"
+  (navigateContact)="navigateContact()"
+  (navigateWebinars)="navigateWebinars()"
+  (navigateFaq)="navigateFaq()"
+>
+  <app-font-switcher card-nav-right-addon></app-font-switcher>
+  <app-nav-style-toggle card-nav-right-addon [navStyle]="'card'" (toggle)="switchStyle.emit()"></app-nav-style-toggle>
+</app-card-nav>

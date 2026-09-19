@@ -1,0 +1,41 @@
+<section #sectionEl id="what_we_do" class="wf-section">
+  <div class="wf-container">
+    <div class="wf-heading">
+      <h2 class="wf-title">What we do</h2>
+      <p class="wf-subtitle">From Digital Reality to Predictive Intelligence</p>
+      <p class="wf-lead">
+        AxisXD brings together BIM, reality capture, spatial data, live systems, and analytics in one
+        connected digital environment, helping you move from seeing an asset to understanding it,
+        analyzing it, and anticipating what comes next.
+      </p>
+    </div>
+
+    <div class="wf-cards">
+      @for (step of steps; track step.id; let i = $index) {
+        <article #cardEl class="wf-card">
+          <div
+            #graphWrap
+            class="wf-graph-wrap"
+            (mousemove)="onGraphMouseMove($event, i)"
+            (mouseleave)="onGraphMouseLeave(i)"
+          >
+            <canvas #graphCanvas class="wf-graph" aria-hidden="true"></canvas>
+          </div>
+
+          <h3 class="wf-card-title">{{ step.title }}</h3>
+          <p class="wf-card-tagline">{{ step.tagline }}</p>
+          <p class="wf-card-desc">{{ step.description }}</p>
+          <p class="wf-card-tags">{{ step.tags.join(' · ') }}</p>
+        </article>
+      }
+    </div>
+
+    <div class="wf-flow">
+      <p class="wf-flow-title">One platform. One connected view of reality.</p>
+      <p class="wf-flow-steps">Visualize → Connect → Analyze → Predict</p>
+      <p class="wf-flow-sub">
+        From a digital model to a connected digital twin — and ultimately to predictive intelligence.
+      </p>
+    </div>
+  </div>
+</section>

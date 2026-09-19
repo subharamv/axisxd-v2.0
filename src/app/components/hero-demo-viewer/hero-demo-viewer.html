@@ -1,0 +1,355 @@
+<div class="hdv-stage">
+  <div class="hdv-glow"></div>
+  <div class="hdv-frame">
+    <div class="hdv-coord">
+      COORD_LOCK: {{ activeHighlight ? 'TRUE' : 'STANDBY' }}
+    </div>
+    <div class="hdv-index">
+      INDEX: CL-109_CALIBRATED
+    </div>
+    <!-- Layer badge -->
+    <div class="hdv-layer-badge">
+      <span class="hdv-layer-dot"></span>
+      <span class="hdv-layer-text">
+        {{ activeHighlight ? activeHighlight.toUpperCase() : 'HOVER' }}
+      </span>
+    </div>
+  </div>
+
+  <div class="hdv-card">
+
+    <svg
+      viewBox="0 0 500 400"
+      class="hero-demo-svg-floorplan"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <!-- 2D Floor Plan (isometric view) -->
+      <g transform="rotate(-30) skewX(30) scale(0.765) translate(-420, 250)">
+      <g [class]="floorPlanClass" stroke-width="1.2">
+        <!-- FLOOR PLAN OUTLINES -->
+        <rect x="57" y="57" width="386" height="286" rx="3" stroke-width="1" fill="none" />
+        <rect x="60" y="60" width="380" height="280" rx="2" stroke-width="0.6" fill="none" class="hdv-fp-faint" />
+        <rect x="187" y="57" width="126" height="286" stroke-width="0.8" fill="none" />
+        <rect x="190" y="60" width="120" height="280" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <rect x="57" y="57" width="136" height="126" stroke-width="0.8" fill="none" />
+        <rect x="60" y="60" width="130" height="120" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <line x1="188" y1="105" x2="188" y2="135" stroke-width="8" class="hdv-fp-door" />
+        <line x1="190" y1="108" x2="190" y2="132" stroke-width="6" class="hdv-fp-door" />
+        <path d="M 188 108 A 20 20 0 0 1 168 128" stroke-width="0.8" fill="none" />
+        <rect x="57" y="177" width="136" height="106" stroke-width="0.8" fill="none" />
+        <rect x="60" y="180" width="130" height="100" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <line x1="105" y1="177" x2="135" y2="177" stroke-width="8" class="hdv-fp-door" />
+        <line x1="108" y1="178" x2="132" y2="178" stroke-width="6" class="hdv-fp-door" />
+        <path d="M 132 178 A 20 20 0 0 0 112 198" stroke-width="0.8" fill="none" />
+        <rect x="57" y="277" width="136" height="66" stroke-width="0.8" fill="none" />
+        <rect x="60" y="280" width="130" height="60" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <rect x="307" y="57" width="136" height="96" stroke-width="0.8" fill="none" />
+        <rect x="310" y="60" width="130" height="90" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <line x1="307" y1="90" x2="307" y2="120" stroke-width="8" class="hdv-fp-door" />
+        <line x1="308" y1="93" x2="308" y2="117" stroke-width="6" class="hdv-fp-door" />
+        <path d="M 308 93 A 20 20 0 0 0 328 113" stroke-width="0.8" fill="none" />
+        <rect x="307" y="147" width="136" height="136" stroke-width="0.8" fill="none" />
+        <rect x="310" y="150" width="130" height="130" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <line x1="307" y1="195" x2="307" y2="225" stroke-width="8" class="hdv-fp-door" />
+        <line x1="308" y1="198" x2="308" y2="222" stroke-width="6" class="hdv-fp-door" />
+        <path d="M 308 198 A 20 20 0 0 0 328 218" stroke-width="0.8" fill="none" />
+        <rect x="307" y="277" width="136" height="66" stroke-width="0.8" fill="none" />
+        <rect x="310" y="280" width="130" height="60" stroke-width="0.4" fill="none" class="hdv-fp-faint" />
+        <line x1="307" y1="305" x2="307" y2="335" stroke-width="8" class="hdv-fp-door" />
+        <line x1="308" y1="308" x2="308" y2="332" stroke-width="6" class="hdv-fp-door" />
+        <path d="M 308 308 A 20 20 0 0 0 328 328" stroke-width="0.8" fill="none" />
+        <line x1="200" y1="315" x2="300" y2="315" stroke-width="0.6" />
+        <line x1="200" y1="322" x2="300" y2="322" stroke-width="0.6" />
+        <line x1="200" y1="329" x2="300" y2="329" stroke-width="0.6" />
+        <line x1="215" y1="315" x2="215" y2="329" stroke-width="0.6" />
+        <line x1="250" y1="315" x2="250" y2="329" stroke-width="0.6" />
+        <line x1="285" y1="315" x2="285" y2="329" stroke-width="0.6" />
+        <line x1="250" y1="335" x2="250" y2="345" stroke-width="0.6" marker-end="url(#arrow)" />
+        <text x="85" y="115" font-size="6" class="hdv-fp-label" stroke="none" font-weight="600">OFFICE A</text>
+        <text x="85" y="230" font-size="6" class="hdv-fp-label" stroke="none" font-weight="600">KITCHEN</text>
+        <text x="330" y="105" font-size="6" class="hdv-fp-label" stroke="none" font-weight="600">CONF. RM</text>
+        <text x="330" y="210" font-size="6" class="hdv-fp-label" stroke="none" font-weight="600">OPEN PLAN</text>
+        <g class="hdv-fp-dim-group" stroke-width="0.4" stroke-dasharray="2,2">
+          <line x1="57" y1="42" x2="443" y2="42" />
+          <line x1="57" y1="37" x2="57" y2="47" />
+          <line x1="443" y1="37" x2="443" y2="47" />
+          <text x="250" y="39" font-size="5" text-anchor="middle" class="hdv-fp-dim" stroke="none" font-family="monospace">48.0 m</text>
+        </g>
+
+        <!-- WALL EXTRUSIONS -->
+        <g clip-path="url(#wallGrowthClip2)">
+          <g class="hdv-layer hdv-layer--fast" [class.hdv-layer-on]="activeHighlight === 'ifc'">
+            <polygon class="hdv-wall-a" stroke-width="0.5" points="57,57 443,57 495,12 109,12" />
+            <polygon class="hdv-wall-a" stroke-width="0.5" points="443,57 443,343 495,298 495,12" />
+            <polygon class="hdv-wall-b" stroke-width="0.5" points="313,57 313,343 365,298 365,12" />
+            <polygon class="hdv-wall-b" stroke-width="0.5" points="307,153 443,153 495,108 359,108" />
+            <polygon class="hdv-wall-b" stroke-width="0.5" points="307,283 443,283 495,238 359,238" />
+            <polygon class="hdv-wall-c" stroke-width="0.6" points="187,57 187,343 239,298 239,12" />
+            <polygon class="hdv-wall-c" stroke-width="0.6" points="57,183 187,183 239,138 109,138" />
+            <polygon class="hdv-wall-c" stroke-width="0.6" points="57,283 187,283 239,238 109,238" />
+            <polygon class="hdv-wall-d" stroke-width="0.9" points="57,57 57,343 109,298 109,12" />
+            <polygon class="hdv-wall-d" stroke-width="0.9" points="57,343 443,343 495,298 109,298" />
+          </g>
+          <g class="hdv-layer hdv-layer--fast" [class.hdv-layer-on]="activeHighlight === 'rol'">
+            <polygon fill="#8a7860" stroke="#706448" stroke-width="0.4" points="57,57 443,57 495,12 109,12" />
+            <polygon fill="#e2cfa0" stroke="#c8b480" stroke-width="0.5" points="443,57 443,343 495,298 495,12" />
+            <polygon fill="#c8b48a" stroke="#b0987a" stroke-width="0.4" points="313,57 313,343 365,298 365,12" />
+            <polygon fill="#7a6850" stroke="#685840" stroke-width="0.4" points="307,153 443,153 495,108 359,108" />
+            <polygon fill="#7a6850" stroke="#685840" stroke-width="0.4" points="307,283 443,283 495,238 359,238" />
+            <polygon fill="#d0b888" stroke="#b8a070" stroke-width="0.4" points="187,57 187,343 239,298 239,12" />
+            <polygon fill="#5a4e3c" stroke="#4a3e2c" stroke-width="0.4" points="57,183 187,183 239,138 109,138" />
+            <polygon fill="#5a4e3c" stroke="#4a3e2c" stroke-width="0.4" points="57,283 187,283 239,238 109,238" />
+            <polygon fill="#181210" stroke="#100e0c" stroke-width="0.6" points="57,57 57,343 109,298 109,12" />
+            <polygon fill="#201a14" stroke="#181210" stroke-width="0.6" points="57,343 443,343 495,298 109,298" />
+          </g>
+        </g>
+      </g>
+
+      <!-- ROL FLOOR LIGHT & SHADOW -->
+      <g class="hdv-layer" [class.hdv-layer-on]="activeHighlight === 'rol'">
+        <rect x="57" y="57" width="386" height="286" fill="url(#floorLightGrad2)" />
+        <rect x="313" y="57" width="130" height="286" fill="#fbbf24" opacity="0.12" />
+        <rect x="187" y="57" width="126" height="286" fill="#0f172a" opacity="0.28" />
+        <rect x="57" y="57" width="130" height="286" fill="#0f172a" opacity="0.40" />
+        <polygon fill="#fef3c7" opacity="0.22" points="443,78 443,105 375,122 375,95" />
+        <polygon fill="#fef3c7" opacity="0.18" points="443,160 443,185 375,202 375,177" />
+        <polygon fill="#fef3c7" opacity="0.15" points="443,240 443,262 375,279 375,257" />
+        <rect x="57" y="57" width="386" height="35" fill="#fef3c7" opacity="0.08" />
+      </g>
+
+      <!-- POINT CLOUD WALL SCATTER -->
+      <g class="hdv-layer" [class.hdv-layer-on]="activeHighlight === 'pointcloud'" stroke="none">
+        @for (dot of pointCloudDots; track $index) {
+          <circle [attr.cx]="dot.cx" [attr.cy]="dot.cy" [attr.r]="dot.r" [attr.opacity]="dot.opacity" [attr.fill]="dot.color" />
+        }
+      </g>
+      </g><!-- end isometric transform -->
+
+      <!-- ROL SOLAR RAYS -->
+      <g class="hdv-layer" [class.hdv-layer-dim]="activeHighlight !== 'rol'">
+        @for (d of solarRayPaths; track d) {
+          <path [attr.d]="d" fill="none" stroke="#d4b060" stroke-width="0.4" stroke-dasharray="2,8" opacity="0.4" />
+        }
+      </g>
+      <g class="hdv-layer" [class.hdv-layer-on]="activeHighlight === 'rol'">
+        <polygon fill="url(#godRayGrad2)" opacity="0.20" points="400,80 255,350 310,350" />
+        <polygon fill="url(#godRayGrad2)" opacity="0.25" points="400,80 340,355 400,355" />
+        <polygon fill="url(#godRayGrad2)" opacity="0.22" points="400,80 415,355 475,335" />
+        <polygon fill="url(#godRayGrad2)" opacity="0.17" points="400,80 465,315 490,295" />
+        <polygon fill="url(#godRayGrad2)" opacity="0.14" points="400,80 185,325 215,330" />
+        <polygon fill="url(#godRayGrad2)" opacity="0.10" points="400,80 128,238 155,248" />
+        <polygon fill="url(#godRayGrad2)" opacity="0.16" points="400,80 465,195 490,210" />
+        <ellipse cx="282" cy="348" rx="22" ry="7" fill="#fbbf24" opacity="0.35" filter="url(#glowBlur2)" />
+        <ellipse cx="368" cy="355" rx="28" ry="9" fill="#fbbf24" opacity="0.40" filter="url(#glowBlur2)" />
+        <ellipse cx="444" cy="348" rx="22" ry="7" fill="#fbbf24" opacity="0.35" filter="url(#glowBlur2)" />
+        <ellipse cx="475" cy="325" rx="18" ry="6" fill="#fbbf24" opacity="0.28" filter="url(#glowBlur2)" />
+        <ellipse cx="200" cy="326" rx="18" ry="6" fill="#fbbf24" opacity="0.22" filter="url(#glowBlur2)" />
+        @for (ray of godRays; track ray.d) {
+          <path [attr.d]="ray.d" fill="none" stroke="#fbbf24" [attr.stroke-width]="ray.w" [attr.opacity]="ray.op" />
+        }
+        <circle cx="400" cy="80" r="90" fill="url(#sunGlowEnhanced2)" />
+        <circle cx="400" cy="80" r="48" fill="#fbbf24" opacity="0.18" filter="url(#glowBlur2)" />
+        <circle cx="400" cy="80" r="24" fill="#fef3c7" opacity="0.30" filter="url(#glowBlur2)" />
+        <circle cx="400" cy="80" r="11" fill="#fef9e7" opacity="0.98" />
+        <circle cx="400" cy="80" r="15" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity="0.70" />
+        <circle cx="400" cy="80" r="20" fill="none" stroke="#fbbf24" stroke-width="0.6" opacity="0.35" />
+      </g>
+
+      <defs>
+        <filter id="blur2">
+          <feGaussianBlur stdDeviation="3" />
+        </filter>
+        <filter id="glowBlur2">
+          <feGaussianBlur stdDeviation="10" />
+        </filter>
+        <radialGradient id="sunGlow2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.35" />
+          <stop offset="50%" stop-color="currentColor" stop-opacity="0.12" />
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id="sunGlowEnhanced2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.55" />
+          <stop offset="35%" stop-color="#fbbf24" stop-opacity="0.28" />
+          <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.10" />
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+        </radialGradient>
+        <linearGradient id="godRayGrad2" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+          <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.90" />
+          <stop offset="45%" stop-color="#fbbf24" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#f59e0b" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="floorLightGrad2" gradientUnits="userSpaceOnUse" x1="443" y1="57" x2="57" y2="343">
+          <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.28" />
+          <stop offset="40%" stop-color="#fbbf24" stop-opacity="0.06" />
+          <stop offset="70%" stop-color="#1e2840" stop-opacity="0.10" />
+          <stop offset="100%" stop-color="#0f172a" stop-opacity="0.40" />
+        </linearGradient>
+        <clipPath id="wallGrowthClip2">
+          <rect #wallClipRect x="-10" y="343" width="520" height="0" />
+        </clipPath>
+      </defs>
+
+      <!-- CONNECTOR TRACES -->
+      @if (activeHighlight) {
+        <g>
+          @if (activeHighlight === 'ifc') {
+            <path d="M 30 136 C 80 136, 100 230, 160 270" fill="none" class="hdv-conn--ifc" stroke-width="1.5" stroke-dasharray="3,3" />
+          }
+          @if (activeHighlight === 'dxf') {
+            <path d="M 190 70 C 215 70, 225 170, 240 200" fill="none" class="hdv-conn--dxf" stroke-width="1.5" stroke-dasharray="3,3" />
+          }
+          @if (activeHighlight === 'pointcloud') {
+            <path d="M 480 60 C 445 60, 380 130, 250 250" fill="none" class="hdv-conn--pc" stroke-width="1.5" stroke-dasharray="3,3" />
+            <circle cx="250" cy="250" r="2" fill="currentColor" class="hdv-conn-dot--pc" />
+          }
+          @if (activeHighlight === 'rol') {
+            <path d="M 470 192 C 435 192, 420 140, 400 80" fill="none" class="hdv-conn--rol" stroke-width="1.5" stroke-dasharray="3,3" />
+            <circle cx="400" cy="80" r="2" fill="currentColor" class="hdv-conn-dot--rol" />
+          }
+        </g>
+      }
+    </svg>
+
+    <!-- Layer telemetry panel -->
+    @if (activeHighlight) {
+      @for (k of [activeHighlight]; track k) {
+        <div class="hdv-telemetry">
+          <div class="hdv-telemetry-grid">
+            <span class="hdv-telemetry-label">{{ activeSpecs.layerName }}</span>
+            <span class="hdv-telemetry-accent">{{ activeSpecs.pointsCount }}</span>
+            <span class="hdv-telemetry-label">Tolerance: <span class="hdv-telemetry-strong--emerald">{{ activeSpecs.tolerance }}</span></span>
+            <span class="hdv-telemetry-cell">Scale: <span class="hdv-telemetry-strong--amber">{{ activeSpecs.scaleAccuracy }}</span></span>
+          </div>
+        </div>
+      }
+    }
+
+    <!-- PIN 1 — IFC -->
+    <div
+      class="hdv-pin hdv-pin--p1"
+      (mouseenter)="setHighlight('ifc')"
+      (mouseleave)="setHighlight('dxf')"
+    >
+      <div
+        role="button"
+        aria-label="Highlight IFC layer"
+        class="hdv-pin-btn"
+        [class]="activeHighlight === 'ifc' ? 'hdv-pin-btn--active hdv-pin-btn--blue' : 'hdv-pin-btn--idle'"
+      >
+        <div class="hdv-pin-iconbox" [class]="activeHighlight === 'ifc' ? 'hdv-pin-iconbox--active' : 'hdv-pin-iconbox--blue'">
+          <lucide-icon [img]="Box" class="hdv-pin-icon" [class]="activeHighlight === 'ifc' ? 'hdv-pin-icon--active' : 'hdv-pin-icon--blue'"></lucide-icon>
+        </div>
+        <div class="hdv-pin-labels">
+          <span class="hdv-pin-title" [class]="activeHighlight === 'ifc' ? 'hdv-pin-title--active' : 'hdv-pin-title--idle'">IFC</span>
+          <span class="hdv-pin-sub" [class]="activeHighlight === 'ifc' ? 'hdv-pin-sub--blue' : 'hdv-pin-sub--idle'">148K TRI</span>
+        </div>
+        @if (activeHighlight === 'ifc') {
+          <span class="hdv-pin-badge">
+            <span class="hdv-pin-badge-inner">
+              <span class="hdv-pin-badge-ping hdv-pin-badge-ping--blue"></span>
+              <span class="hdv-pin-badge-dot"></span>
+            </span>
+          </span>
+        }
+        <span class="hdv-attn-dot hdv-attn-dot--blue" [class.hdv-attn-dot--on]="attentionDotIndex === 0"></span>
+      </div>
+    </div>
+
+    <!-- PIN 2 — DXF / 2D -->
+    <div
+      class="hdv-pin hdv-pin--p2"
+      (mouseenter)="setHighlight('dxf')"
+      (mouseleave)="setHighlight('dxf')"
+    >
+      <div
+        role="button"
+        aria-label="Highlight DXF layer"
+        class="hdv-pin-btn"
+        [class]="activeHighlight === 'dxf' ? 'hdv-pin-btn--active hdv-pin-btn--blue' : 'hdv-pin-btn--idle'"
+      >
+        <div class="hdv-pin-iconbox" [class]="activeHighlight === 'dxf' ? 'hdv-pin-iconbox--active' : 'hdv-pin-iconbox--blue'">
+          <lucide-icon [img]="Layers" class="hdv-pin-icon" [class]="activeHighlight === 'dxf' ? 'hdv-pin-icon--active' : 'hdv-pin-icon--blue'"></lucide-icon>
+        </div>
+        <div class="hdv-pin-labels">
+          <span class="hdv-pin-title" [class]="activeHighlight === 'dxf' ? 'hdv-pin-title--active' : 'hdv-pin-title--idle'">DXF / 2D</span>
+          <span class="hdv-pin-sub" [class]="activeHighlight === 'dxf' ? 'hdv-pin-sub--blue' : 'hdv-pin-sub--idle'">12.9K NODES</span>
+        </div>
+        @if (activeHighlight === 'dxf') {
+          <span class="hdv-pin-badge">
+            <span class="hdv-pin-badge-inner">
+              <span class="hdv-pin-badge-ping hdv-pin-badge-ping--blue"></span>
+              <span class="hdv-pin-badge-dot"></span>
+            </span>
+          </span>
+        }
+        <span class="hdv-attn-dot hdv-attn-dot--blue" [class.hdv-attn-dot--on]="attentionDotIndex === 1"></span>
+      </div>
+    </div>
+
+    <!-- PIN 3 — Point Cloud -->
+    <div
+      class="hdv-pin hdv-pin--p3"
+      (mouseenter)="setHighlight('pointcloud')"
+      (mouseleave)="setHighlight('dxf')"
+    >
+      <div
+        role="button"
+        aria-label="Highlight Point Cloud layer"
+        class="hdv-pin-btn"
+        [class]="activeHighlight === 'pointcloud' ? 'hdv-pin-btn--active hdv-pin-btn--emerald' : 'hdv-pin-btn--idle'"
+      >
+        <div class="hdv-pin-iconbox" [class]="activeHighlight === 'pointcloud' ? 'hdv-pin-iconbox--active' : 'hdv-pin-iconbox--emerald'">
+          <lucide-icon [img]="Sliders" class="hdv-pin-icon" [class]="activeHighlight === 'pointcloud' ? 'hdv-pin-icon--active' : 'hdv-pin-icon--emerald'"></lucide-icon>
+        </div>
+        <div class="hdv-pin-labels">
+          <span class="hdv-pin-title" [class]="activeHighlight === 'pointcloud' ? 'hdv-pin-title--active' : 'hdv-pin-title--idle'">POINT CLOUD</span>
+          <span class="hdv-pin-sub" [class]="activeHighlight === 'pointcloud' ? 'hdv-pin-sub--emerald' : 'hdv-pin-sub--idle'">42.9M PTS</span>
+        </div>
+        @if (activeHighlight === 'pointcloud') {
+          <span class="hdv-pin-badge">
+            <span class="hdv-pin-badge-inner">
+              <span class="hdv-pin-badge-ping hdv-pin-badge-ping--emerald"></span>
+              <span class="hdv-pin-badge-dot"></span>
+            </span>
+          </span>
+        }
+        <span class="hdv-attn-dot hdv-attn-dot--emerald" [class.hdv-attn-dot--on]="attentionDotIndex === 2"></span>
+      </div>
+    </div>
+
+    <!-- PIN 4 — ROL -->
+    <div
+      class="hdv-pin hdv-pin--p4"
+      (mouseenter)="setHighlight('rol')"
+      (mouseleave)="setHighlight('dxf')"
+    >
+      <div
+        role="button"
+        aria-label="Highlight ROL layer"
+        class="hdv-pin-btn"
+        [class]="activeHighlight === 'rol' ? 'hdv-pin-btn--active hdv-pin-btn--amber' : 'hdv-pin-btn--idle'"
+      >
+        <div class="hdv-pin-iconbox" [class]="activeHighlight === 'rol' ? 'hdv-pin-iconbox--active' : 'hdv-pin-iconbox--amber'">
+          <lucide-icon [img]="Sun" class="hdv-pin-icon" [class]="activeHighlight === 'rol' ? 'hdv-pin-icon--active' : 'hdv-pin-icon--amber'"></lucide-icon>
+        </div>
+        <div class="hdv-pin-labels">
+          <span class="hdv-pin-title" [class]="activeHighlight === 'rol' ? 'hdv-pin-title--active' : 'hdv-pin-title--idle'">ROL</span>
+          <span class="hdv-pin-sub" [class]="activeHighlight === 'rol' ? 'hdv-pin-sub--amber' : 'hdv-pin-sub--idle'">8 SOL RAYS</span>
+        </div>
+        @if (activeHighlight === 'rol') {
+          <span class="hdv-pin-badge">
+            <span class="hdv-pin-badge-inner">
+              <span class="hdv-pin-badge-ping hdv-pin-badge-ping--amber"></span>
+              <span class="hdv-pin-badge-dot"></span>
+            </span>
+          </span>
+        }
+        <span class="hdv-attn-dot hdv-attn-dot--amber" [class.hdv-attn-dot--on]="attentionDotIndex === 3"></span>
+      </div>
+    </div>
+  </div>
+</div>

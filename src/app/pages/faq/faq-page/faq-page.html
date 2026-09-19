@@ -1,0 +1,154 @@
+<div class="min-h-screen pt-[68px] flex flex-col bg-zinc-50 dark:bg-[#080810] text-zinc-900 dark:text-zinc-100">
+
+  <div class="sticky top-[68px] z-30 border-b flex items-center gap-4 px-4 md:px-6 h-11
+    bg-white/95 border-zinc-200 dark:bg-[#080810]/95 dark:border-zinc-800
+    backdrop-blur-md">
+    <a
+      routerLink="/"
+      class="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-100 transition-colors"
+    >
+      <lucide-icon [img]="ArrowLeft" [size]="14"></lucide-icon>
+      Back
+    </a>
+    <div class="hidden md:flex items-center gap-1.5 text-xs text-zinc-500">
+      <span>FAQ</span>
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto">
+    <div class="max-w-4xl mx-auto px-4 md:px-8 py-12">
+
+      <div #heading class="mb-10">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          Frequently Asked Questions
+        </h1>
+        <p class="text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl">
+          Everything you need to know about AxisXD. Can't find what you're looking for?
+          <a href="mailto:support@axisxd.com" class="text-[#60a5fa] dark:text-[#0645fb] hover:underline">
+            Contact our support team
+          </a>.
+        </p>
+      </div>
+
+      <div #searchBar class="relative mb-8 max-w-md">
+        <lucide-icon [img]="Search" [size]="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"></lucide-icon>
+        <input
+          type="text"
+          placeholder="Search FAQ..."
+          [(ngModel)]="searchQuery"
+          class="w-full pl-10 pr-9 py-2.5 text-sm bg-zinc-900 border border-zinc-700 rounded-xl text-zinc-300 placeholder-zinc-500
+            focus:outline-none focus:border-[#60a5fa]/60 dark:focus:border-[#0645fb]/60 focus:ring-1 focus:ring-[#60a5fa]/30 dark:focus:ring-[#0645fb]/30 transition-all"
+        />
+        @if (searchQuery) {
+          <button (click)="clearSearch()" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+            <lucide-icon [img]="X" [size]="14"></lucide-icon>
+          </button>
+        }
+      </div>
+
+      @if (!searchQuery && !activeCategory) {
+        <div #categoryGrid class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-12">
+          @for (cat of categories; track cat.id) {
+            <button
+              (click)="selectCategory(cat.id)"
+              class="flex items-center gap-3 p-4 rounded-xl border border-zinc-800 bg-zinc-900/40 dark:bg-zinc-900/40 hover:border-[#60a5fa]/30 dark:hover:border-[#0645fb]/30 hover:bg-zinc-800/60 transition-all text-left group"
+            >
+              <div class="p-2 rounded-lg bg-blue-100 dark:bg-zinc-800 group-hover:bg-blue-200 dark:group-hover:bg-[#60a5fa]/10 transition-colors">
+                <lucide-icon [img]="cat.icon" [size]="16" class="text-zinc-900 dark:text-zinc-400 group-hover:text-blue-600 dark:group-hover:text-[#60a5fa] transition-colors"></lucide-icon>
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-zinc-200">{{ cat.title }}</p>
+                <p class="text-[11px] text-zinc-500 mt-0.5">{{ cat.items.length }} questions</p>
+              </div>
+            </button>
+          }
+        </div>
+      }
+
+      @if (searchQuery) {
+        <p class="text-xs text-zinc-500 mb-4">
+          {{ totalResults }} result{{ totalResults !== 1 ? 's' : '' }} for "{{ searchQuery }}"
+        </p>
+      }
+
+      <div class="space-y-6">
+        @for (cat of visibleCategories; track cat.id) {
+          @if (isCategoryVisible(cat)) {
+            <div class="rounded-xl border border-zinc-800 bg-zinc-900/20 dark:bg-zinc-900/20 overflow-hidden">
+              <div class="flex items-center justify-between px-4 py-3 bg-zinc-900/50">
+                <div class="flex items-center gap-2">
+                  <lucide-icon [img]="cat.icon" [size]="16" class="text-zinc-400"></lucide-icon>
+                  <h2 class="text-sm font-semibold text-zinc-200">{{ cat.title }}</h2>
+                </div>
+                @if (activeCategory) {
+                  <button (click)="showAllCategories()" class="text-[11px] text-[#60a5fa] dark:text-[#0645fb] hover:underline">
+                    Show all
+                  </button>
+                }
+              </div>
+              <div class="divide-y divide-zinc-800/50">
+                @for (item of cat.items; track item.q; let idx = $index) {
+                  <div class="border-b border-zinc-800 last:border-b-0">
+                    <button
+                      (click)="toggleItem(cat.id, idx, content, answer)"
+                      class="w-full flex items-center justify-between gap-4 py-4 px-4 text-left transition-colors hover:bg-zinc-800/40 rounded-lg group"
+                    >
+                      <span class="text-sm font-medium text-zinc-200 group-hover:text-white transition-colors flex-1 leading-relaxed">
+                        {{ item.q }}
+                      </span>
+                      <lucide-icon
+                        [img]="ChevronDown"
+                        [size]="16"
+                        class="shrink-0 text-zinc-500 transition-transform duration-300"
+                        [class.rotate-180]="isOpen(cat.id, idx)"
+                      ></lucide-icon>
+                    </button>
+                    <div #content class="overflow-hidden" style="height: 0; opacity: 0;">
+                      <div #answer class="pb-4 px-4 text-sm text-zinc-400 leading-relaxed" [innerHTML]="item.a"></div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        }
+      </div>
+
+      <div #cta class="mt-16 p-6 rounded-xl border border-zinc-800 bg-zinc-800 text-center">
+        <p class="text-sm text-zinc-300 mb-2">Still have questions?</p>
+        <p class="text-xs text-zinc-500 mb-4">Our support team is here to help.</p>
+        <a
+          href="mailto:support@axisxd.com"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#60a5fa] text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+        >
+          Contact Support
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Minimal FAQ footer -->
+  <footer class="shrink-0 border-t flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-4
+    border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#080810]">
+    <img
+      [src]="isDark ? 'assets/images/logos/xd_white_logo.png' : 'assets/images/logos/xd_blue_logo.png'"
+      alt="AxisXD"
+      class="h-[22px] w-auto object-contain select-none shrink-0"
+    />
+    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400 dark:text-zinc-600">
+      © 2026 AXIS XD. ALL RIGHTS RESERVED.
+    </p>
+    <div class="flex items-center gap-5 pr-16">
+      @for (lnk of footerLinks; track lnk.label) {
+        <button
+          class="text-[10px] font-medium uppercase tracking-wider transition-colors cursor-pointer
+            text-zinc-400 hover:text-zinc-700 dark:text-zinc-600 dark:hover:text-zinc-300"
+        >
+          {{ lnk.label }}
+        </button>
+      }
+    </div>
+  </footer>
+
+</div>

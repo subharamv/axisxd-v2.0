@@ -1,0 +1,294 @@
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+
+$faq-brand: #0645fb;
+
+.faq-section {
+  @include d.section;
+  @include d.section-rule;
+  overflow: hidden;
+}
+
+.faq-container {
+  @include d.container;
+}
+
+/* ── Heading ── */
+.faq-eyebrow {
+  @include d.heading-eyebrow;
+  @apply text-[9px] font-mono font-bold uppercase tracking-[0.2em];
+  color: $faq-brand;
+}
+
+.faq-title {
+  @apply text-3xl md:text-5xl font-semibold font-syne;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.faq-body {
+  margin-top: d.$heading-content-gap;
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center;
+}
+
+/* ── Isometric illustration ── */
+.faq-art {
+  @apply hidden lg:flex items-center justify-center;
+}
+
+.faq-svg {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  overflow: visible;
+}
+
+/* Empty slots the piece could drop into */
+.faq-slot-face {
+  fill: #dfe3ee;
+}
+
+.faq-slot-side {
+  fill: #c9cfe0;
+}
+
+.faq-slot {
+  animation: faq-bob 7s ease-in-out infinite;
+}
+
+.faq-slot--b {
+  animation-delay: 0.9s;
+}
+
+.faq-slot--c {
+  animation-delay: 1.8s;
+}
+
+/* The puzzle piece */
+.faq-piece {
+  animation: faq-lift 7s ease-in-out infinite;
+  filter: drop-shadow(0 22px 26px rgba(6, 69, 251, 0.28));
+}
+
+.faq-piece-face {
+  fill: url(#faqFace);
+}
+
+.faq-piece-side {
+  fill: #0536c9;
+}
+
+/* Dimple where the bubble rises out of the piece */
+.faq-piece-socket {
+  fill: rgba(255, 255, 255, 0.16);
+}
+
+.faq-piece-text {
+  fill: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 23px;
+}
+
+/* Bubble stays screen-facing so the mark reads upright */
+.faq-bubble {
+  animation: faq-float 3.6s ease-in-out infinite;
+  filter: drop-shadow(0 14px 18px rgba(6, 69, 251, 0.4));
+}
+
+.faq-bubble-face {
+  fill: url(#faqBubble);
+}
+
+.faq-bubble-side {
+  fill: #0536c9;
+}
+
+.faq-bubble-text {
+  fill: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 38px;
+}
+
+@keyframes faq-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes faq-lift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes faq-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+
+/* ── Accordion ── */
+.faq-list {
+  @apply flex flex-col gap-3;
+}
+
+.faq-row {
+  @apply rounded-xl overflow-hidden transition-colors duration-200;
+  background: #eef0f4;
+
+  &:hover {
+    background: #e7eaf1;
+  }
+}
+
+.faq-row--open {
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(17, 17, 17, 0.07);
+}
+
+.faq-q {
+  @apply w-full flex items-center justify-between gap-4 text-left px-5 py-4;
+}
+
+.faq-q-text {
+  @apply text-sm md:text-base font-semibold font-syne;
+  color: #111;
+}
+
+/* Plus that rotates into a minus when its row opens */
+.faq-sign {
+  @apply relative shrink-0 w-4 h-4;
+}
+
+.faq-sign-bar {
+  @apply absolute rounded-full;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  margin-top: -1px;
+  background: #111;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-sign-bar--v {
+  transform: rotate(90deg);
+}
+
+.faq-row--open {
+  .faq-sign-bar {
+    background: $faq-brand;
+    transform: rotate(180deg);
+  }
+
+  .faq-sign-bar--v {
+    transform: rotate(180deg);
+  }
+}
+
+/* Collapsed rows keep their markup; the grid row animates to zero height */
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-row--open .faq-a {
+  grid-template-rows: 1fr;
+}
+
+.faq-a-text {
+  @apply overflow-hidden text-[13px] leading-relaxed px-5;
+  color: #55555c;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity 240ms ease, padding 340ms ease;
+  padding-bottom: 0;
+}
+
+.faq-row--open .faq-a-text {
+  opacity: 1;
+  padding-bottom: 1.125rem;
+}
+
+.faq-cta {
+  @apply inline-flex items-center justify-center self-start mt-5 px-6 py-3.5 rounded-lg text-xs font-bold uppercase tracking-widest text-white transition-colors;
+  background: $faq-brand;
+
+  &:hover {
+    background: #0536c9;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-slot,
+  .faq-piece,
+  .faq-bubble {
+    animation: none;
+  }
+}
+
+/* ── Dark mode ── */
+:host-context(.dark) {
+  .faq-title {
+    color: #fff;
+  }
+
+  .faq-eyebrow {
+    color: #6b93ff;
+  }
+
+  .faq-slot-face {
+    fill: #383840;
+  }
+
+  .faq-slot-side {
+    fill: #2f2f36;
+  }
+
+  .faq-row {
+    background: rgba(255, 255, 255, 0.04);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+  }
+
+  .faq-row--open {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+
+  .faq-q-text {
+    color: #fff;
+  }
+
+  .faq-sign-bar {
+    background: #fff;
+  }
+
+  .faq-row--open .faq-sign-bar {
+    background: #6b93ff;
+  }
+
+  .faq-a-text {
+    color: #a1a1aa;
+  }
+}

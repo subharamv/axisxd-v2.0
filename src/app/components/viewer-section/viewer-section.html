@@ -1,0 +1,206 @@
+<section
+  #sectionEl
+  id="viewers-section"
+  class="vs-section"
+>
+  <!-- Background -->
+  <div class="vs-bg-dots"></div>
+  <div class="vs-bg-line"></div>
+
+  <!-- DESKTOP -->
+  <div class="vs-desktop">
+
+    <!-- Top label row -->
+    <div class="vs-top-row">
+      <span class="vs-label">
+        Unified Digital Twin Platforms
+      </span>
+      <div class="vs-divider"></div>
+      <span class="vs-counter">
+        {{ viewerIndex + 1 }} / {{ viewers.length }}
+      </span>
+    </div>
+
+    <!-- Content grid -->
+    <div class="vs-grid">
+
+      <!-- Left: viewer details -->
+      <div class="vs-left">
+        @for (k of [activeId]; track k) {
+          <div class="vs-details vs-fade-slide">
+            <!-- Number + title -->
+            <div class="vs-title-block">
+              <div class="vs-num-title">
+                <span class="vs-num">
+                  {{ viewer.num }}
+                </span>
+                <div>
+                  <h2 class="vs-title">
+                    {{ viewer.title }}
+                  </h2>
+                  <span class="vs-tag">
+                    {{ viewer.tag }}
+                  </span>
+                </div>
+              </div>
+              <div class="vs-title-line"></div>
+            </div>
+
+            <!-- Summary -->
+            <p class="vs-summary">
+              {{ viewer.summary }}
+            </p>
+
+            <!-- Feature grid -->
+            <div class="vs-features">
+              @for (feat of viewer.features; track feat; let fi = $index) {
+                <div
+                  class="vs-feature"
+                  [style.animation-delay.ms]="fi * 18"
+                >
+                  <lucide-icon [img]="CheckCircle2" class="vs-feature-icon"></lucide-icon>
+                  <span class="vs-feature-label">
+                    {{ feat }}
+                  </span>
+                </div>
+              }
+            </div>
+
+            <!-- CTAs -->
+            <div class="vs-ctas">
+              <a [routerLink]="viewer.readMoreUrl"
+                class="vs-cta vs-read-more">
+                Read More
+              </a>
+              <a [href]="viewer.demoUrl" target="_blank" rel="noopener noreferrer"
+                class="vs-cta vs-try-demo">
+                Try Demo <lucide-icon [img]="ExternalLink" class="vs-icon-sm"></lucide-icon>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right: image -->
+      <div class="vs-right">
+
+        <!-- Tab switcher -->
+        <div class="vs-tabs">
+          @for (v of viewers; track v.id) {
+            <button (click)="switchViewer(v.id)"
+              class="vs-tab">
+              @if (activeId === v.id) {
+                <div class="vs-tab-bg"></div>
+              }
+              <span class="vs-tab-label"
+                [class.vs-tab-label--active]="activeId === v.id"
+                [class.vs-tab-label--inactive]="activeId !== v.id">
+                {{ v.num }} {{ v.title }}
+              </span>
+            </button>
+          }
+        </div>
+
+        <!-- Image container -->
+        <div class="vs-viewer-frame">
+
+          <!-- Wipe overlay -->
+          <div #wipeEl class="vs-wipe"></div>
+
+          <!-- Image — src swapped by GSAP mid-wipe -->
+          <img #imageEl [src]="viewer.image" [alt]="viewer.title" class="vs-viewer-img" />
+
+          <!-- Overlays -->
+          <div class="vs-live-badge">
+            <span class="vs-live-dot"></span>
+            @for (k of [activeId]; track k) {
+              <span class="vs-fade">{{ activeId.toUpperCase() }}_VIEW // LIVE</span>
+            }
+          </div>
+
+          <div class="vs-viewer-tag-badge">
+            @for (k of [activeId]; track k) {
+              <span class="vs-fade">{{ viewer.tag }}</span>
+            }
+          </div>
+
+          <div class="vs-viewer-bottom">
+            @for (k of [activeId]; track k) {
+              <div class="vs-fade-slide-sm">
+                <p class="vs-viewer-bottom-title">{{ viewer.title }}</p>
+                <p class="vs-viewer-bottom-sub">AXIS VIEWER // DIGITAL TWIN PLATFORM</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="vs-progress">
+      <div class="vs-progress-track">
+        @for (v of viewers; track v.id; let i = $index) {
+          <button (click)="switchViewer(v.id)"
+            class="vs-progress-seg"
+            [style.flex]="activeId === v.id ? 3 : 1"
+            [style.background-color]="i <= viewerIndex ? '#0645fb' : '#3f3f46'"
+            [style.opacity]="i <= viewerIndex ? 1 : 0.35"
+          ></button>
+        }
+      </div>
+      <div class="vs-hint">
+        <span>{{ viewer.title }}</span>
+        <lucide-icon [img]="ChevronRight" class="vs-icon-sm"></lucide-icon>
+        <span>SCROLL TO SWITCH</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE: stacked cards -->
+  <div class="vs-mobile">
+    <div class="vs-mobile-inner">
+      <div class="vs-mobile-header">
+        <span class="vs-label">
+          Unified Digital Twin Platforms
+        </span>
+        <h2 class="vs-mobile-heading">
+          Five Viewers.<br /><span class="vs-brand">One Platform.</span>
+        </h2>
+      </div>
+      @for (v of viewers; track v.id; let idx = $index) {
+        <div
+          class="vs-mobile-card vs-card-in"
+          [style.animation-delay.ms]="idx * 100"
+        >
+          <div class="vs-card-img-wrap">
+            <img [src]="v.image" [alt]="v.title" class="vs-card-img" />
+            <div class="vs-card-img-overlay"></div>
+            <span class="vs-card-tag">{{ v.tag }}</span>
+          </div>
+          <div class="vs-card-body">
+            <div class="vs-card-num-title">
+              <span class="vs-card-num">{{ v.num }}</span>
+              <h3 class="vs-card-title">{{ v.title }}</h3>
+            </div>
+            <p class="vs-card-summary">{{ v.summary }}</p>
+            <div class="vs-card-features">
+              @for (feat of v.features; track feat) {
+                <div class="vs-card-feature">
+                  <lucide-icon [img]="CheckCircle2" class="vs-card-feature-icon"></lucide-icon>
+                  <span class="vs-card-feature-label">{{ feat }}</span>
+                </div>
+              }
+            </div>
+            <div class="vs-card-ctas">
+              <a [routerLink]="v.readMoreUrl" class="vs-card-read-more">Read More</a>
+              <a [href]="v.demoUrl" target="_blank" rel="noopener noreferrer"
+                class="vs-card-try-demo">
+                Try Demo <lucide-icon [img]="ArrowUpRight" class="vs-icon-sm"></lucide-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

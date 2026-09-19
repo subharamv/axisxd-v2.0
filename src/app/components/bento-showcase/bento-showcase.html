@@ -1,0 +1,166 @@
+<section id="features" class="bs-section">
+  <div class="bs-container">
+
+    <!-- Section Heading -->
+    <div class="bs-heading">
+      <div class="bs-heading-left">
+        <div class="bs-eyebrow">
+          <lucide-icon [img]="Zap" class="bs-eyebrow-icon"></lucide-icon>
+          <span>Full-Spectrum Capabilities</span>
+        </div>
+        <h2 class="bs-title">
+          The Digital Twin <span class="bs-title-accent">Stack</span>
+        </h2>
+      </div>
+      <p class="bs-lead">
+        Three purpose-built viewers, including RealityXD for IFC models, VoxelXD for point clouds, and
+        XploreXD for 360° capture, share one georeferenced project space. No more
+        separate tools for BIM, LiDAR, and site photography. One hub, synchronized.
+      </p>
+    </div>
+
+    <!-- Bento Grid Layout -->
+    <div class="bs-grid">
+
+      <!-- Card 1: RealityXD — IFC / BIM -->
+      <div class="bs-card bs-card--link">
+        <div>
+          <div class="bs-card-icon">
+            <lucide-icon [img]="Box" class="bs-card-icon-svg"></lucide-icon>
+          </div>
+          <h3 class="bs-card-title">RealityXD: IFC Model Integrity</h3>
+          <p class="bs-card-text">
+            Traverse the full element tree, query property sets, and isolate by storey or
+            discipline. Draco-compressed geometry streams the model to the browser without
+            a desktop CAD seat.
+          </p>
+        </div>
+        <div class="bs-card-footer">
+          <span>View BIM Specs</span>
+          <span class="bs-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Project atlas / georeferenced portfolio -->
+      <div class="bs-card bs-card--media">
+        <div class="bs-media-gradient"></div>
+        <img
+          src="assets/images/homepage/project_atlas.png"
+          alt="Georeferenced project atlas showing sited building models"
+          class="bs-media-img"
+          loading="lazy"
+          decoding="async"
+        />
+        <!-- Simulated Grid Texture Overlay -->
+        <div class="bs-media-grid"></div>
+
+        <div class="bs-media-caption">
+          <span class="bs-media-label">Project Atlas</span>
+          <h4 class="bs-media-title">EVERY ASSET, SITED</h4>
+          <p class="bs-media-desc">
+            Projects pinned to a live basemap with true coordinate reference systems so you can 
+            open any site straight from the map.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3: Measurement & export toolkit -->
+      <div class="bs-card bs-card--stats">
+        <div>
+          <div class="bs-stats-head">
+            <span class="bs-stats-label">Measurement toolkit</span>
+            <span class="bs-stats-badge">● BROWSER NATIVE</span>
+          </div>
+          <div class="bs-stats-number">8<span class="bs-stats-number-accent">+</span></div>
+          <p class="bs-stats-sublabel">Measurement primitives, in-viewer</p>
+        </div>
+
+        <div class="bs-stats-list">
+          @for (tool of tools; track tool.name) {
+            <div class="bs-stats-item">
+              <span class="bs-stats-city">{{ tool.name }}</span>
+              <span class="bs-stats-chip">{{ tool.kind }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Card 4: VoxelXD — point clouds -->
+      <div class="bs-card bs-card--link">
+        <div>
+          <div class="bs-card-icon bs-card-icon--vivid">
+            <lucide-icon [img]="Sliders" class="bs-card-icon-svg"></lucide-icon>
+          </div>
+          <h3 class="bs-card-title">VoxelXD: Dense LiDAR Point Clouds</h3>
+          <p class="bs-card-text">
+            Stream billion-point LAS/LAZ surveys through octree level-of-detail. Shade by
+            RGB, elevation, intensity, or classification; carve clip volumes and pull 2D
+            cross-section profiles.
+          </p>
+        </div>
+        <div class="bs-card-footer">
+          <span>Inspect LiDAR Modes</span>
+          <span class="bs-card-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- Card 5: XploreXD — 360 capture tied to the model -->
+      <div class="bs-card bs-card--wide">
+        <div class="bs-clash-left">
+          <div class="bs-clash-copy">
+            <div class="bs-clash-badge">
+              <lucide-icon [img]="AlertOctagon" class="bs-clash-badge-icon"></lucide-icon>
+              <span>XploreXD: site walkthrough</span>
+            </div>
+            <h3 class="bs-clash-title">Stand Inside the As-Built</h3>
+            <p class="bs-clash-text">
+              Equirectangular 360° panoramas registered to the same coordinates as the model
+              and the scan. Step floor by floor through capture positions, drop annotations
+              on what you see, and measure without leaving the panorama.
+            </p>
+          </div>
+
+          <button
+            (click)="consultation.open()"
+            class="bs-clash-cta"
+          >
+            Book a Platform Walkthrough
+          </button>
+        </div>
+
+        <!-- Viewer capability manifest -->
+        <div class="bs-clash-log">
+          <div class="bs-log-header">
+            Viewer Capability Manifest
+          </div>
+
+          <div class="bs-log-rows">
+            <div class="bs-log-row bs-log-row--first">
+              <span>IFC · element + property sets</span>
+              <span class="bs-log-ok">✓ RealityXD</span>
+            </div>
+            <div class="bs-log-row">
+              <span>LAS / LAZ · octree LOD</span>
+              <span class="bs-log-ok">✓ VoxelXD</span>
+            </div>
+            <div class="bs-log-row">
+              <span>360° pano · floor-indexed</span>
+              <span class="bs-log-ok">✓ XploreXD</span>
+            </div>
+            <div class="bs-log-row">
+              <span>Shared CRS · proj4</span>
+              <span class="bs-log-ok bs-log-ok--bold">✓ ALL 3</span>
+            </div>
+          </div>
+
+          <div class="bs-log-updated">
+            Export: DXF · GeoJSON · JSON
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>

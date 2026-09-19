@@ -1,0 +1,168 @@
+<div class="min-h-screen pt-[68px] flex flex-col bg-zinc-50 dark:bg-[#080810] text-zinc-900 dark:text-zinc-100">
+
+  <div class="sticky top-[68px] z-30 border-b flex items-center gap-4 px-4 md:px-6 h-11
+    bg-white/95 border-zinc-200 dark:bg-[#080810]/95 dark:border-zinc-800
+    backdrop-blur-md">
+    <a routerLink="/" class="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-100 transition-colors">
+      <lucide-icon [img]="ArrowLeft" [size]="14"></lucide-icon>
+      Back
+    </a>
+    <div class="hidden md:flex items-center gap-1.5 text-xs text-zinc-500">
+      <span>Glossary</span>
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto">
+    <div class="max-w-4xl mx-auto px-4 md:px-8 py-12">
+
+      <div #heading class="mb-10">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          Glossary
+        </h1>
+        <p class="text-sm text-zinc-600 dark:text-zinc-400 max-w-2xl">
+          A reference of terms, formats, and concepts used across the AxisXD platform.
+        </p>
+      </div>
+
+      <div #searchBar class="relative mb-6 max-w-md">
+        <lucide-icon [img]="Search" [size]="16" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"></lucide-icon>
+        <input
+          type="text"
+          placeholder="Search glossary..."
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearchChange()"
+          class="w-full pl-10 pr-9 py-2.5 text-sm bg-zinc-900 border border-zinc-700 rounded-xl text-zinc-300 placeholder-zinc-500
+            focus:outline-none focus:border-[#60a5fa]/60 dark:focus:border-[#0645fb]/60 focus:ring-1 focus:ring-[#60a5fa]/30 dark:focus:ring-[#0645fb]/30 transition-all"
+        />
+        @if (searchQuery) {
+          <button (click)="clearSearch()" class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300">
+            <lucide-icon [img]="X" [size]="14"></lucide-icon>
+          </button>
+        }
+      </div>
+
+      <div #letterNav class="flex flex-wrap gap-1.5 mb-8">
+        <button
+          (click)="setActiveLetter(null)"
+          class="w-8 h-8 flex items-center justify-center rounded-lg text-xs font-semibold transition-all"
+          [ngClass]="activeLetter === null ? 'bg-[#60a5fa] dark:bg-[#0645fb] text-white' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-800'"
+        >
+          All
+        </button>
+        @for (letter of letters; track letter) {
+          <button
+            (click)="setActiveLetter(letter)"
+            class="w-8 h-8 flex items-center justify-center rounded-lg text-xs font-semibold transition-all"
+            [ngClass]="!hasEntries(letter)
+              ? 'text-zinc-700 cursor-not-allowed'
+              : (activeLetter === letter ? 'bg-[#60a5fa] dark:bg-[#0645fb] text-white' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 border border-zinc-800')"
+          >
+            {{ letter }}
+          </button>
+        }
+      </div>
+
+      @if (searchQuery) {
+        <p class="text-xs text-zinc-500 mb-4">
+          {{ filtered.length }} term{{ filtered.length !== 1 ? 's' : '' }} found for "{{ searchQuery }}"
+        </p>
+      }
+
+      @if (groupedByLetter.length > 0) {
+        <div class="flex items-center gap-3 mb-4">
+          <button
+            (click)="toggleAll()"
+            class="text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-lg border transition-all
+              text-[#60a5fa] dark:text-[#0645fb] border-[#60a5fa]/20 dark:border-[#0645fb]/20
+              hover:bg-[#60a5fa]/10 dark:hover:bg-[#0645fb]/10"
+          >
+            {{ allExpanded ? 'Collapse All' : 'Expand All' }}
+          </button>
+        </div>
+      }
+
+      <div #content class="space-y-1">
+        @if (groupedByLetter.length === 0) {
+          <div class="glossary-entries text-center py-16">
+            <p class="text-sm text-zinc-500">No terms found matching your criteria.</p>
+            <button (click)="clearFilters()" class="mt-3 text-xs text-[#60a5fa] dark:text-[#0645fb] hover:underline">
+              Clear filters
+            </button>
+          </div>
+        } @else {
+          <div class="glossary-entries">
+            @for (group of groupedByLetter; track group.letter) {
+              <div>
+                <h2 class="sticky top-[108px] z-20 text-xs font-bold uppercase tracking-widest text-[#60a5fa] dark:text-[#0645fb] py-2 px-3
+                  bg-zinc-50 dark:bg-[#080810] border-b border-zinc-800">
+                  {{ group.letter }}
+                </h2>
+                @for (entry of group.entries; track entry.term) {
+                  <div class="glossary-entry border-b border-zinc-800/50 last:border-b-0">
+                    <button
+                      (click)="toggleExpanded(entry.term)"
+                      class="w-full flex items-start gap-3 py-3 px-3 text-left transition-colors hover:bg-zinc-800/30 rounded-lg group"
+                    >
+                      <div class="flex-1 min-w-0">
+                        <span class="text-sm font-semibold text-zinc-900 dark:text-zinc-200 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors">
+                          {{ entry.term }}
+                        </span>
+                        @if (entry.category) {
+                          <span class="ml-2 text-[10px] px-1.5 py-0.5 rounded-full bg-zinc-800 text-zinc-500 font-medium">
+                            {{ entry.category }}
+                          </span>
+                        }
+                        <div
+                          class="overflow-hidden transition-all duration-300"
+                          [ngClass]="expandedTerms[entry.term] ? 'max-h-[500px] opacity-100 mt-1' : 'max-h-0 opacity-0 mt-0'"
+                        >
+                          <p class="text-xs text-zinc-600 dark:text-zinc-500 leading-relaxed">
+                            {{ entry.definition }}
+                          </p>
+                        </div>
+                      </div>
+                      <span class="flex items-center gap-1 text-[10px] text-zinc-600 shrink-0 mt-0.5">
+                        <lucide-icon
+                          [img]="ChevronDown"
+                          [size]="12"
+                          class="transition-transform duration-300"
+                          [class.rotate-180]="expandedTerms[entry.term]"
+                        ></lucide-icon>
+                        {{ expandedTerms[entry.term] ? 'Less' : 'More' }}
+                      </span>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Minimal Glossary footer -->
+  <footer class="shrink-0 border-t flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-4
+    border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#080810]">
+    <img
+      [src]="isDark ? 'assets/images/logos/xd_white_logo.png' : 'assets/images/logos/xd_blue_logo.png'"
+      alt="AxisXD"
+      class="h-[22px] w-auto object-contain select-none shrink-0"
+    />
+    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400 dark:text-zinc-600">
+      © 2026 AXIS XD. ALL RIGHTS RESERVED.
+    </p>
+    <div class="flex items-center gap-5 pr-16">
+      @for (lnk of footerLinks; track lnk.label) {
+        <button
+          class="text-[10px] font-medium uppercase tracking-wider transition-colors cursor-pointer
+            text-zinc-400 hover:text-zinc-700 dark:text-zinc-600 dark:hover:text-zinc-300"
+        >
+          {{ lnk.label }}
+        </button>
+      }
+    </div>
+  </footer>
+
+</div>

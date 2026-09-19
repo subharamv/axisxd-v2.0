@@ -1,0 +1,292 @@
+<div class="min-h-screen flex text-zinc-900 dark:text-white font-sans antialiased transition-colors duration-300">
+  <!-- LEFT PANEL -->
+  <div class="flex-1 flex flex-col justify-center px-12 lg:px-16 py-16 bg-zinc-50 dark:bg-[#0a0a0f] relative overflow-hidden min-h-screen max-lg:hidden">
+    <div class="absolute top-[-50%] left-[-20%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(6,69,251,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+    <div class="absolute bottom-[-30%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.04)_0%,transparent_70%)] pointer-events-none"></div>
+
+    <img
+      src="assets/images/misc/4368511_1035.svg"
+      alt=""
+      class="absolute bottom-0 left-0 right-0 w-full h-auto object-fill scale-x-[0.85] translate-x-[180px] translate-y-[70px] opacity-[0.36] dark:opacity-[0.37] dark:[filter:invert(1)] [filter:invert(18%)_sepia(0%)_saturate(0%)_brightness(20%)] pointer-events-none select-none"
+    />
+
+    <div class="relative z-10 max-w-[520px] pl-20">
+      <div class="inline-flex items-center mb-14">
+        <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" width="719" height="347" class="h-[60px] w-auto object-contain block select-none dark:invert-0 invert" />
+      </div>
+    </div>
+
+    <h1 class="text-[42px] font-extrabold leading-[1.1] tracking-[-1px] mb-5 text-zinc-900 dark:text-white relative z-10 pl-20 max-w-[520px]">
+      Build your<br /><span class="text-[#4a8eff]">digital twin</span> workspace
+    </h1>
+
+    <p class="text-[15px] text-zinc-500 dark:text-white/50 leading-relaxed font-light max-w-[400px] mb-12 relative z-10 pl-20">
+      Join thousands of AEC professionals deploying, monitoring, and analyzing digital twins on a single platform.
+    </p>
+
+    <div class="flex items-center gap-6 relative z-10 pl-20">
+      <div class="flex">
+        @for (a of avatars; track a.initials; let i = $index) {
+          <span
+            class="w-9 h-9 rounded-full border-2 border-zinc-200 dark:border-[#0a0a0f] flex items-center justify-center text-[11px] font-bold text-white bg-gradient-to-br shadow-lg"
+            [ngClass]="[a.color, i > 0 ? '-ml-2' : '']"
+          >{{ a.initials }}</span>
+        }
+      </div>
+      <p class="text-[12px] text-zinc-400 dark:text-white/35">
+        Join <strong class="text-zinc-600 dark:text-white/70 font-semibold">8,400+</strong> AEC professionals
+      </p>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="w-[600px] min-w-[600px] max-lg:w-full max-lg:min-w-0 flex items-center justify-center p-8 bg-zinc-50 dark:bg-[#0a0a0f] transition-colors duration-300">
+    <div class="w-full max-w-[400px] mr-[120px] max-lg:mr-0">
+      <button (click)="onBack()" class="inline-flex items-center gap-1.5 text-[12px] text-zinc-400 dark:text-white/30 hover:text-zinc-600 dark:hover:text-white/60 mb-6 transition-colors hover:-translate-x-0.5">
+        <lucide-icon [img]="ArrowLeft" class="w-3.5 h-3.5"></lucide-icon>
+        Back to site
+      </button>
+
+      <div class="flex items-center justify-center mb-8">
+        <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" width="719" height="347" class="h-[52px] w-auto object-contain block select-none dark:invert-0 invert" />
+      </div>
+
+      <!-- Step indicator -->
+      <div class="flex items-center gap-2 mb-6">
+        @for (s of [1,2,3]; track s) {
+          <div
+            class="signup-step-bar h-1.5 rounded-full flex-1 transition-all duration-500"
+            [ngClass]="s < step ? 'bg-emerald-500' : s === step ? 'bg-[#4a8eff]' : 'bg-zinc-200 dark:bg-white/[0.06]'"
+          ></div>
+        }
+        <span class="text-[13px] font-medium text-zinc-900 dark:text-white min-w-[140px] text-right shrink-0">{{ STEPS[step - 1].title }}</span>
+      </div>
+
+      <div class="relative overflow-hidden">
+        @if (step === 1) {
+          <div @stepSlide>
+            <div class="mb-4">
+              <label for="signup-name" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Full name</label>
+              <input
+                id="signup-name"
+                type="text"
+                [(ngModel)]="form.fullName"
+                name="fullName"
+                placeholder="Jane Smith"
+                class="auth-input"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="signup-email" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Email address</label>
+              <input
+                id="signup-email"
+                type="email"
+                [(ngModel)]="form.email"
+                name="email"
+                (ngModelChange)="clearEmailError()"
+                placeholder="jane@company.com"
+                class="auth-input"
+              />
+              @if (emailError) {
+                <p class="text-[11px] text-red-400 mt-1">Please enter a valid email</p>
+              }
+            </div>
+            <div class="mb-4">
+              <label for="signup-password" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Password</label>
+              <input
+                id="signup-password"
+                type="password"
+                [(ngModel)]="form.password"
+                name="password"
+                (ngModelChange)="clearPasswordError()"
+                placeholder="At least 8 characters"
+                class="auth-input"
+              />
+              @if (passwordError) {
+                <p class="text-[11px] text-red-400 mt-1">Password must be at least 8 characters</p>
+              }
+            </div>
+            <button
+              (click)="nextStep()"
+              class="auth-gradient-btn"
+            >
+              Continue
+            </button>
+          </div>
+        }
+
+        @if (step === 2) {
+          <div @stepSlide>
+            <div class="mb-4">
+              <label for="signup-company" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Company name</label>
+              <input
+                id="signup-company"
+                type="text"
+                [(ngModel)]="form.company"
+                name="company"
+                placeholder="e.g. AEC Engineering Inc."
+                class="auth-input"
+              />
+            </div>
+            <div class="mb-4">
+              <label for="signup-role" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Your role</label>
+              <div class="relative">
+                <select
+                  id="signup-role"
+                  [(ngModel)]="form.role"
+                  name="role"
+                  class="w-full h-[46px] px-3.5 rounded-xl border border-zinc-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-white/[0.03] text-zinc-900 dark:text-white text-[14px] font-sans outline-none transition-all appearance-none cursor-pointer pr-10 focus:border-blue-500/40 focus:bg-blue-500/[0.04] focus:shadow-[0_0_0_3px_rgba(74,142,255,0.08)]"
+                >
+                  <option value="" disabled>Select your role</option>
+                  @for (r of roles; track r.value) {
+                    <option [value]="r.value">{{ r.label }}</option>
+                  }
+                </select>
+                <svg class="absolute right-3.5 top-1/2 -translate-y-1/2 w-3 h-3 text-zinc-400 dark:text-white/30 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Team size</label>
+              <div class="relative">
+                <select
+                  [(ngModel)]="form.teamSize"
+                  name="teamSize"
+                  class="w-full h-[46px] px-3.5 rounded-xl border border-zinc-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-white/[0.03] text-zinc-900 dark:text-white text-[14px] font-sans outline-none transition-all appearance-none cursor-pointer pr-10 focus:border-blue-500/40 focus:bg-blue-500/[0.04] focus:shadow-[0_0_0_3px_rgba(74,142,255,0.08)]"
+                >
+                  <option value="" disabled>Select team size</option>
+                  @for (t of teamSizes; track t.value) {
+                    <option [value]="t.value">{{ t.label }}</option>
+                  }
+                </select>
+                <svg class="absolute right-3.5 top-1/2 -translate-y-1/2 w-3 h-3 text-zinc-400 dark:text-white/30 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex gap-3 mt-6">
+              <button
+                (click)="prevStep()"
+                class="h-[46px] px-6 rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-transparent text-zinc-500 dark:text-white/60 text-[13px] font-medium cursor-pointer transition-all hover:border-zinc-300 dark:hover:border-white/[0.2] hover:text-zinc-700 dark:hover:text-white font-sans"
+              >
+                Back
+              </button>
+              <button
+                (click)="nextStep()"
+                class="flex-1 h-[46px] rounded-xl border-none bg-gradient-to-r from-[#0040ff] to-[#4a8eff] text-white text-[14px] font-semibold cursor-pointer transition-all font-sans hover:-translate-y-px hover:shadow-[0_4px_20px_rgba(74,142,255,0.3)] active:translate-y-0"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (step === 3) {
+          <div @stepSlide>
+            <div class="mb-4">
+              <label class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">How did you hear about us?</label>
+              <div class="relative">
+                <select
+                  [(ngModel)]="form.findUs"
+                  name="findUs"
+                  class="w-full h-[46px] px-3.5 rounded-xl border border-zinc-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-white/[0.03] text-zinc-900 dark:text-white text-[14px] font-sans outline-none transition-all appearance-none cursor-pointer pr-10 focus:border-blue-500/40 focus:bg-blue-500/[0.04] focus:shadow-[0_0_0_3px_rgba(74,142,255,0.08)]"
+                >
+                  <option value="" disabled>Select an option</option>
+                  @for (f of findUsOptions; track f.value) {
+                    <option [value]="f.value">{{ f.label }}</option>
+                  }
+                </select>
+                <svg class="absolute right-3.5 top-1/2 -translate-y-1/2 w-3 h-3 text-zinc-400 dark:text-white/30 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Phone number</label>
+              <div class="flex items-stretch gap-0 rounded-xl border border-zinc-200 dark:border-white/[0.06] bg-zinc-50/50 dark:bg-white/[0.03] overflow-visible focus-within:border-blue-500/40 focus-within:shadow-[0_0_0_3px_rgba(74,142,255,0.08)] transition-all h-[46px] relative">
+                <div #countryDrop class="relative shrink-0">
+                  <button
+                    type="button"
+                    (click)="toggleCountryDrop()"
+                    class="flex items-center gap-1.5 h-full pl-3 pr-2.5 border-r border-zinc-200 dark:border-white/[0.06] text-zinc-700 dark:text-white/80 text-[13px] font-medium hover:bg-zinc-100 dark:hover:bg-white/[0.04] transition-colors rounded-l-xl cursor-pointer select-none"
+                  >
+                    <span class="text-base leading-none">{{ selectedCountry.flag }}</span>
+                    <span class="font-semibold text-[13px]">{{ selectedCountry.code }}</span>
+                    <lucide-icon [img]="ChevronDown" class="w-3 h-3 text-zinc-400 transition-transform duration-200" [style.transform]="showCountryDrop ? 'rotate(180deg)' : 'rotate(0deg)'"></lucide-icon>
+                  </button>
+
+                  @if (showCountryDrop) {
+                    <div class="absolute top-[calc(100%+6px)] left-0 z-50 w-[260px] bg-white dark:bg-[#141420] border border-zinc-200 dark:border-white/[0.08] rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.18)] overflow-hidden">
+                      <div class="flex items-center gap-2 px-3 py-2.5 border-b border-zinc-100 dark:border-white/[0.06]">
+                        <lucide-icon [img]="Search" class="w-3.5 h-3.5 text-zinc-400 shrink-0"></lucide-icon>
+                        <input
+                          autofocus
+                          type="text"
+                          placeholder="Search country or code…"
+                          [(ngModel)]="countrySearch"
+                          name="countrySearch"
+                          class="flex-1 bg-transparent text-[12px] text-zinc-800 dark:text-white placeholder-zinc-400 dark:placeholder-white/30 outline-none"
+                        />
+                      </div>
+                      <div class="max-h-[220px] overflow-y-auto">
+                        @if (filteredCountries.length === 0) {
+                          <div class="px-4 py-3 text-[11px] text-zinc-400 dark:text-white/30 text-center">No results</div>
+                        } @else {
+                          @for (c of filteredCountries; track c.iso + c.code) {
+                            <button
+                              type="button"
+                              (click)="selectCountry(c)"
+                              class="w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors hover:bg-zinc-50 dark:hover:bg-white/[0.05]"
+                              [ngClass]="(selectedCountry.iso === c.iso && selectedCountry.code === c.code) ? 'bg-blue-50 dark:bg-blue-500/10' : ''"
+                            >
+                              <span class="text-base leading-none w-5 shrink-0">{{ c.flag }}</span>
+                              <span class="flex-1 text-[12px] text-zinc-700 dark:text-white/80 truncate">{{ c.name }}</span>
+                              <span class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 shrink-0">{{ c.code }}</span>
+                            </button>
+                          }
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <input
+                  type="tel"
+                  [(ngModel)]="form.phone"
+                  name="phone"
+                  placeholder="000 000 0000"
+                  class="flex-1 h-full px-3 bg-transparent text-zinc-900 dark:text-white text-[14px] font-sans outline-none placeholder:text-zinc-400 dark:placeholder:text-white/20 rounded-r-xl"
+                />
+              </div>
+            </div>
+            <div class="flex gap-3 mt-6">
+              <button
+                (click)="prevStep()"
+                class="h-[46px] px-6 rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-transparent text-zinc-500 dark:text-white/60 text-[13px] font-medium cursor-pointer transition-all hover:border-zinc-300 dark:hover:border-white/[0.2] hover:text-zinc-700 dark:hover:text-white font-sans"
+              >
+                Back
+              </button>
+              <button
+                (click)="handleSignup()"
+                class="flex-1 h-[46px] rounded-xl border-none bg-gradient-to-r from-[#0040ff] to-[#4a8eff] text-white text-[14px] font-semibold cursor-pointer transition-all font-sans hover:-translate-y-px hover:shadow-[0_4px_20px_rgba(74,142,255,0.3)] active:translate-y-0"
+              >
+                Create Account
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <p class="text-center mt-6 text-[13px] text-zinc-400 dark:text-white/35">
+        Already have an account?
+        <a routerLink="/login" class="text-[#4a8eff] font-semibold hover:underline cursor-pointer text-[13px]">Sign in</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Mobile only branding -->
+  <div class="lg:hidden fixed top-5 left-5 z-20">
+    <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" width="719" height="347" class="h-[48px] w-auto object-contain block select-none dark:invert-0 invert" />
+  </div>
+</div>

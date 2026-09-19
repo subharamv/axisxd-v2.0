@@ -1,0 +1,80 @@
+.contact-fade-in {
+  animation: contact-fade-in 0.4s ease-out;
+}
+
+@keyframes contact-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Staggered hero entry animations (matching React motion) ── */
+
+.contact-hero-pill {
+  animation: contactSlideDown 0.55s 0.1s both ease-out;
+}
+
+.contact-hero-heading {
+  animation: contactFadeSlideUp 0.8s 0.22s both cubic-bezier(0.16, 1, 0.3, 1);
+  font-weight: 600 !important;
+}
+
+.contact-hero-subtitle {
+  animation: contactFadeSlideUp 0.65s 0.36s both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-hero-badges {
+  animation: contactFadeSlideUpShort 0.5s 0.48s both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Info items staggered entrance (like react whileInView) ── */
+.contact-info-item {
+  opacity: 0;
+  animation: contactSlideInLeft 0.6s both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-info-item:nth-child(1) { animation-delay: 0.1s; }
+.contact-info-item:nth-child(2) { animation-delay: 0.2s; }
+.contact-info-item:nth-child(3) { animation-delay: 0.3s; }
+.contact-info-item:nth-child(4) { animation-delay: 0.4s; }
+
+/* ── Map entrance (react whileInView) ── */
+/* Extracted from inline Tailwind classes */
+.contact-cta-btn {
+  @apply bg-[#0645fb] hover:bg-blue-600 text-white font-syne font-bold uppercase tracking-widest text-xs px-8 py-4 rounded-full flex items-center gap-2.5 shadow-[0_10px_28px_rgba(6,69,251,0.28)] dark:shadow-[0_10px_28px_rgba(6,69,251,0.38)] transition-colors cursor-pointer;
+}
+
+.contact-map-wrap {
+  animation: contactMapEnter 1s both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Telemetry strip entrance ── */
+.contact-telemetry {
+  animation: contactFadeSlideUpShort 0.55s 0.1s both cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Keyframes ── */
+
+@keyframes contactSlideDown {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contactFadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contactFadeSlideUpShort {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contactSlideInLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes contactMapEnter {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}

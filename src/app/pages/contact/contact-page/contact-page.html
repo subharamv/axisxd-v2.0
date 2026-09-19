@@ -1,0 +1,149 @@
+<section id="contact" class="relative bg-zinc-50 dark:bg-transparent text-zinc-900 dark:text-zinc-100 transition-colors duration-300 overflow-hidden contact-fade-in">
+  <!-- HERO HEADER -->
+  <div class="relative flex flex-col items-center justify-center text-center py-28 lg:py-36 border-b border-zinc-200/80 dark:border-white/[0.04] overflow-hidden px-4">
+    <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/40 to-transparent pointer-events-none"></div>
+
+    <div #orb1 class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/5 dark:bg-blue-600/10 blur-[130px] rounded-full pointer-events-none"></div>
+    <div #orb2 class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-indigo-500/5 dark:bg-indigo-600/8 blur-[110px] rounded-full pointer-events-none"></div>
+
+    <div class="absolute inset-0 opacity-[0.07] dark:opacity-[0.04] pointer-events-none" style="background-image: radial-gradient(currentColor 1px, transparent 1px); background-size: 18px 18px;"></div>
+
+    <div class="absolute right-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-6 text-[8px] tracking-[0.2em] font-mono text-zinc-400 dark:text-zinc-700 pointer-events-none select-none uppercase">
+      <div>SYS_CONTACT_GRID // CG-01</div>
+      <div>CONTACT_STATUS // ONLINE</div>
+      <div>RESPONSE_TIME // &lt; 24H</div>
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center gap-5 max-w-2xl mx-auto">
+      <div class="contact-hero-pill inline-flex items-center gap-2 bg-gradient-to-r from-blue-950/40 via-blue-900/10 to-transparent border border-blue-500/25 px-4 py-2 rounded-full text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 font-syne">
+        <lucide-icon [img]="Sparkles" class="w-3.5 h-3.5 text-blue-400 animate-pulse"></lucide-icon>
+        <span>Support System // Active</span>
+      </div>
+
+      <h1 class="contact-hero-heading text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-black uppercase tracking-tight leading-[1.0] text-zinc-950 dark:text-white font-syne">
+        We're Ready<br />
+        <span class="text-[#0645fb]">To Assist</span>
+      </h1>
+
+      <p class="contact-hero-subtitle text-sm md:text-base text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-md">
+        Connect with our team for fast support, product insights, or any questions you may have.
+      </p>
+
+      <div class="contact-hero-badges flex flex-wrap justify-center gap-2 pt-1">
+        @for (badge of statBadges; track badge.text) {
+          <span class="inline-flex items-center gap-1.5 text-[9px] uppercase font-semibold tracking-widest px-3 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-900/40 font-syne">
+            <span class="w-1.5 h-1.5 rounded-full shrink-0" [ngClass]="badge.dot"></span>
+            {{ badge.text }}
+          </span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT BODY -->
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-20 lg:py-28">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 items-start">
+      <!-- LEFT: contact info -->
+      <div class="lg:col-span-5 space-y-8">
+        <div class="contact-left-heading space-y-3">
+          <h2 class="font-syne font-semibold text-2xl sm:text-3xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-tight">
+            We're Here To<br />Connect And<br />Assist You
+          </h2>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-sm">
+            Have questions about our platform? Need help with a demo, BIM support, or scan-to-BIM services? Our team is ready.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          @for (item of infoItems; track item.id) {
+            <div class="contact-info-item group relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-black dark:to-[#1a1a1f] border border-zinc-200 dark:border-zinc-800/80 hover:border-blue-500/30 dark:hover:border-blue-500/20 rounded-2xl p-5 transition-all duration-300 cursor-default hover:translate-x-1.5">
+              <div class="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-blue-500/0 via-blue-500/25 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div
+                class="w-9 h-9 rounded-xl flex items-center justify-center mb-4 border"
+                [ngClass]="item.accent === 'indigo' ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-500 dark:text-indigo-400' : 'bg-blue-500/10 border-blue-500/20 text-blue-600 dark:text-blue-400'"
+              >
+                <lucide-icon [img]="item.icon" class="w-4 h-4"></lucide-icon>
+              </div>
+              <p class="text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-500 font-syne mb-1">{{ item.label }}</p>
+              @if (item.href) {
+                <a [href]="item.href" class="text-sm font-semibold text-zinc-800 dark:text-zinc-200 hover:text-[#0645fb] dark:hover:text-blue-400 transition-colors font-syne block leading-snug">{{ item.value }}</a>
+              } @else {
+                <p class="text-sm font-semibold text-zinc-800 dark:text-zinc-200 font-syne leading-snug">{{ item.value }}</p>
+              }
+            </div>
+          }
+
+          <div class="contact-info-item group relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-black dark:to-[#1a1a1f] border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-5 transition-colors duration-300">
+            <div class="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-blue-500/0 via-blue-500/25 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <p class="text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-500 font-syne mb-4">Follow Us</p>
+            <div class="flex items-center gap-2">
+              @for (s of socialLinks; track s.label) {
+                <a
+                  [href]="s.href"
+                  [attr.aria-label]="s.label"
+                  class="w-8 h-8 flex items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-[#0645fb] dark:hover:text-blue-400 hover:border-blue-500/30 transition-all hover:scale-[1.2] hover:-translate-y-0.5"
+                >
+                  <lucide-icon [img]="s.icon" class="w-3.5 h-3.5"></lucide-icon>
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-telemetry flex items-center gap-4 text-[9px] font-mono bg-zinc-100 dark:bg-black/60 p-3 rounded-xl border border-zinc-200 dark:border-zinc-900">
+          <div class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span class="text-zinc-500 dark:text-zinc-500">SYS_STATUS:</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">OPERATIONAL</span>
+          </div>
+          <div class="w-[1px] h-4 bg-zinc-300 dark:bg-zinc-800"></div>
+          <div>
+            <span class="text-zinc-500 dark:text-zinc-500">AVG_RESPONSE:</span>
+            <span class="text-zinc-800 dark:text-zinc-300 font-bold ml-1">&lt; 24H</span>
+          </div>
+          <div class="w-[1px] h-4 bg-zinc-300 dark:bg-zinc-800 hidden sm:block"></div>
+          <div class="hidden sm:block">
+            <span class="text-zinc-500 dark:text-zinc-500">REGION:</span>
+            <span class="text-zinc-800 dark:text-zinc-300 font-bold ml-1">USA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: CTA card -->
+      <div class="lg:col-span-7">
+        <div class="contact-form-box relative bg-white dark:bg-gradient-to-br dark:from-black dark:to-[#141418] border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-7 md:p-10 shadow-sm dark:shadow-none flex flex-col items-center justify-center text-center min-h-[320px]">
+          <div class="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-blue-500/0 via-blue-500/35 to-blue-500/0 rounded-t-3xl"></div>
+          <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-5">
+            <lucide-icon [img]="Mail" class="w-6 h-6 text-blue-600 dark:text-blue-400"></lucide-icon>
+          </div>
+          <h3 class="font-syne font-semibold text-xl md:text-2xl text-zinc-950 dark:text-white uppercase tracking-tight mb-3">Let's Talk</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-500 leading-relaxed max-w-md mb-6">
+            Ready to start your next scan-to-BIM project? Open our contact form and a specialist will respond within 24 hours.
+          </p>
+          <button
+            (click)="openConsultation()"
+            class="contact-cta-btn"
+          >
+            <lucide-icon [img]="Send" class="w-3.5 h-3.5"></lucide-icon>
+            <span>Open Contact Form</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="contact-map-wrap mt-16 relative rounded-2xl overflow-hidden border border-zinc-300 dark:border-blue-500/25 h-[260px] sm:h-[340px] md:h-[440px] shadow-sm dark:shadow-[0_0_30px_rgba(59,130,246,0.08)]">
+      <div #mapContainer class="absolute inset-0"></div>
+
+      <div class="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-white/95 dark:bg-black/80 backdrop-blur-sm border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 rounded-full text-[8px] font-mono font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-300 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        AXIS_GPS // UNITED STATES
+      </div>
+
+      <div class="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-white/95 dark:from-black/80 to-transparent pt-12 pb-4 px-4 flex items-end justify-between pointer-events-none">
+        <span class="text-[9px] font-mono text-zinc-500 dark:text-zinc-500 uppercase tracking-widest">Lat: 39.9672 N</span>
+        <span class="text-[9px] font-mono text-zinc-500 dark:text-zinc-500 uppercase tracking-widest">Lng: -100.7715 W</span>
+      </div>
+    </div>
+  </div>
+</section>

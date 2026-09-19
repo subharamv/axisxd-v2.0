@@ -1,0 +1,15 @@
+<button
+  #btn
+  type="button"
+  (click)="toggleTheme()"
+  class="att-toggle"
+>
+  <span class="att-icon-wrap" [attr.data-theme-state]="isDark ? 'sun' : 'moon'">
+    @if (isDark) {
+      <lucide-icon [img]="Sun" class="att-icon"></lucide-icon>
+    } @else {
+      <lucide-icon [img]="Moon" class="att-icon"></lucide-icon>
+    }
+  </span>
+  <span class="att-sr-label">Toggle theme</span>
+</button>

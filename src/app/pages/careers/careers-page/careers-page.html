@@ -1,0 +1,242 @@
+<div class="min-h-screen bg-zinc-50 dark:bg-[#09090b] font-syne">
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden border-b border-zinc-200 dark:border-white/5 pt-28 pb-24 px-6 md:px-10">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(6,69,251,0.08),transparent)] pointer-events-none"></div>
+    <div class="absolute top-0 right-0 -mr-32 -mt-32 w-96 h-96 bg-blue-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <a
+        routerLink="/"
+        class="inline-flex items-center gap-2 text-xs font-semibold text-zinc-500 dark:text-white/40 hover:text-zinc-900 dark:hover:text-white transition-colors duration-200 mb-10"
+      >
+        <lucide-icon [img]="ArrowLeft" [size]="14"></lucide-icon>
+        Back
+      </a>
+
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+        <div class="max-w-2xl">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span class="relative flex h-1.5 w-1.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+            </span>
+            We're Hiring
+          </span>
+          <h1 class="font-syne font-semibold text-4xl md:text-6xl uppercase tracking-tight text-zinc-950 dark:text-white leading-none mt-5">
+            Build the Digital Twin<br />
+            <span class="text-[#0645fb]">of the Built World</span>
+          </h1>
+          <p class="mt-6 text-sm md:text-base text-zinc-500 dark:text-white/45 leading-relaxed max-w-xl font-light">
+            AxisXD unifies IFC models, point clouds, and 360&deg; reality capture into one browser-native platform. We're a small, remote-first team building tools the AEC industry has been missing &mdash; and we're looking for people who want to help.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 mt-8">
+            <button
+              (click)="scrollTo('roles')"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold uppercase tracking-widest bg-[#0645fb] hover:bg-blue-600 text-white shadow-[0_10px_25px_rgba(6,69,251,0.25)] transition-all duration-200 hover:scale-[1.03] cursor-pointer border-none"
+            >
+              View Open Roles
+              <lucide-icon [img]="ArrowUpRight" [size]="14"></lucide-icon>
+            </button>
+            <button
+              (click)="scrollTo('culture')"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-semibold uppercase tracking-widest bg-white dark:bg-white/5 text-zinc-900 dark:text-white border border-zinc-200 dark:border-white/10 hover:bg-zinc-100 dark:hover:bg-white/10 transition-all duration-200 cursor-pointer"
+            >
+              Our Culture
+            </button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-4 shrink-0">
+          <div class="bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-2xl px-5 py-4 text-center min-w-[100px]">
+            <p class="font-syne font-semibold text-xl text-zinc-950 dark:text-white">{{ openRolesCount }}</p>
+            <p class="text-[10px] text-zinc-500 dark:text-white/40 font-mono uppercase tracking-wider mt-1">Open Roles</p>
+          </div>
+          <div class="bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-2xl px-5 py-4 text-center min-w-[100px]">
+            <p class="font-syne font-semibold text-xl text-zinc-950 dark:text-white">{{ departmentCount }}</p>
+            <p class="text-[10px] text-zinc-500 dark:text-white/40 font-mono uppercase tracking-wider mt-1">Departments</p>
+          </div>
+          <div class="bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-2xl px-5 py-4 text-center min-w-[100px]">
+            <p class="font-syne font-semibold text-xl text-zinc-950 dark:text-white">100%</p>
+            <p class="text-[10px] text-zinc-500 dark:text-white/40 font-mono uppercase tracking-wider mt-1">Remote-First</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="culture" class="max-w-6xl mx-auto px-6 md:px-10 py-20 scroll-mt-20">
+    <div class="max-w-2xl mb-12">
+      <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0645fb] font-mono">
+        How We Work
+      </span>
+      <h2 class="font-syne font-semibold text-2xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-tight mt-3">
+        What It's Like to Build Here
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for (v of values; track v.title) {
+        <div class="p-6 rounded-2xl bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] hover:border-blue-500/40 transition-colors duration-200">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mb-4">
+            <lucide-icon [img]="v.icon" [size]="18" class="text-[#0645fb]"></lucide-icon>
+          </div>
+          <h3 class="text-sm font-semibold text-zinc-950 dark:text-white mb-1.5">{{ v.title }}</h3>
+          <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed">{{ v.desc }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="border-y border-zinc-200 dark:border-white/5 bg-white dark:bg-[#0c0c0e]">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 py-20">
+      <div class="max-w-2xl mb-12">
+        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0645fb] font-mono">
+          Benefits
+        </span>
+        <h2 class="font-syne font-semibold text-2xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-tight mt-3">
+          Taken Care Of, So You Can Focus
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+        @for (b of benefits; track b.title) {
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 shrink-0 rounded-xl bg-zinc-100 dark:bg-white/5 flex items-center justify-center">
+              <lucide-icon [img]="b.icon" [size]="16" class="text-zinc-600 dark:text-white/60"></lucide-icon>
+            </div>
+            <div>
+              <h3 class="text-sm font-semibold text-zinc-950 dark:text-white mb-1">{{ b.title }}</h3>
+              <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed">{{ b.desc }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTERS + SEARCH -->
+  <div id="roles" class="sticky top-0 z-30 bg-zinc-50/90 dark:bg-[#09090b]/90 backdrop-blur border-b border-zinc-200 dark:border-white/5 scroll-mt-0">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+
+      <!-- Department pills -->
+      <div class="flex items-center gap-2 flex-wrap">
+        @for (dept of departments; track dept) {
+          <button
+            (click)="setDepartment(dept)"
+            [ngClass]="activeDepartment === dept
+              ? 'bg-[#0645fb] text-white'
+              : 'bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] text-zinc-600 dark:text-white/50 hover:text-zinc-950 dark:hover:text-white'"
+            class="text-[11px] font-semibold px-3.5 py-1.5 rounded-full transition-all duration-200 whitespace-nowrap"
+          >
+            {{ dept }}
+          </button>
+        }
+      </div>
+
+      <!-- Search -->
+      <div class="relative sm:ml-auto w-full sm:w-56">
+        <lucide-icon [img]="Search" [size]="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-white/30 pointer-events-none"></lucide-icon>
+        <input
+          type="text"
+          placeholder="Search roles&hellip;"
+          [(ngModel)]="search"
+          class="w-full pl-9 pr-4 py-2 text-xs bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-full text-zinc-800 dark:text-white placeholder-zinc-400 dark:placeholder-white/25 outline-none focus:ring-2 focus:ring-[#0645fb]/30"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- OPEN ROLES -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 py-14">
+    @if (filtered.length === 0) {
+      <div class="text-center py-24 text-zinc-400 dark:text-white/30 text-sm">
+        No roles found for <span class="font-semibold">"{{ search }}"</span>.
+      </div>
+    } @else {
+      <div class="flex flex-col gap-3" [@cardsStagger]="filtered.length">
+        @for (role of filtered; track role.title) {
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] hover:border-blue-500/40 transition-colors duration-200">
+            <div class="min-w-0">
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider font-mono px-2 py-0.5 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                  {{ role.department }}
+                </span>
+                <span class="inline-flex items-center gap-1 text-[10px] text-zinc-500 dark:text-white/40 font-mono uppercase tracking-wider">
+                  <lucide-icon [img]="MapPin" [size]="11"></lucide-icon>
+                  {{ role.location }}
+                </span>
+                <span class="inline-flex items-center gap-1 text-[10px] text-zinc-500 dark:text-white/40 font-mono uppercase tracking-wider">
+                  <lucide-icon [img]="Clock" [size]="11"></lucide-icon>
+                  {{ role.type }}
+                </span>
+              </div>
+              <h3 class="text-base font-semibold text-zinc-950 dark:text-white mb-1">{{ role.title }}</h3>
+              <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed max-w-2xl">{{ role.blurb }}</p>
+            </div>
+
+            <a
+              [href]="applyMailto(role)"
+              class="shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest bg-zinc-950 dark:bg-white/10 hover:bg-zinc-800 dark:hover:bg-white/15 text-white border border-zinc-900 dark:border-white/10 no-underline transition-all duration-200"
+            >
+              Apply
+              <lucide-icon [img]="ArrowUpRight" [size]="14"></lucide-icon>
+            </a>
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- HIRING PROCESS -->
+  <section class="border-y border-zinc-200 dark:border-white/5 bg-white dark:bg-[#0c0c0e]">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 py-20">
+      <div class="max-w-2xl mb-12">
+        <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#0645fb] font-mono">
+          Process
+        </span>
+        <h2 class="font-syne font-semibold text-2xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-tight mt-3">
+          How Hiring Works
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (step of hiringSteps; track step.num) {
+          <div class="relative">
+            <span class="text-3xl font-syne font-semibold text-zinc-200 dark:text-white/10">{{ step.num }}</span>
+            <h3 class="text-sm font-semibold text-zinc-950 dark:text-white mt-2 mb-1.5">{{ step.title }}</h3>
+            <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed">{{ step.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 py-20">
+    <div class="relative overflow-hidden rounded-3xl bg-zinc-950 dark:bg-[#111114] border border-white/10 px-8 py-14 md:py-16 text-center">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_0%,rgba(6,69,251,0.18),transparent)] pointer-events-none"></div>
+      <div class="relative z-10 max-w-xl mx-auto">
+        <lucide-icon [img]="Sparkles" [size]="22" class="text-blue-400 mx-auto mb-4"></lucide-icon>
+        <h2 class="font-syne font-semibold text-2xl md:text-3xl uppercase tracking-tight text-white leading-tight">
+          Don't See Your Role?
+        </h2>
+        <p class="mt-4 text-sm text-white/50 leading-relaxed">
+          We're always interested in meeting people who care about this space. Send us a note about what you'd want to work on.
+        </p>
+        <a
+          [href]="generalMailto"
+          class="inline-flex items-center gap-2 mt-8 px-6 py-3.5 rounded-full text-xs font-semibold uppercase tracking-widest bg-[#0645fb] hover:bg-blue-600 text-white shadow-[0_10px_25px_rgba(6,69,251,0.35)] no-underline transition-all duration-200 hover:scale-[1.03]"
+        >
+          <lucide-icon [img]="Mail" [size]="14"></lucide-icon>
+          Send a General Application
+        </a>
+      </div>
+    </div>
+  </section>
+
+</div>

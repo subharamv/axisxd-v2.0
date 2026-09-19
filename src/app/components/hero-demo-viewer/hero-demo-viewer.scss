@@ -1,0 +1,385 @@
+
+:host {
+  display: block;
+}
+/* ─────────────────────────────────────────────────────────────
+   Hero Demo Viewer — semantic classes (extracted from utilities)
+   ───────────────────────────────────────────────────────────── */
+
+.hdv-stage {
+  @apply relative w-full h-[320px] sm:h-[340px] md:h-[440px] lg:h-[500px] flex items-center justify-center select-none;
+}
+
+.hdv-glow {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] bg-gradient-to-tr from-blue-500/5 to-indigo-500/5 rounded-full blur-[60px];
+}
+
+.hdv-frame {
+  @apply absolute inset-0 border border-zinc-200/50 dark:border-white/[0.02] rounded-3xl pointer-events-none overflow-hidden;
+}
+
+.hdv-coord {
+  @apply absolute top-4 left-4 text-[7px] font-mono text-zinc-400 dark:text-zinc-600;
+}
+
+.hdv-index {
+  @apply absolute bottom-4 right-4 text-[7px] font-mono text-zinc-400 dark:text-zinc-600;
+}
+
+.hdv-layer-badge {
+  @apply absolute top-4 right-4 flex items-center gap-1.5 bg-blue-500/10 dark:bg-blue-500/15 border border-blue-500/20 rounded-full px-2 py-0.5;
+}
+
+.hdv-layer-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-blue-500;
+  animation: hdv-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.hdv-layer-text {
+  @apply text-[7px] font-mono font-semibold text-blue-500 uppercase tracking-widest;
+}
+
+.hdv-card {
+  @apply relative w-full max-w-[440px] h-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-900/[0.04] border border-zinc-200 dark:border-white/[0.02] rounded-2xl p-4 transition-colors duration-300;
+  will-change: transform;
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+/* ── SVG floor plan ── */
+.hero-demo-svg-floorplan {
+  @apply w-full h-full text-zinc-900/25 dark:text-white/20 drop-shadow-[0_15px_40px_rgba(0,0,0,0.06)] dark:drop-shadow-[0_25px_60px_rgba(0,0,0,0.95)];
+}
+
+.hdv-fp {
+  transition: opacity 0.5s ease-out;
+}
+
+.hdv-fp--bright {
+  @apply text-blue-400 opacity-100;
+}
+
+.hdv-fp--pc {
+  @apply text-zinc-300 dark:text-white/10 opacity-10;
+}
+
+.hdv-fp--dim {
+  @apply text-zinc-300 dark:text-white/15 opacity-40;
+}
+
+.hdv-fp-faint {
+  @apply opacity-40;
+}
+
+.hdv-fp-door {
+  @apply stroke-zinc-50 dark:stroke-[#060608];
+}
+
+.hdv-fp-label {
+  @apply fill-zinc-400 dark:fill-white/30 font-syne;
+}
+
+.hdv-fp-dim-group {
+  @apply text-zinc-400 dark:text-zinc-700;
+}
+
+.hdv-fp-dim {
+  @apply fill-zinc-400 dark:fill-zinc-600;
+}
+
+.hdv-wall-a {
+  @apply fill-blue-500/10 stroke-blue-500/25;
+}
+
+.hdv-wall-b {
+  @apply fill-blue-500/10 stroke-blue-500/20;
+}
+
+.hdv-wall-c {
+  @apply fill-blue-500/15 stroke-blue-500/30;
+}
+
+.hdv-wall-d {
+  @apply fill-blue-500/20 stroke-blue-500/50;
+}
+
+/* Layer opacity toggles */
+.hdv-layer {
+  transition: opacity 0.5s ease-out;
+  opacity: 0;
+}
+
+.hdv-layer--fast {
+  transition: opacity 0.4s ease-out;
+}
+
+.hdv-layer-on {
+  opacity: 1;
+}
+
+.hdv-layer-dim {
+  opacity: 0.15;
+}
+
+/* ── Connector traces ── */
+.hdv-conn--ifc {
+  @apply stroke-blue-500;
+}
+
+.hdv-conn--dxf {
+  @apply stroke-blue-400;
+}
+
+.hdv-conn--pc {
+  @apply stroke-emerald-500;
+}
+
+.hdv-conn--rol {
+  @apply stroke-amber-500;
+}
+
+.hdv-conn-dot--pc {
+  @apply text-emerald-400;
+}
+
+.hdv-conn-dot--rol {
+  @apply text-amber-400;
+}
+
+/* ── Telemetry panel ── */
+.hdv-telemetry {
+  @apply absolute bottom-14 left-3 right-3 bg-white/80 dark:bg-black/80 backdrop-blur-md border border-zinc-200 dark:border-white/10 rounded-xl px-3 py-2 text-[8px] font-mono text-zinc-800 dark:text-white/80 pointer-events-none;
+  animation: hdv-telemetry-in 0.25s ease-out both;
+}
+
+.hdv-telemetry-grid {
+  @apply grid grid-cols-2 gap-x-4 gap-y-1;
+}
+
+.hdv-telemetry-label {
+  @apply text-zinc-500 dark:text-white/40;
+}
+
+.hdv-telemetry-accent {
+  @apply text-right text-blue-600 dark:text-blue-300;
+}
+
+.hdv-telemetry-cell {
+  @apply text-right text-zinc-500 dark:text-white/40;
+}
+
+.hdv-telemetry-strong--emerald {
+  @apply text-emerald-600 dark:text-emerald-300;
+}
+
+.hdv-telemetry-strong--amber {
+  @apply text-amber-600 dark:text-amber-300;
+}
+
+/* ── Pins ── */
+.hdv-pin {
+  @apply absolute z-20 cursor-pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hdv-pin:hover {
+  transform: scale(1.06) translateY(-2px);
+}
+
+.hdv-pin--p1 {
+  @apply left-[1%] top-[30%];
+}
+
+.hdv-pin--p2 {
+  @apply left-[24%];
+  top: calc(6% + 40px);
+}
+
+.hdv-pin--p3 {
+  @apply right-[2%];
+  top: calc(25% - 50px);
+}
+
+.hdv-pin--p4 {
+  @apply right-[1%] top-[50%];
+}
+
+.hdv-pin-btn {
+  @apply relative flex items-center gap-2 pl-2 pr-3 py-2 rounded-xl border text-[9px] font-bold uppercase tracking-wider transition-all duration-300 shadow-lg select-none;
+}
+
+.hdv-pin-btn--active {
+  @apply text-white;
+}
+
+.hdv-pin-btn--blue {
+  @apply bg-[#0645fb] border-blue-400/60 shadow-[0_8px_24px_rgba(6,69,251,0.45)];
+}
+
+.hdv-pin-btn--emerald {
+  @apply bg-emerald-600 border-emerald-400/60 shadow-[0_8px_24px_rgba(16,185,129,0.45)];
+}
+
+.hdv-pin-btn--amber {
+  @apply bg-[#D97706] border-amber-400/60 shadow-[0_8px_24px_rgba(217,119,6,0.45)];
+}
+
+.hdv-pin-btn--idle {
+  @apply bg-white/95 dark:bg-[#0c0c12]/95 text-zinc-700 dark:text-zinc-300 border-zinc-200/80 dark:border-white/[0.09] backdrop-blur-md;
+}
+
+.hdv-pin-iconbox {
+  @apply w-6 h-6 rounded-lg flex items-center justify-center shrink-0 transition-colors duration-300;
+}
+
+.hdv-pin-iconbox--active {
+  @apply bg-white/20;
+}
+
+.hdv-pin-iconbox--blue {
+  @apply bg-blue-500/10 border border-blue-500/20;
+}
+
+.hdv-pin-iconbox--emerald {
+  @apply bg-emerald-500/10 border border-emerald-500/20;
+}
+
+.hdv-pin-iconbox--amber {
+  @apply bg-amber-500/10 border border-amber-500/20;
+}
+
+.hdv-pin-icon {
+  @apply w-3.5 h-3.5 transition-colors duration-300;
+}
+
+.hdv-pin-icon--active {
+  @apply text-white;
+}
+
+.hdv-pin-icon--blue {
+  @apply text-[#0645fb];
+}
+
+.hdv-pin-icon--emerald {
+  @apply text-emerald-500;
+}
+
+.hdv-pin-icon--amber {
+  @apply text-amber-500;
+}
+
+.hdv-pin-labels {
+  @apply flex flex-col leading-none gap-[3px];
+}
+
+.hdv-pin-title {
+  @apply font-black text-[10px] transition-colors duration-300;
+}
+
+.hdv-pin-title--active {
+  @apply text-white;
+}
+
+.hdv-pin-title--idle {
+  @apply text-zinc-900 dark:text-white;
+}
+
+.hdv-pin-sub {
+  @apply text-[7px] font-mono tracking-widest transition-colors duration-300;
+}
+
+.hdv-pin-sub--blue {
+  @apply text-blue-100/80;
+}
+
+.hdv-pin-sub--emerald {
+  @apply text-emerald-100/80;
+}
+
+.hdv-pin-sub--amber {
+  @apply text-amber-100/80;
+}
+
+.hdv-pin-sub--idle {
+  @apply text-zinc-400 dark:text-zinc-500;
+}
+
+.hdv-pin-badge {
+  @apply absolute -top-1.5 -right-1.5 flex;
+}
+
+.hdv-pin-badge-inner {
+  @apply relative w-3 h-3 flex items-center justify-center;
+}
+
+.hdv-pin-badge-ping {
+  @apply absolute w-full h-full rounded-full opacity-75;
+  animation: hdv-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.hdv-pin-badge-ping--blue {
+  @apply bg-blue-300;
+}
+
+.hdv-pin-badge-ping--emerald {
+  @apply bg-emerald-300;
+}
+
+.hdv-pin-badge-ping--amber {
+  @apply bg-amber-300;
+}
+
+.hdv-pin-badge-dot {
+  @apply relative w-2 h-2 rounded-full bg-white;
+}
+
+.hdv-attn-dot {
+  @apply absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-opacity duration-500;
+  opacity: 0;
+}
+
+.hdv-attn-dot--blue {
+  @apply bg-blue-400;
+}
+
+.hdv-attn-dot--emerald {
+  @apply bg-emerald-400;
+}
+
+.hdv-attn-dot--amber {
+  @apply bg-amber-400;
+}
+
+.hdv-attn-dot--on {
+  opacity: 1;
+  animation: hdv-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ── Keyframes ── */
+@keyframes hdv-ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes hdv-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes hdv-telemetry-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

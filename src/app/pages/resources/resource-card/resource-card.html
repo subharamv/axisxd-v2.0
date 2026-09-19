@@ -1,0 +1,109 @@
+@if (variant === 'featured') {
+  <button
+    (click)="handleClick()"
+    class="group relative bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/5 rounded-3xl overflow-hidden hover:border-blue-500/30 dark:hover:border-blue-500/20 transition-all duration-300 shadow-sm dark:shadow-none text-left w-full cursor-pointer h-full"
+  >
+    <div class="h-1 w-full bg-gradient-to-r from-[#0645fb] via-blue-500 to-blue-400"></div>
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_200px] gap-0 h-[calc(100%-4px)]">
+      <div class="p-7 flex flex-col justify-center">
+        <div class="flex items-center gap-2 mb-3 flex-wrap">
+          <span class="text-[9px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full font-mono" [ngClass]="categoryStyle">
+            {{ resource.category }}
+          </span>
+          <span class="flex items-center gap-1 text-[9px] font-mono text-zinc-400 dark:text-white/30">
+            <lucide-icon [img]="Clock" class="w-3 h-3"></lucide-icon>
+            {{ resource.date }}
+          </span>
+        </div>
+        <h3 class="font-syne font-semibold text-lg md:text-xl uppercase tracking-tight text-zinc-950 dark:text-white leading-tight mb-2 group-hover:text-[#0645fb] dark:group-hover:text-blue-400 transition-colors">
+          {{ resource.title }}
+        </h3>
+        <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed font-light line-clamp-2 mb-4">
+          {{ resource.excerpt }}
+        </p>
+        <div class="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-[#0645fb] dark:text-blue-400 font-syne">
+          <span>{{ actionLabel }}</span>
+          <lucide-icon [img]="ArrowUpRight" class="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></lucide-icon>
+        </div>
+      </div>
+      <div class="relative h-40 md:h-auto overflow-hidden" [ngClass]="gradientBg">
+        <div class="absolute inset-0 bg-gradient-to-l from-black/30 via-transparent to-transparent"></div>
+        <div class="absolute -top-6 -right-6 w-28 h-28 bg-white/15 rounded-full blur-2xl"></div>
+        <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-black/20 rounded-full blur-2xl"></div>
+        <div class="absolute inset-0 opacity-[0.12]" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 12px 12px;"></div>
+        <lucide-icon [img]="typeIcon" class="absolute -bottom-2 -right-2 w-20 h-20 text-white/10"></lucide-icon>
+        <div class="absolute top-3 right-3 w-8 h-8 rounded-xl bg-white/95 dark:bg-[#111114]/95 border border-zinc-200 dark:border-white/10 flex items-center justify-center shadow-sm">
+          <lucide-icon [img]="typeIcon" class="w-4 h-4 text-[#0645fb] dark:text-blue-400"></lucide-icon>
+        </div>
+      </div>
+    </div>
+  </button>
+} @else if (variant === 'compact') {
+  <button
+    (click)="handleClick()"
+    class="group bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/5 rounded-2xl overflow-hidden hover:border-zinc-300 dark:hover:border-white/10 hover:-translate-y-0.5 transition-all duration-200 text-left w-full cursor-pointer"
+  >
+    <div class="flex gap-4 p-4">
+      <div class="w-16 h-16 rounded-xl overflow-hidden shrink-0" [ngClass]="gradientBg">
+        <div class="w-full h-full flex items-center justify-center">
+          <lucide-icon [img]="typeIcon" class="w-6 h-6 text-white/70"></lucide-icon>
+        </div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-1 flex-wrap">
+          <span class="text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-full font-mono" [ngClass]="categoryStyle">
+            {{ resource.category }}
+          </span>
+        </div>
+        <h4 class="text-xs font-semibold text-zinc-900 dark:text-white leading-snug line-clamp-2 mb-1 group-hover:text-[#0645fb] dark:group-hover:text-blue-400 transition-colors">
+          {{ resource.title }}
+        </h4>
+        <p class="text-[10px] text-zinc-500 dark:text-white/40 leading-relaxed line-clamp-2 font-light">
+          {{ resource.excerpt }}
+        </p>
+      </div>
+    </div>
+  </button>
+} @else {
+  <button
+    (click)="handleClick()"
+    class="group bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/5 rounded-2xl overflow-hidden hover:border-zinc-300 dark:hover:border-white/10 hover:-translate-y-0.5 transition-all duration-200 text-left w-full cursor-pointer h-full flex flex-col"
+  >
+    <div class="relative h-36 shrink-0 overflow-hidden" [ngClass]="gradientBg">
+      <div class="absolute inset-0 bg-gradient-to-b from-white/15 via-transparent to-black/20"></div>
+      <div class="absolute -top-6 -right-6 w-28 h-28 bg-white/15 rounded-full blur-2xl"></div>
+      <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-black/20 rounded-full blur-2xl"></div>
+      <div class="absolute inset-0 opacity-[0.12]" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 12px 12px;"></div>
+      <lucide-icon [img]="typeIcon" class="absolute -bottom-2 -right-2 w-20 h-20 text-white/10"></lucide-icon>
+      <div class="absolute top-3 right-3 w-7 h-7 rounded-lg bg-white/95 dark:bg-[#111114]/95 border border-zinc-200 dark:border-white/10 flex items-center justify-center shadow-sm">
+        <lucide-icon [img]="typeIcon" class="w-3.5 h-3.5 text-[#0645fb] dark:text-blue-400"></lucide-icon>
+      </div>
+      <div class="absolute bottom-3 left-3">
+        <span class="text-[8px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full font-mono text-white bg-black/30 backdrop-blur-sm border border-white/15">
+          {{ resource.category }}
+        </span>
+      </div>
+    </div>
+    <div class="p-5 flex flex-col flex-1">
+      <h3 class="font-syne font-semibold text-sm uppercase tracking-tight text-zinc-900 dark:text-white leading-snug mb-2 flex-1 line-clamp-2 group-hover:text-[#0645fb] dark:group-hover:text-blue-400 transition-colors">
+        {{ resource.title }}
+      </h3>
+      <p class="text-[11px] text-zinc-500 dark:text-white/40 leading-relaxed font-light line-clamp-2 mb-4">
+        {{ resource.excerpt }}
+      </p>
+      <div class="flex items-center justify-between mt-auto pt-3 border-t border-zinc-100 dark:border-white/5">
+        <div class="flex items-center gap-1.5 text-[9px] font-mono text-zinc-400 dark:text-white/30">
+          @if (resource.date) { <span>{{ resource.date }}</span> }
+          @if (resource.readTime) {
+            <span>&middot;</span>
+            <span>{{ resource.readTime }}</span>
+          }
+        </div>
+        <span class="flex items-center gap-1 text-[9px] font-semibold uppercase tracking-widest text-[#0645fb] dark:text-blue-400 font-syne">
+          {{ actionLabel }}
+          <lucide-icon [img]="ArrowUpRight" class="w-2.5 h-2.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></lucide-icon>
+        </span>
+      </div>
+    </div>
+  </button>
+}

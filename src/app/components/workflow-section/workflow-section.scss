@@ -1,0 +1,147 @@
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+
+$wf-brand: #0645fb;
+
+.wf-section {
+  @include d.section;
+  @include d.section-rule;
+  color: #111;
+}
+
+.wf-container {
+  @include d.container;
+}
+
+.wf-heading {
+  @apply flex flex-col items-center text-center;
+  padding-bottom: d.$heading-content-gap;
+}
+
+.wf-title {
+  @apply text-4xl md:text-5xl font-semibold font-syne;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.wf-subtitle {
+  @include d.heading-lead;
+  @apply text-base font-medium;
+  color: #111;
+}
+
+.wf-lead {
+  @include d.heading-lead-type;
+  @apply mt-3 max-w-4xl;
+  color: #55555c;
+}
+
+.wf-cards {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.wf-card {
+  @apply flex flex-col px-6 pb-8;
+  border-left: 1px solid rgba(0, 0, 0, 0.06);
+
+  &:first-child {
+    border-left: 0;
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    &:nth-child(odd) {
+      border-left: 0;
+    }
+  }
+}
+
+.wf-graph-wrap {
+  @apply relative w-full cursor-crosshair;
+  height: 220px;
+}
+
+.wf-graph {
+  @apply absolute inset-0 block;
+}
+
+.wf-card-title {
+  @apply mt-4 text-xl font-semibold font-syne;
+  color: #111;
+}
+
+.wf-card-tagline {
+  @apply mt-2 text-xs font-medium;
+  color: $wf-brand;
+}
+
+.wf-card-desc {
+  @apply mt-3 text-[12px] leading-relaxed flex-1;
+  color: #55555c;
+}
+
+.wf-card-tags {
+  @apply mt-4 text-[10px] font-mono uppercase tracking-wider;
+  color: #8a8a93;
+}
+
+.wf-flow {
+  @apply flex flex-col items-center text-center pt-10;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.wf-flow-title {
+  @apply text-lg font-semibold font-syne;
+  color: #111;
+}
+
+.wf-flow-steps {
+  @apply mt-3 text-sm font-mono font-bold uppercase tracking-widest;
+  color: $wf-brand;
+}
+
+.wf-flow-sub {
+  @apply mt-3 text-sm;
+  color: #55555c;
+}
+
+/* ── Dark mode: light text over the shared page wash ── */
+:host-context(.dark) {
+  .wf-section {
+    color: #f4f4f5;
+  }
+
+  .wf-title,
+  .wf-subtitle,
+  .wf-card-title,
+  .wf-flow-title {
+    color: #fff;
+  }
+
+  .wf-lead,
+  .wf-card-desc,
+  .wf-flow-sub {
+    color: #a1a1aa;
+  }
+
+  .wf-card-tags {
+    color: #71717a;
+  }
+
+  .wf-card-tagline,
+  .wf-flow-steps {
+    color: #6b93ff;
+  }
+
+  .wf-cards,
+  .wf-flow {
+    border-top-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .wf-card {
+    border-left-color: rgba(255, 255, 255, 0.08);
+  }
+}

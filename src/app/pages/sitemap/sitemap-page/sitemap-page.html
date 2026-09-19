@@ -1,0 +1,133 @@
+<div class="min-h-screen pt-[68px] flex flex-col bg-zinc-50 dark:bg-[#080810] text-zinc-900 dark:text-zinc-100">
+
+  <!-- Sticky header bar -->
+  <div class="sticky top-[68px] z-30 border-b flex items-center gap-4 px-4 md:px-6 h-11
+    bg-white/95 border-zinc-200 dark:bg-[#080810]/95 dark:border-zinc-800
+    backdrop-blur-md">
+    <a routerLink="/" class="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-zinc-100 transition-colors">
+      <lucide-icon [img]="ArrowLeft" [size]="14"></lucide-icon>
+      Back
+    </a>
+    <div class="hidden md:flex items-center gap-1.5 text-xs text-zinc-500">
+      <span>Sitemap</span>
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto">
+    <div class="max-w-5xl mx-auto px-4 md:px-8 py-12">
+
+      <!-- Header -->
+      <div #heading class="mb-12">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">
+          Sitemap
+        </h1>
+        <p class="text-sm text-zinc-400 max-w-2xl">
+          Complete index of all pages on the AxisXD platform; browse viewers, analysis tools,
+          resources, and company information.
+        </p>
+      </div>
+
+      <!-- Categories Grid -->
+      <div #categoryGrid class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @for (category of categories; track category.title) {
+          <div class="rounded-xl border border-zinc-800 bg-zinc-900/20 overflow-hidden">
+            <!-- Category Header -->
+            <div class="px-5 py-4 border-b border-zinc-800/50">
+              <h2 class="text-sm font-bold text-zinc-200 uppercase tracking-wider">
+                {{ category.title }}
+              </h2>
+              <p class="text-[11px] text-zinc-500 mt-1">
+                {{ category.description }}
+              </p>
+            </div>
+
+            <!-- Links -->
+            <ul class="divide-y divide-zinc-800/30">
+              @for (item of category.items; track item.path) {
+                <li>
+                  <a
+                    [routerLink]="item.path"
+                    class="w-full flex items-center gap-2 px-5 py-3 text-left transition-colors
+                      hover:bg-zinc-800/40 group"
+                  >
+                    <lucide-icon [img]="ExternalLink" [size]="12" class="text-zinc-600 shrink-0
+                      group-hover:text-[#60a5fa] dark:group-hover:text-[#0645fb] transition-colors"></lucide-icon>
+                    <div class="flex-1 min-w-0">
+                      <span class="text-xs font-semibold text-zinc-300
+                        group-hover:text-white transition-colors">
+                        {{ item.label }}
+                      </span>
+                      <span class="block text-[10px] text-zinc-600 font-mono mt-0.5
+                        group-hover:text-zinc-500 transition-colors">
+                        {{ item.path }}
+                      </span>
+                    </div>
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <!-- All URLs flat list -->
+      <div #allUrls class="mt-12">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-4 px-1">
+          All URLs
+        </h3>
+        <div class="rounded-xl border border-zinc-800 overflow-hidden">
+          <table class="w-full text-xs">
+            <thead>
+              <tr class="border-b border-zinc-800 bg-zinc-900/50">
+                <th class="text-left px-4 py-2.5 font-semibold text-zinc-400 uppercase tracking-wider text-[10px]">
+                  Page
+                </th>
+                <th class="text-left px-4 py-2.5 font-semibold text-zinc-400 uppercase tracking-wider text-[10px] hidden sm:table-cell">
+                  URL Path
+                </th>
+                <th class="text-right px-4 py-2.5 font-semibold text-zinc-400 uppercase tracking-wider text-[10px]">
+                  Category
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-800/30">
+              @for (row of flatEntries; track row.item.path) {
+                <tr class="hover:bg-zinc-800/20 transition-colors">
+                  <td class="px-4 py-2.5">
+                    <a [routerLink]="row.item.path" class="text-zinc-300 hover:text-[#60a5fa] dark:hover:text-[#0645fb] transition-colors font-medium text-left">
+                      {{ row.item.label }}
+                    </a>
+                  </td>
+                  <td class="px-4 py-2.5 text-zinc-600 font-mono text-[10px] hidden sm:table-cell">
+                    {{ row.item.path }}
+                  </td>
+                  <td class="px-4 py-2.5 text-right">
+                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-500 font-medium">
+                      {{ row.categoryTitle }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Minimal footer -->
+  <footer class="shrink-0 border-t flex flex-col sm:flex-row items-center justify-between gap-3 px-6 py-4
+    border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#080810]">
+    <img
+      [src]="isDark ? 'assets/images/logos/xd_white_logo.png' : 'assets/images/logos/xd_blue_logo.png'"
+      alt="AxisXD"
+      class="h-[22px] w-auto object-contain select-none shrink-0"
+    />
+    <p class="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400 dark:text-zinc-600">
+      © 2026 AXIS XD. ALL RIGHTS RESERVED.
+    </p>
+    <p class="text-[10px] text-zinc-600 font-mono">Sitemap</p>
+  </footer>
+
+</div>

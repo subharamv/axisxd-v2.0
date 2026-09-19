@@ -1,0 +1,95 @@
+<section id="pricing" class="ps-section">
+  <div class="ps-glow"></div>
+
+  <div class="ps-container">
+    <div class="ps-header">
+      <span class="ps-eyebrow">pricing</span>
+      <h2 class="ps-title">
+        Transparent Pricing.<br />
+        <span class="ps-title-accent">Robust</span> Return on Investment.
+      </h2>
+      <p class="ps-subtitle">
+        Start free, scale with your team, or deploy enterprise-grade infrastructure; every plan includes the full platform.
+      </p>
+    </div>
+
+    <div class="ps-grid">
+      @for (p of plans; track p.name) {
+        <div
+          class="ps-card"
+          [ngClass]="p.popular ? 'ps-card--popular' : 'ps-card--standard'"
+        >
+          @if (p.popular) {
+            <div class="ps-badge">
+              <lucide-icon [img]="Sparkles" class="ps-badge-icon"></lucide-icon>
+              <span>Most Popular</span>
+            </div>
+          }
+
+          <div class="ps-card-body">
+            <div>
+              <h3 class="ps-card-name">{{ p.name }}</h3>
+              <p class="ps-card-desc">{{ p.desc }}</p>
+            </div>
+
+            <div class="ps-price-box">
+              <div class="ps-price-row">
+                @if (p.price === '$199') {
+                  <span class="ps-price-old">$399</span>
+                }
+                <span class="ps-price">{{ p.price }}</span>
+                @if (p.price !== 'Custom') {
+                  <span class="ps-price-period">{{ p.period }}</span>
+                }
+              </div>
+              @if (p.price === 'Custom') {
+                <span class="ps-price-period">{{ p.period }}</span>
+              }
+            </div>
+
+            <ul class="ps-features">
+              @for (f of p.features; track f) {
+                <li class="ps-feature">
+                  <div class="ps-feature-icon-box">
+                    <lucide-icon [img]="Check" class="ps-feature-icon"></lucide-icon>
+                  </div>
+                  <span class="ps-feature-text">{{ f }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+
+          <a
+            [href]="portalLoginUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ps-cta"
+            [ngClass]="p.popular ? 'ps-cta--popular' : 'ps-cta--standard'"
+          >
+            {{ p.action }}
+          </a>
+        </div>
+      }
+    </div>
+
+    <div class="ps-banner">
+      <div class="ps-banner-info">
+        <div class="ps-banner-icon-box">
+          <lucide-icon [img]="Building2" class="ps-banner-icon"></lucide-icon>
+        </div>
+        <div>
+          <h4 class="ps-banner-title">Need a custom plan?</h4>
+          <p class="ps-banner-desc">
+            Volume pricing, custom integrations, and dedicated infrastructure available on request.
+          </p>
+        </div>
+      </div>
+      <button
+        (click)="consultation.open()"
+        class="ps-banner-cta"
+      >
+        Schedule a Call
+      </button>
+    </div>
+  </div>
+</section>

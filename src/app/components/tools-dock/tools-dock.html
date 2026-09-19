@@ -1,0 +1,25 @@
+<section id="tools_dock" class="dock-section">
+  <div class="dock-peak" aria-hidden="true"></div>
+
+  <div class="dock-container">
+    <h2 class="dock-title">Every viewer and analyzer, one account</h2>
+    <p class="dock-lead">
+      IFC, point cloud, panoramic, CAD, and mesh viewing alongside deviation, daylight, progress,
+      and clash analysis all on the same model, in the same place.
+    </p>
+
+    <div #dockEl class="dock">
+      @for (item of items; track item.route) {
+      <button #itemEl type="button" class="dock-item" [style.--dock-color]="item.color" [attr.aria-label]="item.label"
+        (click)="open(item)">
+        <span class="dock-tip">{{ item.label }}</span>
+        <span class="dock-tile">
+          <lucide-icon [img]="item.icon" class="dock-icon"></lucide-icon>
+        </span>
+      </button>
+      }
+    </div>
+
+    <p #hintEl class="dock-hint">Hover to explore · click to open a live demo</p>
+  </div>
+</section>

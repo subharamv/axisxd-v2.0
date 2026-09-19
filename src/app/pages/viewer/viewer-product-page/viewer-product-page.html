@@ -1,0 +1,566 @@
+<div @pageEnter class="min-h-screen bg-zinc-50 dark:bg-transparent text-zinc-950 dark:text-zinc-100 font-syne transition-colors duration-300">
+
+  <!-- ================================================================ -->
+  <!-- HERO                                                              -->
+  <!-- ================================================================ -->
+  <section class="relative min-h-[92vh] flex items-center overflow-hidden border-b border-zinc-200 dark:border-white/5">
+    <!-- Background grid -->
+    <div class="absolute inset-0 opacity-[0.06] dark:opacity-[0.04] pointer-events-none"
+      style="background-image: radial-gradient(currentColor 1px, transparent 1px); background-size: 20px 20px"></div>
+    <div class="absolute -top-32 left-1/4 w-[700px] h-[700px] opacity-[0.04] dark:opacity-[0.08] blur-[180px] rounded-full pointer-events-none"
+      [style.background]="heroGlowColor"></div>
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-20"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 md:px-10 w-full pt-28 pb-16">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- LEFT -->
+        <div class="space-y-7">
+          <!-- Eyebrow tag -->
+          <div class="vp-hero-tag inline-flex items-center gap-2 border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-1.5 rounded-full">
+            <span class="w-1.5 h-1.5 rounded-full animate-pulse" [ngClass]="cfg.accentBg"></span>
+            <span class="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-white/50">{{ cfg.tagline }}</span>
+          </div>
+
+          <!-- Heading -->
+          <div class="space-y-0.5">
+            <div class="overflow-hidden">
+              <h1 class="vp-hero-word font-syne font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[42px] uppercase tracking-tight leading-[1.12] break-words" [ngClass]="cfg.accentClass">
+                {{ cfg.heroHighlight }}
+              </h1>
+            </div>
+            <div class="overflow-hidden">
+              <span class="vp-hero-word font-syne font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[42px] uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.12] break-words block">
+                {{ cfg.heroRest }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="vp-hero-desc text-base text-zinc-500 dark:text-white/50 leading-relaxed font-light max-w-lg">
+            {{ cfg.heroDescription }}
+          </p>
+
+          <!-- Context line -->
+          <p class="vp-hero-context text-xs text-zinc-400 dark:text-white/35 font-mono leading-relaxed max-w-lg border-l-2 border-zinc-200 dark:border-white/10 pl-4">
+            <span class="text-zinc-500 dark:text-white/50 font-semibold">Try our {{ cfg.heroHighlight.toLowerCase() }} {{ cfg.heroRest.toLowerCase() }} &rarr;</span>
+            {{ ' ' }}{{ contextLine }}
+          </p>
+
+          <!-- CTAs -->
+          <div class="vp-hero-cta flex flex-wrap items-center gap-4 pt-1">
+            <a href="https://cportal.axisxd.com/login" target="_blank" rel="noopener noreferrer" class="inline-block transition-transform duration-150 hover:scale-[1.03] active:scale-[0.97]">
+              <button type="button" class="hover:opacity-90 text-white font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full flex items-center gap-2 transition-opacity shadow-lg cursor-pointer" [ngClass]="cfg.accentBg">
+                Try Free Demo <lucide-icon [img]="ArrowUpRight" [size]="16"></lucide-icon>
+              </button>
+            </a>
+            <button
+              type="button"
+              (click)="goBack()"
+              class="border border-zinc-200 dark:border-white/10 bg-white dark:bg-transparent hover:bg-zinc-50 dark:hover:bg-white/5 text-zinc-700 dark:text-white/70 font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Back to Home
+            </button>
+          </div>
+
+          <!-- Quick stats -->
+          <div class="vp-hero-stats flex items-center gap-6 pt-2 border-t border-zinc-100 dark:border-white/5">
+            @for (s of cfg.stats; track s.label) {
+              <div class="text-center">
+                <div class="text-sm font-semibold" [ngClass]="cfg.accentClass">{{ s.value }}</div>
+                <div class="text-[9px] uppercase tracking-widest text-zinc-400 dark:text-white/30 font-mono">{{ s.label }}</div>
+              </div>
+            }
+          </div>
+
+          <!-- Trust badges -->
+          <div class="vp-hero-trust flex flex-wrap items-center gap-3 pt-1">
+            <div class="flex -space-x-2">
+              @for (letter of avatarLetters; track letter) {
+                <div class="w-6 h-6 rounded-full border-2 border-zinc-100 dark:border-zinc-800 bg-zinc-300 dark:bg-zinc-700 flex items-center justify-center text-[8px] font-bold text-zinc-600 dark:text-zinc-400">
+                  {{ letter }}
+                </div>
+              }
+              <div class="w-6 h-6 rounded-full border-2 border-zinc-100 dark:border-zinc-800 bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-[7px] font-bold text-zinc-100 dark:text-zinc-800">+</div>
+            </div>
+            <span class="text-[10px] text-zinc-400 dark:text-white/35 font-medium">
+              Trusted by 640+ AEC teams and
+              <span class="text-zinc-500 dark:text-white/50">SOC2 certified</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- RIGHT — browser mockup -->
+        <div #mockupEl class="relative flex items-center justify-center lg:justify-end">
+          <div class="absolute inset-0 opacity-[0.04] blur-[80px] rounded-full scale-75 pointer-events-none" [ngClass]="cfg.accentBg"></div>
+          <div class="relative w-full max-w-[560px]">
+            <div class="bg-zinc-900 dark:bg-[#0c0c0f] rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <!-- Browser bar -->
+              <div class="flex items-center gap-2 px-4 py-3 bg-zinc-800 dark:bg-black/60 border-b border-white/5">
+                <div class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-amber-500/70"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
+                </div>
+                <div class="flex-1 mx-3 bg-zinc-700 dark:bg-white/5 rounded-md px-3 py-1 text-[9px] font-mono text-zinc-400 dark:text-white/30 truncate">
+                  {{ cfg.demoUrl || 'axisxd.com/' + cfg.type }}
+                </div>
+                <lucide-icon [img]="Cpu" [size]="12" class="text-zinc-500 animate-spin"></lucide-icon>
+              </div>
+
+              <!-- Viewer canvas -->
+              <div class="relative bg-[#08080A] h-[320px] overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <img [src]="heroImage" [alt]="viewerType" class="w-full h-full object-cover select-none pointer-events-none" draggable="false" />
+                <!-- HUD bar -->
+                <div class="absolute bottom-0 left-0 right-0 bg-black/70 backdrop-blur border-t border-white/5 px-4 py-2 flex items-center justify-between text-[8px] font-mono">
+                  <div class="flex items-center gap-3 text-white/40">
+                    <span class="flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                      AXIS_CORE: OK
+                    </span>
+                    <span>FPS: 60.0</span>
+                  </div>
+                  <span class="font-semibold" [ngClass]="hudColor">{{ versionTag }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- Free badge -->
+            @if (showFreeBadge) {
+              <div class="vp-free-badge absolute -bottom-4 -right-4 text-white text-[9px] font-semibold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg" [ngClass]="cfg.accentBg">
+                Free to Use
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- CAPABILITIES HEADER                                               -->
+  <!-- ================================================================ -->
+  <div class="vp-section-heading max-w-6xl mx-auto px-6 md:px-10 py-20 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-zinc-200 dark:border-white/5">
+    <div>
+      <div class="text-[10px] font-semibold uppercase tracking-widest mb-2 font-mono" [ngClass]="cfg.accentClass">
+        {{ cfg.capabilityEyebrow }}
+      </div>
+      <h2 class="font-syne font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[42px] uppercase tracking-tight leading-[1.12]" [ngClass]="cfg.accentClass">
+        {{ cfg.capabilityHeadingHighlight }}
+      </h2>
+      <h2 class="font-syne font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[42px] uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.12] mt-1">
+        {{ cfg.capabilityHeadingRest }}
+      </h2>
+    </div>
+    <p class="max-w-sm text-sm text-zinc-500 dark:text-white/45 leading-relaxed font-light md:text-right">
+      {{ cfg.capabilitySubtext }}
+    </p>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- CAPABILITIES GRID                                                 -->
+  <!-- ================================================================ -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 py-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      @for (cap of cfg.capabilities; track cap.title) {
+        <div class="vp-cap-card group bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/5 rounded-3xl p-6 flex flex-col cursor-default transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-[1.15] group-hover:rotate-[5deg]" [ngClass]="accentIcon">
+            <lucide-icon [img]="cap.icon" [size]="20"></lucide-icon>
+          </div>
+          <div class="h-px w-full mb-4" [ngClass]="accentDiv"></div>
+          <h3 class="font-syne font-semibold text-sm uppercase tracking-tight text-zinc-900 dark:text-white mb-2">
+            {{ cap.title }}
+          </h3>
+          <p class="text-xs text-zinc-500 dark:text-white/40 leading-relaxed font-light">
+            {{ cap.description }}
+          </p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- TRANSFORM WORKFLOW HEADER                                         -->
+  <!-- ================================================================ -->
+  <div class="vp-section-heading max-w-6xl mx-auto px-6 md:px-10 py-16 flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-zinc-200 dark:border-white/5">
+    <div>
+      <h2 class="font-syne font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[42px] uppercase tracking-tight text-zinc-950 dark:text-white leading-[1.12]">
+        Transform Your
+      </h2>
+      <h2 class="font-syne font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[40px] xl:text-[42px] uppercase tracking-tight leading-[1.12] mt-1">
+        <span [ngClass]="cfg.accentClass">{{ cfg.workflowHighlight }}</span>
+        <span class="text-zinc-950 dark:text-white"> Workflow</span>
+      </h2>
+    </div>
+    <p class="max-w-sm text-sm text-zinc-500 dark:text-white/45 leading-relaxed font-light md:text-right">
+      {{ cfg.workflowSubtext }}
+    </p>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- FORMATS + PERFORMANCE + WORKFLOW LIST                             -->
+  <!-- ================================================================ -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 pb-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+      <!-- Left: formats + performance card -->
+      <div class="vp-formats-panel bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/5 rounded-3xl overflow-hidden shadow-sm dark:shadow-none">
+        <!-- Formats -->
+        <div class="p-7 border-b border-zinc-100 dark:border-white/5">
+          <h3 class="font-syne font-semibold text-xs uppercase tracking-widest text-zinc-500 dark:text-white/40 mb-5 text-center">
+            {{ cfg.formatsTitle }}
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            @for (f of cfg.formats; track f.name) {
+              <div class="vp-format-card p-4 rounded-2xl border text-center transition-transform duration-200 hover:scale-[1.04]" [ngClass]="cfg.accentCardBg">
+                <div class="font-syne font-semibold text-base uppercase tracking-tight mb-1" [ngClass]="cfg.accentClass">
+                  {{ f.name }}
+                </div>
+                <div class="text-[10px] font-mono text-zinc-400 dark:text-white/30 uppercase tracking-wider">
+                  {{ f.label }}
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Performance -->
+        <div class="p-7">
+          <h3 class="font-syne font-semibold text-xs uppercase tracking-widest text-zinc-500 dark:text-white/40 mb-5 text-center">
+            Performance
+          </h3>
+          <div class="divide-y divide-zinc-100 dark:divide-white/5">
+            @for (p of cfg.performance; track p.label) {
+              <div class="vp-perf-row flex items-center justify-between py-3">
+                <span class="text-xs text-zinc-500 dark:text-white/40 font-mono uppercase tracking-wider">{{ p.label }}</span>
+                <span class="text-xs font-semibold" [ngClass]="cfg.accentClass">{{ p.value }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: workflow benefits + CTA -->
+      <div class="vp-workflow-panel space-y-3">
+        @for (benefit of cfg.workflowBenefits; track benefit) {
+          <div class="vp-workflow-item flex items-start gap-3 p-4 bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/5 rounded-2xl group cursor-default">
+            <div class="transition-transform duration-200 group-hover:scale-[1.2] group-hover:rotate-[10deg]">
+              <lucide-icon [img]="CheckCircle2" [size]="16" class="mt-0.5 shrink-0" [ngClass]="cfg.accentClass"></lucide-icon>
+            </div>
+            <span class="text-sm text-zinc-700 dark:text-white/70 font-light">{{ benefit }}</span>
+          </div>
+        }
+
+        <!-- CTA -->
+        @if (cfg.demoUrl) {
+          <a [href]="cfg.demoUrl" target="_blank" rel="noopener noreferrer" class="block mt-6 transition-transform duration-150 hover:scale-[1.015] active:scale-[0.985]">
+            <button type="button" class="w-full hover:opacity-90 text-white font-semibold text-sm uppercase tracking-widest py-4 rounded-2xl flex items-center justify-center gap-2 transition-opacity shadow-lg cursor-pointer" [ngClass]="cfg.accentBg">
+              View Demo <lucide-icon [img]="ArrowUpRight" [size]="16"></lucide-icon>
+            </button>
+          </a>
+          <p class="text-center text-[10px] text-zinc-400 dark:text-white/25 font-mono uppercase tracking-widest pt-1">
+            No signup required: launch instantly in browser
+          </p>
+        } @else {
+          <button type="button" disabled class="w-full mt-6 bg-zinc-200 dark:bg-white/5 text-zinc-400 dark:text-white/30 font-semibold text-sm uppercase tracking-widest py-4 rounded-2xl flex items-center justify-center gap-2 cursor-not-allowed">
+            View Demo <lucide-icon [img]="ArrowUpRight" [size]="16"></lucide-icon>
+          </button>
+          <p class="text-center text-[10px] text-zinc-400 dark:text-white/25 font-mono uppercase tracking-widest pt-1">
+            Demo coming soon
+          </p>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- MINIMAL PLATFORM METRICS                                         -->
+  <!-- ================================================================ -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 py-16 border-t border-zinc-200 dark:border-white/5">
+    <div class="flex items-center gap-3 mb-10">
+      <span class="text-[9px] font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
+        {{ sysTag }}
+      </span>
+      <div class="h-px flex-1 bg-gradient-to-r from-blue-500/30 to-transparent"></div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      @for (stat of cfg.metrics; track stat.label) {
+        <div class="vp-metric-card space-y-1">
+          <div class="text-2xl md:text-3xl font-bold font-mono text-zinc-950 dark:text-zinc-100">
+            {{ stat.value }}
+          </div>
+          <div class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">
+            {{ stat.label }}
+          </div>
+          <p class="text-[10px] text-zinc-400 dark:text-zinc-500 leading-relaxed font-light">
+            {{ stat.sub }}
+          </p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- STEPS TO GET STARTED                                              -->
+  <!-- ================================================================ -->
+  <section class="max-w-6xl mx-auto px-6 md:px-10 py-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+      <div>
+        <span class="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 font-mono">
+          WORKFLOW
+        </span>
+        <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-none mt-2">
+          Get Started in
+        </h2>
+        <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-blue-600 dark:text-blue-400 leading-none mt-1">
+          {{ cfg.steps.length }} Simple Steps
+        </h2>
+      </div>
+      <p class="max-w-xs text-sm text-zinc-500 dark:text-white/45 leading-relaxed font-light">
+        From upload to insight: get started in minutes with zero configuration.
+      </p>
+    </div>
+
+    <!-- Image preview + Steps wrapper -->
+    <div class="max-w-6xl mx-auto px-6 md:px-10 mb-6 lg:rounded-[20px] lg:border lg:border-zinc-200 dark:lg:border-white/5 lg:overflow-hidden lg:bg-white dark:lg:bg-[#0b0b0d]/70 lg:p-6">
+      <!-- Image preview for steps -->
+      @if (stepImage) {
+        <div class="hidden md:block mb-6">
+          <div class="w-full h-56 md:h-96 bg-gradient-to-r from-zinc-100 to-white dark:from-black dark:to-[#0b0b0b] rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/5 mb-4">
+            <img
+              [src]="stepImage"
+              [alt]="cfg.type + ' preview'"
+              width="1672"
+              height="941"
+              class="w-full h-full rounded-2xl transition-all duration-500 ease-out"
+              [ngClass]="stepImageClasses(activeStep)"
+            />
+          </div>
+        </div>
+      }
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:flex lg:items-center lg:gap-0">
+        @for (step of cfg.steps; track step.num; let i = $index; let last = $last) {
+          <div class="flex items-center lg:flex-1">
+            <div
+              (click)="onStepClick(i)"
+              (mouseenter)="setActiveStep(i)"
+              (mouseleave)="onStepHoverLeave()"
+              [attr.data-step-index]="i"
+              class="vp-step-card group relative bg-white dark:bg-[#111114] lg:bg-transparent dark:lg:bg-transparent border border-zinc-200 dark:border-white/[0.06] hover:border-transparent transition-all lg:border-0 rounded-xl lg:rounded-none lg:flex-1 p-6 flex flex-col cursor-pointer hover:-translate-y-1 duration-200"
+            >
+              <!-- Mobile: image reveal -->
+              @if (stepImage) {
+                <div
+                  #stepImgRef
+                  class="vp-step-img md:hidden overflow-hidden transition-all duration-500 ease-out"
+                  [style.opacity]="activeStep === i ? 1 : 0"
+                  [style.max-height]="activeStep === i ? '180px' : '0px'"
+                  [style.margin-bottom]="activeStep === i ? '16px' : '0px'"
+                >
+                  <div class="w-full h-40 rounded-lg overflow-hidden border border-zinc-200 dark:border-white/5">
+                    <img [src]="stepImage" [alt]="step.title" width="1672" height="941" class="w-full h-full object-cover rounded-lg" />
+                  </div>
+                </div>
+              }
+              <div class="flex items-center justify-between mb-5">
+                <span class="text-[10px] font-mono font-bold text-zinc-300 dark:text-zinc-600">
+                  STEP {{ step.num }}
+                </span>
+                <span class="text-lg text-blue-500/60 dark:text-blue-400/60 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">
+                  {{ step.icon }}
+                </span>
+              </div>
+              <div class="h-px w-8 bg-blue-500/40 mb-4 group-hover:w-full transition-all duration-500"></div>
+              <h3 class="font-syne font-semibold text-sm uppercase tracking-tight text-zinc-900 dark:text-white mb-2">
+                {{ step.title }}
+              </h3>
+              <p class="text-xs text-zinc-500 dark:text-white/40 leading-relaxed font-light flex-1">
+                {{ step.desc }}
+              </p>
+            </div>
+
+            <!-- separator only on large screens -->
+            @if (!last) {
+              <div class="hidden lg:flex items-center mx-6 -my-6">
+                <div class="w-px bg-zinc-200 dark:bg-white/10 h-[calc(100%+48px)]"></div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!-- WHO IS IT FOR — USE CASES                                         -->
+  <!-- ================================================================ -->
+  @if (cfg.useCases) {
+    <section class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-zinc-200 dark:border-white/5">
+      <div class="vp-section-heading text-center mb-12">
+        <span class="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 font-mono">
+          WHO IS IT FOR
+        </span>
+        <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-none mt-2">
+          BIM <span class="text-blue-600 dark:text-blue-400">Use Cases</span>
+        </h2>
+        <p class="max-w-lg mx-auto text-sm text-zinc-500 dark:text-white/45 leading-relaxed font-light mt-4">
+          Whether you design, build, or manage, AXIS XD fits every role in the AEC lifecycle.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        @for (uc of cfg.useCases; track uc.title) {
+          <div class="vp-usecase-card bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-2xl p-6 flex flex-col gap-3 hover:border-zinc-300 dark:hover:border-white/10 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+              <lucide-icon [img]="uc.icon" [size]="16" class="text-blue-600 dark:text-blue-400"></lucide-icon>
+            </div>
+            <h3 class="font-syne font-semibold text-sm uppercase tracking-tight text-zinc-900 dark:text-white">
+              {{ uc.title }}
+            </h3>
+            <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed font-light">
+              {{ uc.desc }}
+            </p>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================================================================ -->
+  <!-- FEATURE DEEP DIVE                                                 -->
+  <!-- ================================================================ -->
+  @if (cfg.deepFeatures) {
+    <section class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-zinc-200 dark:border-white/5">
+      <div class="vp-section-heading text-center mb-12">
+        <span class="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 font-mono">
+          FEATURE DEEP DIVE
+        </span>
+        <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-none mt-2">
+          Every Tool You Need
+        </h2>
+        <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-blue-600 dark:text-blue-400 leading-none mt-1">
+          In One Viewer
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        @for (feat of cfg.deepFeatures; track feat.title) {
+          <div class="vp-feature-card bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-2xl p-6 flex flex-col gap-3 hover:border-zinc-300 dark:hover:border-white/10 transition-all duration-300">
+            <div class="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
+              <lucide-icon [img]="feat.icon" [size]="16" class="text-blue-600 dark:text-blue-400"></lucide-icon>
+            </div>
+            <h3 class="font-syne font-semibold text-sm uppercase tracking-tight text-zinc-900 dark:text-white">
+              {{ feat.title }}
+            </h3>
+            <p class="text-xs text-zinc-500 dark:text-white/45 leading-relaxed font-light">
+              {{ feat.desc }}
+            </p>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================================================================ -->
+  <!-- COMPARISON — WHY CHOOSE AXIS XD                                  -->
+  <!-- ================================================================ -->
+  @if (cfg.whyChoose) {
+    <section class="max-w-5xl mx-auto px-6 md:px-10 py-20 border-t border-zinc-200 dark:border-white/5">
+      <div class="vp-section-heading text-center mb-12">
+        <span class="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 font-mono">
+          COMPARISON
+        </span>
+        <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-none mt-2">
+          Why Choose <span class="text-blue-600 dark:text-blue-400">AXIS XD</span>
+        </h2>
+      </div>
+      <div class="bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-2xl overflow-hidden">
+        <div class="grid grid-cols-3 gap-0 px-6 py-4 border-b border-zinc-100 dark:border-white/5">
+          <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400 dark:text-white/30">Feature</span>
+          <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 text-center">AXIS XD</span>
+          <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400 dark:text-white/30 text-center">{{ cfg.competitorLabel ?? 'Desktop IFC Viewer' }}</span>
+        </div>
+        @for (row of cfg.whyChoose; track row.feature; let last = $last) {
+          <div
+            class="vp-whychoose-row grid grid-cols-3 gap-0 px-6 py-4"
+            [ngClass]="!last ? 'border-b border-zinc-100 dark:border-white/[0.04]' : ''"
+          >
+            <span class="text-sm text-zinc-700 dark:text-white/70 font-light">{{ row.feature }}</span>
+            <span class="text-center">
+              @if (row.axisXd === '✓') {
+                <lucide-icon [img]="CheckCircle2" [size]="16" class="text-green-500 mx-auto"></lucide-icon>
+              } @else if (row.axisXd === '✗') {
+                <lucide-icon [img]="XCircle" [size]="16" class="text-red-400 mx-auto"></lucide-icon>
+              } @else {
+                <span class="text-xs text-zinc-400 dark:text-white/30 font-medium">{{ row.axisXd }}</span>
+              }
+            </span>
+            <span class="text-center">
+              @if (row.competitor === '✓') {
+                <lucide-icon [img]="CheckCircle2" [size]="16" class="text-green-500 mx-auto"></lucide-icon>
+              } @else if (row.competitor === '✗') {
+                <lucide-icon [img]="XCircle" [size]="16" class="text-red-400 mx-auto"></lucide-icon>
+              } @else {
+                <span class="text-xs text-zinc-400 dark:text-white/30 font-medium">{{ row.competitor }}</span>
+              }
+            </span>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <!-- ================================================================ -->
+  <!-- FAQ                                                               -->
+  <!-- ================================================================ -->
+  <section class="max-w-4xl mx-auto px-6 md:px-10 py-16 border-t border-zinc-200 dark:border-white/5">
+    <div class="text-center mb-12">
+      <span class="text-[10px] font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 font-mono">
+        FAQ
+      </span>
+      <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-zinc-950 dark:text-white leading-none mt-2">
+        Frequently Asked
+      </h2>
+      <h2 class="font-syne font-semibold text-3xl md:text-4xl uppercase tracking-tight text-blue-600 dark:text-blue-400 leading-none mt-1">
+        Questions
+      </h2>
+    </div>
+
+    <div class="space-y-3">
+      @for (faq of cfg.faqs; track faq.q; let i = $index) {
+        <div class="vp-faq-item bg-white dark:bg-[#111114] border border-zinc-200 dark:border-white/[0.06] rounded-xl overflow-hidden">
+          <button
+            type="button"
+            (click)="toggleFaq(i)"
+            class="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
+          >
+            <span class="flex items-center gap-2.5">
+              @if (cfg.faqIcon) {
+                <lucide-icon [img]="HelpCircle" [size]="16" class="text-blue-500/60 dark:text-blue-400/60 shrink-0"></lucide-icon>
+              }
+              <span class="text-sm font-semibold text-zinc-900 dark:text-white pr-4">{{ faq.q }}</span>
+            </span>
+            <span
+              class="shrink-0 text-xs transition-transform duration-300"
+              [class.rotate-180]="openFaq === i"
+              [ngClass]="openFaq === i ? 'text-blue-500' : 'text-zinc-400 dark:text-zinc-500'"
+            >
+              &#9660;
+            </span>
+          </button>
+          <div class="faq-answer-wrap" [class.open]="openFaq === i">
+            <div class="faq-answer-inner">
+              <div class="px-6 pb-5 pt-0">
+                <p class="text-sm text-zinc-500 dark:text-white/40 leading-relaxed font-light">
+                  {{ faq.a }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+</div>

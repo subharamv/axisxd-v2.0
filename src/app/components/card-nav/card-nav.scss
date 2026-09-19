@@ -1,0 +1,170 @@
+
+:host {
+  display: block;
+}
+// ─────────────────────────────────────────────────────────────
+// Card Nav — extracted from inline Tailwind classes
+// (The .card-nav / .nav-* layout classes stay in src/styles.scss)
+// ─────────────────────────────────────────────────────────────
+
+$cn-blue-400: #6088fd; // config blue-400
+$cn-blue-600: #0645fb; // config blue-600
+
+/* ── Nav bar border color by theme (was border-white/5 | border-zinc-200/60) ── */
+.cn-nav-dark {
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.cn-nav-light {
+  border-color: rgba(228, 228, 231, 0.6);
+}
+
+/* ── Top bar ── */
+.cn-nav-left {
+  @apply flex items-center gap-0;
+}
+
+.cn-logo-btn {
+  @apply flex items-center select-none cursor-pointer;
+}
+
+.cn-logo {
+  @apply h-[40px] w-auto object-contain block select-none;
+}
+
+.cn-cta-wrap {
+  @apply flex items-center gap-1.5;
+}
+
+.cn-cta-btn {
+   font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.1); // hover:brightness-110
+  }
+
+  &:active {
+    transform: scale(0.95); // active:scale-95
+  }
+}
+
+/* ── Mega menu ── */
+.cn-mega-icon {
+  @apply w-3 h-3 shrink-0;
+  transition: transform 0.2s ease;
+}
+
+.cn-mega-icon-dark {
+  color: $cn-blue-400; // text-blue-400
+}
+
+.cn-mega-icon-light {
+  color: $cn-blue-600; // text-blue-600
+}
+
+.nav-mega-item:hover .cn-mega-icon {
+  transform: translate(0.125rem, -0.125rem); // group-hover:translate-x/y
+}
+
+.cn-visual-svg {
+  @apply w-full h-full max-h-[85px];
+}
+
+.cn-cta-icon {
+  @apply w-3 h-3 shrink-0;
+}
+
+/* ── Bento cards ── */
+.cn-card-label {
+  @apply font-syne font-black uppercase tracking-tight;
+}
+
+.cn-card-link {
+  @apply font-space font-medium text-[11px];
+  transition: color 0.2s ease;
+}
+
+.cn-link-dark {
+  color: rgba(255, 255, 255, 0.8); // text-white/80
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.cn-link-light {
+  color: rgba(63, 63, 70, 0.9); // text-zinc-700/90
+
+  &:hover {
+    color: #0645fb; // hover:text-[#0645fb]
+  }
+}
+
+.cn-card-link-icon {
+  @apply w-3 h-3 shrink-0;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.cn-card-icon-dark {
+  color: rgba(255, 255, 255, 0.7); // text-white/70
+}
+
+.cn-card-icon-light {
+  color: #a1a1aa; // text-zinc-400
+}
+
+.nav-card-link:hover .cn-card-link-icon {
+  transform: translate(0.125rem, -0.125rem); // group-hover:translate-x/y
+}
+
+.nav-card-link:hover .cn-card-link-icon--static {
+  transform: none;
+}
+
+.cn-link-label {
+  font-weight: 700;
+}
+
+.cn-desc {
+  color: #a1a1aa; // text-zinc-400 (default)
+}
+
+.cn-desc--black {
+  color: #000000;
+}
+
+/* ── Connect footer ── */
+.cn-connect-col {
+  @apply flex flex-col gap-2;
+}
+
+.cn-contact-sales {
+  @apply text-[8px] font-mono uppercase tracking-widest cursor-pointer text-left transition-colors;
+  color: #71717a; // text-zinc-500
+
+  &:hover {
+    color: #27272a; // hover:text-zinc-800
+  }
+}
+
+html.dark .cn-contact-sales {
+  color: rgba(255, 255, 255, 0.4); // dark:text-white/40
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.8); // dark:hover:text-white/80
+  }
+}
+
+/* ── Social / contact icons ── */
+.cn-social-icon {
+  @apply w-4 h-4;
+}
+
+.cn-contact-icon {
+  @apply w-2.5 h-2.5;
+}

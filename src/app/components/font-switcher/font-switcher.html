@@ -1,0 +1,68 @@
+<div class="fs-root">
+  <button
+    type="button"
+    class="fs-trigger"
+    [ngClass]="[
+      isDark ? 'fs-trigger--dark' : 'fs-trigger--light',
+      open ? (isDark ? 'fs-trigger--open-dark' : 'fs-trigger--open-light') : ''
+    ]"
+    (click)="toggle()"
+    [attr.aria-expanded]="open"
+    aria-haspopup="listbox"
+    aria-label="Preview a different typeface"
+    title="Typeface preview — temporary"
+  >
+    <lucide-icon [img]="Type" class="fs-trigger-icon"></lucide-icon>
+    <span class="fs-trigger-label">{{ fonts.currentOption.label }}</span>
+    <lucide-icon
+      [img]="ChevronDown"
+      class="fs-chevron"
+      [style.transform]="open ? 'rotate(180deg)' : 'rotate(0deg)'"
+    ></lucide-icon>
+  </button>
+
+  @if (open) {
+    <div
+      class="fs-menu"
+      [ngClass]="isDark ? 'fs-menu--dark' : 'fs-menu--light'"
+      role="listbox"
+      aria-label="Typeface"
+    >
+      <p class="fs-menu-head" [ngClass]="isDark ? 'fs-menu-head--dark' : 'fs-menu-head--light'">
+        Typeface preview
+      </p>
+
+      @for (font of fonts.options; track font.key) {
+        <button
+          type="button"
+          role="option"
+          class="fs-option"
+          [ngClass]="[
+            isDark ? 'fs-option--dark' : 'fs-option--light',
+            fonts.current() === font.key ? (isDark ? 'fs-option--on-dark' : 'fs-option--on-light') : ''
+          ]"
+          [attr.aria-selected]="fonts.current() === font.key"
+          (click)="select(font.key)"
+        >
+          <div class="fs-option-copy">
+            <!-- Each row renders in its own face, so the list is the sample. -->
+            <span class="fs-option-label" [style.font-family]="font.stack">{{ font.label }}</span>
+            <span class="fs-option-note" [ngClass]="isDark ? 'fs-option-note--dark' : 'fs-option-note--light'">
+              {{ font.note }}
+            </span>
+            <span class="fs-option-sample" [style.font-family]="font.stack" aria-hidden="true">
+              Digital Twin Platform 0123
+            </span>
+          </div>
+          @if (fonts.current() === font.key) {
+            <lucide-icon [img]="Check" class="fs-option-check"></lucide-icon>
+          }
+        </button>
+      }
+
+      <p class="fs-menu-foot" [ngClass]="isDark ? 'fs-menu-foot--dark' : 'fs-menu-foot--light'">
+        Temporary A/B control. Saved to this browser only.
+      </p>
+    </div>
+  }
+</div>

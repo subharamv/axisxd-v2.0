@@ -1,0 +1,193 @@
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+
+$fmt-brand: #0645fb;
+
+.fmt-section {
+  @include d.section;
+  @include d.section-rule;
+}
+
+.fmt-container {
+  @include d.container;
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center;
+}
+
+/* ── Left column ── */
+.fmt-copy {
+  @apply max-w-lg;
+}
+
+.fmt-eyebrow {
+  @apply inline-block text-[9px] font-mono font-bold uppercase tracking-[0.2em];
+  margin-bottom: d.$heading-eyebrow-gap;
+  color: $fmt-brand;
+}
+
+.fmt-title {
+  @apply text-3xl md:text-4xl font-semibold font-syne leading-tight;
+  color: #111;
+  letter-spacing: -0.02em;
+}
+
+.fmt-lead {
+  @include d.heading-lead;
+  @include d.heading-lead-type;
+  color: #55555c;
+}
+
+.fmt-cta {
+  @apply inline-flex items-center justify-center mt-7 px-6 py-3 rounded-full text-sm font-semibold transition-colors;
+  background: #111;
+  color: #fff;
+
+  &:hover {
+    background: $fmt-brand;
+  }
+}
+
+/* ── Right column: counter-scrolling format tiles ── */
+.fmt-wall {
+  @apply grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3 overflow-hidden rounded-2xl p-2 sm:p-3;
+  height: 340px;
+
+  @media (min-width: 640px) {
+    height: 420px;
+  }
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.5);
+  /* Fade the tiles out at the top and bottom edges */
+  mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent);
+}
+
+.fmt-col {
+  animation: fmt-scroll-up 26s linear infinite;
+  will-change: transform;
+}
+
+/* Neighbouring columns travel the opposite way */
+.fmt-col--down {
+  animation-name: fmt-scroll-down;
+  animation-duration: 30s;
+}
+
+.fmt-wall:hover .fmt-col {
+  animation-play-state: paused;
+}
+
+.fmt-track {
+  @apply flex flex-col gap-2 sm:gap-3;
+}
+
+.fmt-tile {
+  @apply flex flex-col items-center justify-center gap-0.5 sm:gap-1 rounded-xl transition-all duration-200;
+  height: 58px;
+
+  @media (min-width: 640px) {
+    height: 92px;
+  }
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+
+  &:hover {
+    border-color: rgba(6, 69, 251, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(6, 69, 251, 0.1);
+  }
+}
+
+/* The glyph is dropped on phones so the shorter tile keeps room for the label */
+.fmt-glyph {
+  @apply hidden sm:block w-5 h-5;
+  color: $fmt-brand;
+}
+
+.fmt-ext {
+  @apply text-xs font-mono font-bold tracking-wider;
+  color: #111;
+}
+
+.fmt-kind {
+  @apply text-[7px] sm:text-[8px] font-mono uppercase tracking-wider sm:tracking-widest text-center px-1 leading-tight;
+  color: #8a8a93;
+}
+
+@keyframes fmt-scroll-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes fmt-scroll-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fmt-col {
+    animation: none;
+  }
+}
+
+/* ── Dark mode: light text over the shared page wash ── */
+:host-context(.dark) {
+  .fmt-title {
+    color: #fff;
+  }
+
+  .fmt-lead {
+    color: #a1a1aa;
+  }
+
+  .fmt-eyebrow {
+    color: #6b93ff;
+  }
+
+  .fmt-cta {
+    background: #fff;
+    color: #111;
+
+    &:hover {
+      background: $fmt-brand;
+      color: #fff;
+    }
+  }
+
+  .fmt-wall {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .fmt-tile {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+
+    &:hover {
+      border-color: rgba(107, 147, 255, 0.6);
+      box-shadow: 0 8px 20px rgba(6, 69, 251, 0.25);
+    }
+  }
+
+  .fmt-glyph {
+    color: #6b93ff;
+  }
+
+  .fmt-ext {
+    color: #fff;
+  }
+
+  .fmt-kind {
+    color: #71717a;
+  }
+}

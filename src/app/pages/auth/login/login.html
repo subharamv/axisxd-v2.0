@@ -1,0 +1,224 @@
+<div class="min-h-screen flex text-zinc-900 dark:text-white font-sans antialiased transition-colors duration-300">
+  <!-- LEFT PANEL -->
+  <div class="flex-1 flex flex-col justify-center px-12 lg:px-16 py-16 bg-zinc-50 dark:bg-[#0a0a0f] relative overflow-hidden min-h-screen max-lg:hidden">
+    <div class="absolute top-[-50%] left-[-20%] w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(6,69,251,0.06)_0%,transparent_70%)] pointer-events-none"></div>
+    <div class="absolute bottom-[-30%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(99,102,241,0.04)_0%,transparent_70%)] pointer-events-none"></div>
+
+    <img
+      src="assets/images/misc/4368511_1035.svg"
+      alt=""
+      class="absolute bottom-0 left-0 right-0 w-full h-auto object-fill scale-x-[0.85] translate-x-[180px] translate-y-[70px] opacity-[0.36] dark:opacity-[0.37] dark:[filter:invert(1)] [filter:invert(18%)_sepia(0%)_saturate(0%)_brightness(20%)] pointer-events-none select-none"
+    />
+
+    <div class="relative z-10 max-w-[520px] pl-20">
+      <div class="inline-flex items-center mb-14">
+        <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" width="719" height="347" class="h-[60px] w-auto object-contain block select-none dark:invert-0 invert" />
+      </div>
+    </div>
+
+    <h1 class="text-[42px] font-extrabold leading-[1.1] tracking-[-1px] mb-5 text-zinc-900 dark:text-white relative z-10 pl-20 max-w-[520px]">
+      Full-spectrum<br /><span class="text-[#4a8eff]">digital twin</span> platform
+    </h1>
+
+    <p class="text-[15px] text-zinc-500 dark:text-white/50 leading-relaxed font-light max-w-[400px] mb-12 relative z-10 pl-20">
+      Deploy, monitor, and analyze digital twins across IFC, LiDAR, panorama, and live sensor integrations.
+    </p>
+
+    <div class="flex items-center gap-6 relative z-10 pl-20">
+      <div class="flex">
+        @for (a of avatars; track a.initials; let i = $index) {
+          <span
+            class="w-9 h-9 rounded-full border-2 border-zinc-200 dark:border-[#0a0a0f] flex items-center justify-center text-[11px] font-bold text-white bg-gradient-to-br shadow-lg"
+            [ngClass]="[a.color, i > 0 ? '-ml-2' : '']"
+          >{{ a.initials }}</span>
+        }
+      </div>
+      <p class="text-[12px] text-zinc-400 dark:text-white/35">
+        Trusted by <strong class="text-zinc-600 dark:text-white/70 font-semibold">8,400+</strong> AEC professionals
+      </p>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="w-[600px] min-w-[600px] max-lg:w-full max-lg:min-w-0 flex items-center justify-center p-10 bg-zinc-50 dark:bg-[#0a0a0f] transition-colors duration-300 relative overflow-hidden">
+    <img
+      src="assets/images/misc/4368511_1035.svg"
+      alt=""
+      class="lg:hidden absolute bottom-0 left-0 right-0 w-full h-auto object-fill opacity-[0.12] dark:opacity-[0.18] dark:[filter:invert(1)] [filter:invert(18%)_sepia(0%)_saturate(0%)_brightness(20%)] pointer-events-none select-none"
+    />
+    <div class="w-full max-w-[380px] mr-[120px] max-lg:mr-0">
+      @if (forgotMode) {
+        <div @viewSwitch>
+          <button (click)="handleBackToLogin()" class="inline-flex items-center gap-1.5 text-[12px] text-zinc-400 dark:text-white/30 hover:text-zinc-600 dark:hover:text-white/60 mb-6 transition-colors hover:-translate-x-0.5">
+            <lucide-icon [img]="ArrowLeft" class="w-3.5 h-3.5"></lucide-icon>
+            Back to sign in
+          </button>
+
+          @if (resetSent) {
+            <div @fadeScale class="flex flex-col items-center text-center py-6">
+              <div class="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mb-5">
+                <lucide-icon [img]="CheckCircle2" class="w-7 h-7 text-emerald-500"></lucide-icon>
+              </div>
+              <h2 class="text-[22px] font-bold mb-2 text-zinc-900 dark:text-white">Check your inbox</h2>
+              <p class="text-[13px] text-zinc-500 dark:text-white/40 font-light leading-relaxed mb-2">We sent a password reset link to</p>
+              <p class="text-[13px] font-semibold text-zinc-800 dark:text-white mb-8 break-all">{{ resetEmail }}</p>
+              <p class="text-[12px] text-zinc-400 dark:text-white/30 mb-6">
+                Didn't receive it?
+                <button (click)="resetSent = false" class="text-[#4a8eff] font-semibold hover:underline bg-transparent border-none cursor-pointer text-[12px]">Resend email</button>
+              </p>
+              <button (click)="handleBackToLogin()" class="w-full h-[46px] rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-transparent text-zinc-700 dark:text-white text-[13px] font-medium cursor-pointer transition-all hover:bg-zinc-100 dark:hover:bg-white/[0.06]">
+                Return to sign in
+              </button>
+            </div>
+          } @else {
+            <div @fadeScale>
+              <div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-6">
+                <lucide-icon [img]="Mail" class="w-5 h-5 text-blue-500"></lucide-icon>
+              </div>
+              <h2 class="text-[22px] font-bold mb-1 text-zinc-900 dark:text-white">Reset your password</h2>
+              <p class="text-[13px] text-zinc-500 dark:text-white/40 font-light mb-7 leading-relaxed">
+                Enter the email address linked to your account and we'll send you a reset link.
+              </p>
+              <form (submit)="handleForgotSubmit($event)">
+                <div class="mb-5">
+                  <label for="reset-email" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Email address</label>
+                  <div [class.shake]="resetEmailShake">
+                    <input
+                      id="reset-email"
+                      type="email"
+                      [(ngModel)]="resetEmail"
+                      name="resetEmail"
+                      (ngModelChange)="clearResetEmailError()"
+                      placeholder="name@company.com"
+                      autofocus
+                      class="auth-input"
+                      [ngClass]="resetEmailError ? 'border-red-400/60' : 'border-zinc-200 dark:border-white/[0.06]'"
+                    />
+                  </div>
+                  @if (resetEmailError) {
+                    <p @fieldError class="text-[11px] text-red-400 mt-1">Please enter a valid email address</p>
+                  }
+                </div>
+                <button
+                  type="submit"
+                  class="w-full h-[46px] rounded-xl border-none bg-gradient-to-r from-[#0040ff] to-[#4a8eff] text-white text-[14px] font-semibold cursor-pointer transition-all font-sans hover:-translate-y-px hover:shadow-[0_4px_20px_rgba(74,142,255,0.3)] active:translate-y-0"
+                >
+                  Send Reset Link
+                </button>
+              </form>
+            </div>
+          }
+        </div>
+      } @else {
+        <div @viewSwitch>
+          <button (click)="onBack()" class="inline-flex items-center gap-1.5 text-[12px] text-zinc-400 dark:text-white/30 hover:text-zinc-600 dark:hover:text-white/60 mb-6 transition-colors hover:-translate-x-0.5">
+            <lucide-icon [img]="ArrowLeft" class="w-3.5 h-3.5"></lucide-icon>
+            Back to site
+          </button>
+
+          <h2 class="text-[22px] font-bold mb-1 text-zinc-900 dark:text-white">Welcome back</h2>
+          <p class="text-[13px] text-zinc-500 dark:text-white/40 font-light mb-7">Sign in to your AXISXD account</p>
+
+          <div>
+            <button
+              (click)="handleSocialLogin('google')"
+              class="w-full h-[46px] rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-zinc-50 dark:bg-white/[0.03] text-zinc-700 dark:text-white text-[13px] font-medium flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:bg-zinc-100 dark:hover:bg-white/[0.06] hover:border-zinc-300 dark:hover:border-white/[0.15] mb-3"
+            >
+              <svg viewBox="0 0 24 24" class="w-[20px] h-[20px]" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+              </svg>
+              Continue with Google
+            </button>
+            <button
+              (click)="handleSocialLogin('microsoft')"
+              class="w-full h-[46px] rounded-xl border border-zinc-200 dark:border-white/[0.08] bg-zinc-50 dark:bg-white/[0.03] text-zinc-700 dark:text-white text-[13px] font-medium flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:bg-zinc-100 dark:hover:bg-white/[0.06] hover:border-zinc-300 dark:hover:border-white/[0.15] mb-3"
+            >
+              <svg viewBox="0 0 21 21" class="w-[20px] h-[20px]" xmlns="http://www.w3.org/2000/svg">
+                <rect x="1" y="1" width="9" height="9" fill="#F25022" />
+                <rect x="11" y="1" width="9" height="9" fill="#7FBA00" />
+                <rect x="1" y="11" width="9" height="9" fill="#00A4EF" />
+                <rect x="11" y="11" width="9" height="9" fill="#FFB900" />
+              </svg>
+              Continue with Microsoft
+            </button>
+          </div>
+
+          <div class="flex items-center gap-4 my-5 text-[11px] text-zinc-300 dark:text-white/20 uppercase tracking-[1px] font-medium">
+            <span class="flex-1 h-px bg-zinc-200 dark:bg-white/[0.06]"></span>
+            or continue with email
+            <span class="flex-1 h-px bg-zinc-200 dark:bg-white/[0.06]"></span>
+          </div>
+
+          <div>
+            <form (submit)="handleSubmit($event)">
+              <div class="mb-4">
+                <label for="login-email" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Email address</label>
+                <div [class.shake]="emailShake">
+                  <input
+                    id="login-email"
+                    type="email"
+                    [(ngModel)]="email"
+                    name="email"
+                    (ngModelChange)="clearEmailError()"
+                    placeholder="name@company.com"
+                    required
+                    class="w-full h-[46px] px-3.5 rounded-xl border bg-zinc-50 dark:bg-white/[0.03] text-zinc-900 dark:text-white text-[14px] font-sans outline-none transition-all placeholder:text-zinc-400 dark:placeholder:text-white/20 focus:border-blue-500/40 focus:bg-blue-500/[0.04] focus:shadow-[0_0_0_3px_rgba(74,142,255,0.08)]"
+                    [ngClass]="emailError ? 'border-red-400/60' : 'border-zinc-200 dark:border-white/[0.06]'"
+                  />
+                </div>
+                @if (emailError) {
+                  <p @fieldError class="text-[11px] text-red-400 mt-1">Please enter a valid email</p>
+                }
+              </div>
+              <div class="mb-4">
+                <label for="login-password" class="block text-[12px] font-semibold text-zinc-500 dark:text-white/60 mb-1.5 tracking-[0.3px]">Password</label>
+                <div [class.shake]="passwordShake">
+                  <input
+                    id="login-password"
+                    type="password"
+                    [(ngModel)]="password"
+                    name="password"
+                    (ngModelChange)="clearPasswordError()"
+                    placeholder="Enter your password"
+                    required
+                    class="w-full h-[46px] px-3.5 rounded-xl border bg-zinc-50 dark:bg-white/[0.03] text-zinc-900 dark:text-white text-[14px] font-sans outline-none transition-all placeholder:text-zinc-400 dark:placeholder:text-white/20 focus:border-blue-500/40 focus:bg-blue-500/[0.04] focus:shadow-[0_0_0_3px_rgba(74,142,255,0.08)]"
+                    [ngClass]="passwordError ? 'border-red-400/60' : 'border-zinc-200 dark:border-white/[0.06]'"
+                  />
+                </div>
+                @if (passwordError) {
+                  <p @fieldError class="text-[11px] text-red-400 mt-1">Password must be at least 8 characters</p>
+                }
+              </div>
+
+              <div class="flex justify-end mb-5">
+                <button type="button" (click)="forgotMode = true" class="text-[12px] text-blue-500/70 hover:text-blue-500 font-medium bg-transparent border-none cursor-pointer hover:translate-x-0.5">
+                  Forgot password?
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full h-[46px] rounded-xl border-none bg-gradient-to-r from-[#0040ff] to-[#4a8eff] text-white text-[14px] font-semibold cursor-pointer transition-all font-sans hover:-translate-y-px hover:shadow-[0_4px_20px_rgba(74,142,255,0.3)] active:translate-y-0"
+              >
+                Sign In
+              </button>
+            </form>
+          </div>
+
+          <p class="text-center mt-5 text-[13px] text-zinc-400 dark:text-white/35">
+            Don't have an account?
+            <a routerLink="/signup" class="text-[#4a8eff] font-semibold hover:underline cursor-pointer text-[13px]">Create account</a>
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Mobile only branding -->
+  <div class="lg:hidden fixed top-5 left-5 z-20">
+    <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" width="719" height="347" class="h-[48px] w-auto object-contain block select-none dark:invert-0 invert" />
+  </div>
+</div>

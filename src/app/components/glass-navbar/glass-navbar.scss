@@ -1,0 +1,674 @@
+
+:host {
+  display: block;
+}
+/* ─────────────────────────────────────────────────────────────
+   Glass Navbar — semantic classes (extracted from utilities)
+   ───────────────────────────────────────────────────────────── */
+
+/* The nav used to be inset from the viewport edges (16px → 96px), so on
+   wide screens it spanned far outside the 1280px content column and the
+   logo sat well left of the hero headline. Capping it at the same width
+   and gutter as .section-container lines the two up. */
+.gn-fixed {
+  @apply fixed top-3.5 z-50 left-0 right-0 mx-auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.5rem;
+
+  @media (min-width: 1024px) {
+    padding-inline: 2rem;
+  }
+}
+
+.gn-nav {
+  @apply relative border transition-[border-color,background] duration-300 rounded-full;
+}
+
+.gn-nav--rounded {
+  @apply rounded-2xl;
+}
+
+.gn-nav--dark {
+  @apply border-white/[0.07];
+}
+
+.gn-nav--light {
+  @apply border-black/[0.08];
+}
+
+.gn-shimmer {
+  @apply absolute inset-x-[2px] top-[2px] h-[48%] pointer-events-none rounded-t-full;
+}
+
+.gn-shimmer--square {
+  @apply rounded-t-xl;
+}
+
+.gn-row {
+  @apply relative flex items-center h-[56px] px-4 md:px-5 gap-3;
+}
+
+.gn-logo-btn {
+  @apply flex items-center select-none cursor-pointer shrink-0;
+}
+
+.gn-logo {
+  @apply h-[35px] w-auto object-contain select-none;
+}
+
+.gn-desktop-nav {
+  @apply hidden md:flex items-center gap-0.5 flex-1 justify-center;
+}
+
+.gn-group {
+  @apply relative;
+}
+
+.gn-nav-btn {
+  @apply px-3.5 py-2 rounded-full text-sm font-medium cursor-pointer flex items-center gap-1;
+  transition: background-color 90ms ease-out, color 90ms ease-out;
+}
+
+.gn-nav-btn--open-dark {
+  @apply bg-white/[0.10] text-white;
+}
+
+.gn-nav-btn--open-light {
+  @apply bg-black/[0.06] text-zinc-950;
+}
+
+.gn-nav-btn--idle-dark {
+  @apply text-white/65 hover:text-white hover:bg-white/[0.08];
+}
+
+.gn-nav-btn--idle-light {
+  @apply text-zinc-600 hover:text-zinc-950 hover:bg-black/[0.05];
+}
+
+.gn-nav-chevron {
+  @apply w-3.5 h-3.5 opacity-70 transition-transform duration-200;
+}
+
+/* ── Mega menu ── */
+.gn-mega {
+  @apply absolute top-[calc(100%+10px)] left-0 rounded-2xl border flex items-stretch overflow-hidden;
+}
+
+.gn-mega--dark {
+  @apply border-white/[0.07];
+}
+
+.gn-mega--light {
+  @apply border-black/[0.08];
+}
+
+.gn-hairline {
+  @apply absolute inset-x-0 top-0 h-px pointer-events-none;
+}
+
+.gn-subcol {
+  @apply shrink-0 px-3 pb-3 pt-4 flex flex-col gap-0.5;
+  width: 251px;
+}
+
+.gn-subcol-head {
+  @apply px-3 pb-1 text-[8px] font-bold uppercase tracking-[0.18em];
+}
+
+.gn-subcol-head--dark {
+  @apply text-white/20;
+}
+
+.gn-subcol-head--light {
+  @apply text-zinc-400;
+}
+
+.gn-prod-btn {
+  @apply w-full flex items-center gap-2.5 px-3 py-3 rounded-xl text-left transition-all duration-100 relative hover:translate-x-0.5;
+}
+
+.gn-prod-btn--active-dark {
+  @apply bg-blue-500/[0.12];
+}
+
+.gn-prod-btn--active-light {
+  @apply bg-blue-500/[0.07];
+}
+
+.gn-prod-bar {
+  @apply absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-blue-500;
+}
+
+.gn-prod-icon-box {
+  @apply w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all duration-100;
+}
+
+.gn-prod-icon-box--active {
+  @apply bg-blue-500/20 border border-blue-500/35;
+}
+
+.gn-prod-icon-box--dark {
+  @apply bg-white/[0.06] border border-transparent;
+}
+
+.gn-prod-icon-box--light {
+  @apply bg-black/[0.04] border border-transparent;
+}
+
+.gn-prod-icon {
+  @apply w-3.5 h-3.5;
+}
+
+.gn-prod-icon--active {
+  @apply text-blue-500;
+}
+
+.gn-prod-icon--dark {
+  @apply text-white/50;
+}
+
+.gn-prod-icon--light {
+  @apply text-black/40;
+}
+
+.gn-prod-copy {
+  @apply flex-1 min-w-0;
+}
+
+.gn-prod-label {
+  @apply text-xs font-semibold;
+}
+
+.gn-prod-label--active {
+  @apply text-blue-500;
+}
+
+.gn-prod-label--dark {
+  @apply text-white/80;
+}
+
+.gn-prod-label--light {
+  @apply text-black/75;
+}
+
+.gn-prod-tagline {
+  @apply text-[10px] mt-0.5 font-light truncate;
+}
+
+.gn-prod-tagline--dark {
+  @apply text-white/35;
+}
+
+.gn-prod-tagline--light {
+  @apply text-zinc-400;
+}
+
+.gn-prod-arrow {
+  @apply w-3 h-3 shrink-0 opacity-0 transition-opacity text-blue-500;
+}
+
+.gn-prod-btn:hover .gn-prod-arrow {
+  @apply opacity-60; // was group-hover:opacity-60
+}
+
+.gn-divider {
+  @apply w-px self-stretch my-2 shrink-0;
+  opacity: 0; // was inline style
+}
+
+.gn-divider--dark {
+  @apply bg-white/[0.06];
+}
+
+.gn-divider--light {
+  @apply bg-black/[0.06];
+}
+
+.gn-panel {
+  @apply shrink-0 overflow-hidden;
+  width: 0; // was inline style
+}
+
+.gn-panel-inner {
+  @apply flex flex-col p-3 h-full;
+  width: 299px; // was inline style
+}
+
+.gn-preview-card {
+  @apply flex-1 rounded-xl overflow-hidden relative;
+}
+
+.gn-preview-glow {
+  @apply absolute inset-0 rounded-xl pointer-events-none;
+}
+
+.gn-preview-inner {
+  @apply w-full h-full absolute inset-0 p-2;
+}
+
+.gn-preview-img {
+  @apply w-full h-full object-cover object-left rounded-lg;
+}
+
+.gn-preview-meta {
+  @apply mt-2.5 flex items-center justify-between shrink-0;
+}
+
+.gn-preview-label {
+  @apply text-[10px] font-semibold uppercase tracking-wider;
+}
+
+.gn-demo-link {
+  @apply flex items-center gap-1 text-[9px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full cursor-pointer hover:scale-[1.04] transition-transform;
+}
+
+.gn-demo-icon {
+  @apply w-3 h-3;
+}
+
+.gn-subgap {
+  @apply self-stretch shrink-0 flex items-center justify-center;
+  width: 20px; // was inline style
+  opacity: 1; // was inline style
+}
+
+.gn-subgap-line {
+  @apply w-px h-full;
+}
+
+.gn-subgap-line--dark {
+  @apply bg-white/[0.05];
+}
+
+.gn-subgap-line--light {
+  @apply bg-black/[0.05];
+}
+
+/* ── Standard dropdown ── */
+.gn-dropdown {
+  @apply absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 rounded-2xl border overflow-hidden;
+}
+
+.gn-dropdown--dark {
+  @apply border-white/[0.07];
+}
+
+.gn-dropdown--light {
+  @apply border-black/[0.08];
+}
+
+.gn-dropdown-body {
+  @apply p-1.5;
+}
+
+.gn-dropdown-body--grid {
+  @apply grid grid-cols-2 gap-1.5;
+}
+
+.gn-dropdown-body--stack {
+  @apply space-y-0.5;
+}
+
+.gn-dropdown-btn {
+  @apply w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-150 hover:translate-x-0.5;
+}
+
+.gn-dropdown-btn--dark {
+  @apply text-white/70 hover:text-white hover:bg-sky-500/10;
+}
+
+.gn-dropdown-btn--light {
+  @apply text-zinc-600 hover:text-zinc-950 hover:bg-sky-500/10;
+}
+
+.gn-dropdown-icon-box {
+  @apply w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all;
+}
+
+.gn-dropdown-icon-box--dark {
+  @apply bg-white/[0.08];
+}
+
+.gn-dropdown-icon-box--light {
+  @apply bg-zinc-100;
+}
+
+.gn-dropdown-btn:hover .gn-dropdown-icon-box {
+  @apply bg-sky-500/10; // was group-hover:bg-sky-500/10
+}
+
+.gn-dropdown-icon {
+  @apply w-3.5 h-3.5 transition-colors text-zinc-400;
+}
+
+.gn-dropdown-btn:hover .gn-dropdown-icon {
+  @apply text-sky-400; // was group-hover:text-sky-400
+}
+
+.gn-dropdown-copy {
+  @apply flex-1 min-w-0;
+}
+
+.gn-dropdown-label {
+  @apply text-xs font-semibold block;
+}
+
+.gn-dropdown-desc {
+  @apply text-[10px] mt-0.5 font-light truncate;
+}
+
+.gn-dropdown-desc--dark {
+  @apply text-white/30;
+}
+
+.gn-dropdown-desc--light {
+  @apply text-zinc-400;
+}
+
+.gn-dropdown-arrow {
+  @apply w-3.5 h-3.5 shrink-0 opacity-0 transition-colors text-zinc-400;
+}
+
+.gn-dropdown-btn:hover .gn-dropdown-arrow {
+  @apply opacity-50 text-sky-400; // was group-hover:opacity-50 group-hover:text-sky-400
+}
+
+/* ── Right controls ── */
+.gn-controls {
+  @apply flex items-center gap-2 shrink-0 ml-auto md:ml-0;
+}
+
+.gn-cta-btn {
+  @apply hidden sm:flex items-center gap-1.5 bg-[#0645fb] hover:brightness-110
+    text-white text-[12px] font-extrabold uppercase tracking-wider
+    px-5 py-2.5 rounded-full transition-all cursor-pointer
+    active:scale-95 hover:scale-[1.03];
+
+  font-weight: 600 !important;
+  box-shadow: 0 2px 14px rgba(6, 69, 251, 0.38);
+}
+.gn-mobile-btn {
+  @apply md:hidden w-9 h-9 rounded-full flex items-center justify-center transition-colors cursor-pointer active:scale-[0.92];
+}
+
+.gn-mobile-btn--dark {
+  @apply text-white/70 hover:text-white hover:bg-white/[0.10];
+}
+
+.gn-mobile-btn--light {
+  @apply text-zinc-600 hover:text-zinc-900 hover:bg-black/[0.07];
+}
+
+.gn-mobile-icon-wrap {
+  @apply relative w-[18px] h-[18px];
+}
+
+.gn-mobile-icon {
+  @apply absolute inset-0 w-full h-full transition-all duration-150;
+}
+
+.gn-icon-hidden {
+  opacity: 0; // was [class.opacity-0]
+}
+
+.gn-icon-rot {
+  transform: rotate(90deg); // was [class.rotate-90]
+}
+
+.gn-icon-rot-neg {
+  transform: rotate(-90deg); // was [class.-rotate-90]
+}
+
+/* ── Mobile panel ── */
+.gn-mobile-panel {
+  @apply md:hidden overflow-hidden;
+}
+
+.gn-mobile-body {
+  @apply border-t mx-3 pb-3 pt-1 overflow-y-auto overscroll-contain;
+  max-height: calc(100dvh - 90px); // was inline style
+}
+
+.gn-mobile-body--dark {
+  @apply border-white/[0.06];
+}
+
+.gn-mobile-body--light {
+  @apply border-black/[0.06];
+}
+
+.gn-mobile-group {
+  @apply border-b;
+
+  &:last-child {
+    border-bottom: 0; // was last:border-b-0
+  }
+}
+
+.gn-mobile-group--dark {
+  @apply border-white/[0.05];
+}
+
+.gn-mobile-group--light {
+  @apply border-black/[0.05];
+}
+
+.gn-mobile-group-btn {
+  @apply w-full flex items-center justify-between px-3 py-3 text-[10px] font-bold uppercase tracking-[0.18em] transition-colors;
+}
+
+.gn-mobile-group-btn--dark-open {
+  @apply text-white/70;
+}
+
+.gn-mobile-group-btn--dark-closed {
+  @apply text-white/30 hover:text-white/50;
+}
+
+.gn-mobile-group-btn--light-open {
+  @apply text-zinc-700;
+}
+
+.gn-mobile-group-btn--light-closed {
+  @apply text-zinc-400 hover:text-zinc-600;
+}
+
+.gn-mobile-group-chevron {
+  @apply w-3.5 h-3.5 transition-transform duration-200;
+}
+
+.gn-mobile-links {
+  @apply pb-2 space-y-0.5;
+}
+
+.gn-mobile-link {
+  @apply w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors;
+}
+
+.gn-mobile-link--dark {
+  @apply text-white/65 hover:text-white hover:bg-sky-500/10;
+}
+
+.gn-mobile-link--light {
+  @apply text-zinc-600 hover:text-zinc-950 hover:bg-sky-500/10;
+}
+
+.gn-mobile-link-icon {
+  @apply w-4 h-4 shrink-0 transition-colors text-zinc-400;
+}
+
+.gn-mobile-link:hover .gn-mobile-link-icon {
+  @apply text-sky-400; // was group-hover:text-sky-400
+}
+
+.gn-mobile-link-copy {
+  @apply flex-1 min-w-0;
+}
+
+.gn-mobile-link-label {
+  @apply text-sm font-medium block;
+}
+
+.gn-mobile-link-desc {
+  @apply text-[10px] font-light truncate block mt-0.5;
+}
+
+.gn-mobile-link-desc--dark {
+  @apply text-white/30;
+}
+
+.gn-mobile-link-desc--light {
+  @apply text-zinc-400;
+}
+
+.gn-mobile-link-arrow {
+  @apply w-3.5 h-3.5 shrink-0 opacity-30 transition-colors text-zinc-400;
+}
+
+.gn-mobile-link:hover .gn-mobile-link-arrow {
+  @apply text-sky-400; // was group-hover:text-sky-400
+}
+
+.gn-mobile-cta-wrap {
+  @apply pt-3 mt-1;
+}
+
+.gn-mobile-cta {
+  @apply w-full py-3 rounded-xl text-sm font-semibold text-center bg-[#0645fb] hover:bg-blue-500 text-white transition-colors;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Glass base / dropdown / animation hooks (unchanged)
+   ───────────────────────────────────────────────────────────── */
+
+.glass-base {
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+}
+
+.glass-dark {
+  background: rgba(8, 8, 14, 0.58);
+  box-shadow: 0 4px 36px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.035), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 36px rgba(0, 0, 0, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.shimmer-dark {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055) 0%, transparent 100%);
+}
+
+.shimmer-light {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+}
+
+.dropdown-dark {
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  background: rgba(10, 10, 16, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dropdown-light {
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.13), inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.mega-menu {
+  animation: glass-menu-in 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mega-menu-exit {
+  animation: glass-menu-out 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  pointer-events: none;
+}
+
+/* Standard dropdown is centered with translateX(-50%), so its animations must keep that offset */
+.gn-dropdown.mega-menu {
+  animation: glass-dropdown-in 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gn-dropdown.mega-menu-exit {
+  animation: glass-dropdown-out 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes glass-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes glass-dropdown-out {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px) scale(0.98);
+  }
+}
+
+@keyframes glass-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glass-menu-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+/* Mobile menu animation */
+.mobile-enter {
+  animation: mobile-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mobile-exit {
+  animation: mobile-out 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+  pointer-events: none;
+}
+
+@keyframes mobile-in {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 800px;
+  }
+}
+
+@keyframes mobile-out {
+  from {
+    opacity: 1;
+    max-height: 800px;
+  }
+  to {
+    opacity: 0;
+    max-height: 0;
+  }
+}

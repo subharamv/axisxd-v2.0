@@ -1,0 +1,192 @@
+<section
+  #sectionEl
+  id="analyzers_demo"
+  class="ads-section"
+>
+  <!-- Background layers -->
+  <div class="ads-glow ads-glow--left"></div>
+  <div class="ads-glow ads-glow--right"></div>
+  <div class="ads-grid"></div>
+
+  <div class="ads-container">
+
+    <!-- Header -->
+    <div class="analyzers-heading">
+      <div class="ads-heading-text">
+        <span class="ads-eyebrow">
+          <span class="ads-eyebrow-dot"></span>
+          Analyzers Demo
+        </span>
+        <h2 class="ads-title">
+          Advanced Digital<br />
+          <span class="ads-title-accent">Twin Analyzers</span>
+        </h2>
+        <p class="ads-lead">
+          Precision-engineered tools for every stage of the building lifecycle from planning compliance to construction handover.
+        </p>
+      </div>
+
+      <!-- Global KPIs strip -->
+      <div class="analyzers-kpi-strip">
+        @for (k of kpis; track k.l) {
+          <div class="ads-kpi">
+            <span class="ads-kpi-value">{{ k.v }}</span>
+            <span class="ads-kpi-label">{{ k.l }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div
+      #tabBarEl
+      class="analyzers-tab-bar"
+    >
+      @for (tab of tabs; track tab.id) {
+        <button
+          (click)="selectTab(tab.id)"
+          [attr.data-active]="activeTab === tab.id ? 'true' : 'false'"
+          class="ads-tab"
+          [class.ads-tab--active]="activeTab === tab.id"
+        >
+          @if (activeTab === tab.id) {
+            <div class="ads-tab-pill"></div>
+          }
+          <span class="ads-tab-label">
+            {{ tab.label }}
+          </span>
+        </button>
+      }
+    </div>
+
+    <!-- Tab content -->
+    <!-- The stage keeps a locked height so swapping tabs never reflows the
+         page; only the content inside it slides. -->
+    <div #stageEl class="ads-stage ads-content-in">
+      <div #contentEl class="ads-content">
+
+        <!-- LEFT: Demo Viewer -->
+        <div
+          (mousemove)="onMouseMove($event)"
+
+          (mouseenter)="onMouseEnter()"
+          (mouseleave)="onMouseLeave()"
+          class="ads-viewer-panel"
+        >
+          <!-- Shimmer -->
+          @if (!imageLoaded) {
+            <div class="ads-shimmer-wrap">
+              <div class="ads-shimmer"></div>
+            </div>
+          }
+
+          <div class="ads-tilt" [style.transform]="'rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)'">
+            <img
+              [src]="activeData.image"
+              [alt]="activeData.label"
+              (load)="onImageLoad()"
+              class="ads-image-in"
+            />
+          </div>
+
+          <!-- Gradient vignette -->
+          <div class="ads-vignette"></div>
+
+          <!-- Top-left: live label -->
+          <div class="ads-float-badge ads-float-badge--tl ads-fade-x-in">
+            <span class="ads-float-dot"></span>
+            {{ activeData.label }}
+          </div>
+
+
+          <!-- Bottom: key metric float -->
+          <div class="ads-metrics ads-fade-y-in">
+            <!-- Primary metric chip -->
+            <div class="ads-metric-primary">
+              <lucide-icon [img]="activeData.stats[0].icon" class="ads-metric-icon" [style.color]="activeData.stats[0].color"></lucide-icon>
+              <div>
+                <div class="ads-metric-value">{{ activeData.stats[0].value }}{{ activeData.stats[0].suffix }}</div>
+                <div class="ads-metric-label">{{ activeData.stats[0].label }}</div>
+              </div>
+            </div>
+            <!-- Secondary metrics row -->
+            <div class="ads-metric-secondary">
+              @for (s of activeData.stats.slice(1, 4); track s.label) {
+                <div class="ads-metric-chip">
+                  <span class="ads-metric-chip-value">{{ s.value }}{{ s.suffix }}</span>
+                  <span class="ads-metric-chip-label">{{ s.label }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Analytics & Details -->
+        <div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" class="ads-side">
+          <!-- Card 1 — Solution header -->
+          <div class="ads-card">
+
+            <!-- Header row -->
+            <div class="ads-card-header">
+              <div>
+                <div class="ads-card-eyebrow">Active Module</div>
+                <h3 class="ads-card-title">{{ activeData.label }}</h3>
+                <p class="ads-card-desc">{{ activeData.description }}</p>
+              </div>
+              <span class="ads-badge" [ngClass]="badgeClass(activeData.badge)">
+                {{ activeData.badge }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 2 — Capabilities + CTA -->
+          <div class="ads-card ads-card--capabilities">
+            <div class="ads-card-eyebrow ads-card-eyebrow--cap">Capabilities</div>
+
+            <ul class="ads-features">
+              @for (feat of activeData.features; track feat; let i = $index) {
+                <li class="ads-feature ads-feat-in" [style.animation-delay.ms]="50 + i * 40">
+                  <span class="ads-feature-icon">
+                    <lucide-icon [img]="CheckCircle2" class="ads-feature-icon-svg"></lucide-icon>
+                  </span>
+                  <span class="ads-feature-text">{{ feat }}</span>
+                </li>
+              }
+            </ul>
+
+            <!-- Footer: trust signal + CTA -->
+            <div class="ads-card-footer">
+              <div class="ads-trust">
+                <div class="ads-avatars">
+                  @for (c of ['#0645fb', '#10b981', '#f59e0b', '#8b5cf6']; track c) {
+                    <div class="ads-avatar" [style.background]="c"></div>
+                  }
+                </div>
+                <span class="ads-trust-text">Trusted by <strong class="ads-trust-strong">500+</strong> teams</span>
+              </div>
+              <button
+                (click)="handleCta()"
+                class="ads-cta"
+              >
+                <span>{{ activeData.cta }}</span>
+                <lucide-icon [img]="ArrowUpRight" class="ads-cta-icon"></lucide-icon>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile dots -->
+    <div class="ads-dots">
+      @for (t of tabs; track t.id) {
+        <button
+          (click)="selectTab(t.id)"
+          class="ads-dot"
+          [class.ads-dot--active]="activeTab === t.id"
+        ></button>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,297 @@
+<div class="gn-fixed">
+  <div
+    class="gn-nav glass-base"
+    [ngClass]="[mobileOpen || mobileClosing ? 'gn-nav--rounded' : '', isDark ? 'gn-nav--dark glass-dark' : 'gn-nav--light glass-light']"
+    (mouseleave)="menuLeave()"
+  >
+    <div
+      class="gn-shimmer shimmer"
+      [ngClass]="mobileOpen || mobileClosing ? 'gn-shimmer--square' : ''"
+      [class.shimmer-dark]="isDark"
+      [class.shimmer-light]="!isDark"
+    ></div>
+
+    <!-- Nav bar row -->
+    <div class="gn-row">
+      <button (click)="navigateHome()" class="gn-logo-btn" aria-label="Go to home">
+        <img [src]="isDark ? 'assets/images/logos/xd_white_logo.png' : 'assets/images/logos/xd_blue_logo.png'" alt="AxisXD" class="gn-logo" />
+      </button>
+
+      <!-- Desktop nav -->
+      <nav class="gn-desktop-nav" aria-label="Main navigation">
+        @for (group of groups; track group.id) {
+          <div class="gn-group" (mouseenter)="menuEnter(group.id)">
+            <button
+              class="gn-nav-btn"
+              [ngClass]="openMenu === group.id ? (isDark ? 'gn-nav-btn--open-dark' : 'gn-nav-btn--open-light') : (isDark ? 'gn-nav-btn--idle-dark' : 'gn-nav-btn--idle-light')"
+              [attr.aria-expanded]="openMenu === group.id"
+              aria-haspopup="true"
+            >
+              {{ group.label }}
+              <lucide-icon [img]="ChevronDown" class="gn-nav-chevron" [style.transform]="openMenu === group.id ? 'rotate(180deg)' : 'rotate(0deg)'"></lucide-icon>
+            </button>
+
+            @if (openMenu === group.id || closingMenu === group.id) {
+              @if (group.id === 'products') {
+                <!-- PRODUCTS MEGA MENU -->
+                <div
+                  class="mega-menu-container gn-mega mega-menu"
+                  [ngClass]="[
+                    isDark ? 'gn-mega--dark dropdown-dark' : 'gn-mega--light dropdown-light',
+                    closingMenu === group.id ? 'mega-menu-exit' : ''
+                  ]"
+                  [style.width.px]="CLOSED_W"
+                  (mouseenter)="keepOpen()"
+                  (mouseleave)="menuLeave()"
+                  role="menu"
+                >
+                  <div class="gn-hairline" [style.background]="isDark ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.9)'"></div>
+
+                  <!-- LEFT sub-col: Top Viewers -->
+                  <div class="gn-subcol">
+                    <p class="gn-subcol-head" [ngClass]="isDark ? 'gn-subcol-head--dark' : 'gn-subcol-head--light'">Top Viewers</p>
+                    @for (prod of PRODUCTS.slice(0, 3); track prod.key) {
+                      <button
+                        role="menuitem"
+                        (mouseenter)="hoverProduct(prod.key)"
+                        (click)="selectProduct(prod.key)"
+                        class="gn-prod-btn"
+                        [ngClass]="hoveredProductKey === prod.key ? (isDark ? 'gn-prod-btn--active-dark' : 'gn-prod-btn--active-light') : ''"
+                      >
+                        @if (hoveredProductKey === prod.key) {
+                          <div class="gn-prod-bar"></div>
+                        }
+                        <div
+                          class="gn-prod-icon-box"
+                          [ngClass]="hoveredProductKey === prod.key ? 'gn-prod-icon-box--active' : (isDark ? 'gn-prod-icon-box--dark' : 'gn-prod-icon-box--light')"
+                        >
+                          <lucide-icon [img]="prod.icon" class="gn-prod-icon" [ngClass]="hoveredProductKey === prod.key ? 'gn-prod-icon--active' : (isDark ? 'gn-prod-icon--dark' : 'gn-prod-icon--light')"></lucide-icon>
+                        </div>
+                        <div class="gn-prod-copy">
+                          <span class="gn-prod-label" [ngClass]="hoveredProductKey === prod.key ? 'gn-prod-label--active' : (isDark ? 'gn-prod-label--dark' : 'gn-prod-label--light')">{{ prod.label }}</span>
+                          <p class="gn-prod-tagline" [ngClass]="isDark ? 'gn-prod-tagline--dark' : 'gn-prod-tagline--light'">{{ prod.tagline }}</p>
+                        </div>
+                        <lucide-icon [img]="ArrowUpRight" class="gn-prod-arrow"></lucide-icon>
+                      </button>
+                    }
+                  </div>
+
+                  <!-- MID DIVIDER (fades in with mid panel) -->
+                  <div class="mid-div gn-divider" [ngClass]="isDark ? 'gn-divider--dark' : 'gn-divider--light'"></div>
+
+                  <!-- MID PREVIEW (opens between columns) -->
+                  <div class="mid-panel gn-panel">
+                    <div class="gn-panel-inner">
+                      <div
+                        class="gn-preview-card"
+                        [style.background]="isDark ? 'rgba(6,6,12,0.7)' : 'rgba(248,250,255,0.8)'"
+                        [style.border]="'1px solid rgba(' + activeProduct.accentRgb + ',0.15)'"
+                      >
+                        <div class="gn-preview-glow" [style.background]="'radial-gradient(circle at center, rgba(' + activeProduct.accentRgb + ',0.08) 0%, transparent 70%)'"></div>
+                        <div class="mid-panel-inner gn-preview-inner">
+                          <img [src]="activeProduct.previewImg" [alt]="activeProduct.previewAlt" class="gn-preview-img" />
+                        </div>
+                      </div>
+                      <div class="gn-preview-meta">
+                        <p class="gn-preview-label" [style.color]="activeProduct.accent">{{ activeProduct.label }}</p>
+                        <a [href]="activeProduct.demoUrl" target="_blank" rel="noopener noreferrer" (click)="openMenu = null">
+                          <span
+                            class="gn-demo-link"
+                            [style.background]="'rgba(' + activeProduct.accentRgb + ',0.15)'"
+                            [style.color]="activeProduct.accent"
+                            [style.border]="'1px solid rgba(' + activeProduct.accentRgb + ',0.3)'"
+                          >
+                            Try Demo <lucide-icon [img]="ArrowUpRight" class="gn-demo-icon"></lucide-icon>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SUB-COL GAP (dead-zone with centered divider) -->
+                  <div class="sub-gap gn-subgap">
+                    <div class="gn-subgap-line" [ngClass]="isDark ? 'gn-subgap-line--dark' : 'gn-subgap-line--light'"></div>
+                  </div>
+
+                  <!-- RIGHT sub-col: New Viewers -->
+                  <div class="gn-subcol">
+                    <p class="gn-subcol-head" [ngClass]="isDark ? 'gn-subcol-head--dark' : 'gn-subcol-head--light'">New Viewers</p>
+                    @for (prod of PRODUCTS.slice(3); track prod.key) {
+                      <button
+                        role="menuitem"
+                        (mouseenter)="hoverProduct(prod.key)"
+                        (click)="selectProduct(prod.key)"
+                        class="gn-prod-btn"
+                        [ngClass]="hoveredProductKey === prod.key ? (isDark ? 'gn-prod-btn--active-dark' : 'gn-prod-btn--active-light') : ''"
+                      >
+                        @if (hoveredProductKey === prod.key) {
+                          <div class="gn-prod-bar"></div>
+                        }
+                        <div
+                          class="gn-prod-icon-box"
+                          [ngClass]="hoveredProductKey === prod.key ? 'gn-prod-icon-box--active' : (isDark ? 'gn-prod-icon-box--dark' : 'gn-prod-icon-box--light')"
+                        >
+                          <lucide-icon [img]="prod.icon" class="gn-prod-icon" [ngClass]="hoveredProductKey === prod.key ? 'gn-prod-icon--active' : (isDark ? 'gn-prod-icon--dark' : 'gn-prod-icon--light')"></lucide-icon>
+                        </div>
+                        <div class="gn-prod-copy">
+                          <span class="gn-prod-label" [ngClass]="hoveredProductKey === prod.key ? 'gn-prod-label--active' : (isDark ? 'gn-prod-label--dark' : 'gn-prod-label--light')">{{ prod.label }}</span>
+                          <p class="gn-prod-tagline" [ngClass]="isDark ? 'gn-prod-tagline--dark' : 'gn-prod-tagline--light'">{{ prod.tagline }}</p>
+                        </div>
+                        <lucide-icon [img]="ArrowUpRight" class="gn-prod-arrow"></lucide-icon>
+                      </button>
+                    }
+                  </div>
+
+                  <!-- RIGHT DIVIDER (fades in with right panel) -->
+                  <div class="right-div gn-divider" [ngClass]="isDark ? 'gn-divider--dark' : 'gn-divider--light'"></div>
+
+                  <!-- RIGHT PREVIEW (opens beside right column) -->
+                  <div class="right-panel gn-panel">
+                    <div class="gn-panel-inner">
+                      <div
+                        class="gn-preview-card"
+                        [style.background]="isDark ? 'rgba(6,6,12,0.7)' : 'rgba(248,250,255,0.8)'"
+                        [style.border]="'1px solid rgba(' + activeProduct.accentRgb + ',0.15)'"
+                      >
+                        <div class="gn-preview-glow" [style.background]="'radial-gradient(circle at center, rgba(' + activeProduct.accentRgb + ',0.08) 0%, transparent 70%)'"></div>
+                        <div class="right-panel-inner gn-preview-inner">
+                          <img [src]="activeProduct.previewImg" [alt]="activeProduct.previewAlt" class="gn-preview-img" />
+                        </div>
+                      </div>
+                      <div class="gn-preview-meta">
+                        <p class="gn-preview-label" [style.color]="activeProduct.accent">{{ activeProduct.label }}</p>
+                        <a [href]="activeProduct.demoUrl" target="_blank" rel="noopener noreferrer" (click)="openMenu = null">
+                          <span
+                            class="gn-demo-link"
+                            [style.background]="'rgba(' + activeProduct.accentRgb + ',0.15)'"
+                            [style.color]="activeProduct.accent"
+                            [style.border]="'1px solid rgba(' + activeProduct.accentRgb + ',0.3)'"
+                          >
+                            Try Demo <lucide-icon [img]="ArrowUpRight" class="gn-demo-icon"></lucide-icon>
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              } @else {
+                <!-- STANDARD DROPDOWN -->
+                <div
+                  class="gn-dropdown mega-menu"
+                  [ngClass]="[
+                    isDark ? 'gn-dropdown--dark dropdown-dark' : 'gn-dropdown--light dropdown-light',
+                    closingMenu === group.id ? 'mega-menu-exit' : ''
+                  ]"
+                  [style.min-width.px]="group.id === 'resources' ? 460 : 210"
+                  (mouseenter)="keepOpen()"
+                  (mouseleave)="menuLeave()"
+                  role="menu"
+                >
+                  <div class="gn-hairline" [style.background]="isDark ? 'rgba(255,255,255,0.07)' : 'rgba(255,255,255,0.9)'"></div>
+                  <div class="gn-dropdown-body" [ngClass]="group.id === 'resources' ? 'gn-dropdown-body--grid' : 'gn-dropdown-body--stack'">
+                    @for (lnk of group.links; track lnk.label) {
+                      <button
+                        role="menuitem"
+                        (click)="runAndClose(lnk.onClick)"
+                        class="gn-dropdown-btn"
+                        [ngClass]="isDark ? 'gn-dropdown-btn--dark' : 'gn-dropdown-btn--light'"
+                      >
+                        @if (lnk.icon) {
+                          <div class="gn-dropdown-icon-box" [ngClass]="isDark ? 'gn-dropdown-icon-box--dark' : 'gn-dropdown-icon-box--light'">
+                            <lucide-icon [img]="lnk.icon" class="gn-dropdown-icon"></lucide-icon>
+                          </div>
+                        }
+                        <div class="gn-dropdown-copy">
+                          <span class="gn-dropdown-label">{{ lnk.label }}</span>
+                          @if (lnk.desc) {
+                            <p class="gn-dropdown-desc" [ngClass]="isDark ? 'gn-dropdown-desc--dark' : 'gn-dropdown-desc--light'">{{ lnk.desc }}</p>
+                          }
+                        </div>
+                        <lucide-icon [img]="ArrowUpRight" class="gn-dropdown-arrow"></lucide-icon>
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        }
+
+        <!-- TEMPORARY typeface A/B control, sits beside Connect. -->
+        <app-font-switcher></app-font-switcher>
+      </nav>
+
+      <!-- Right controls -->
+      <div class="gn-controls">
+        <app-nav-style-toggle [navStyle]="'glass'" (toggle)="switchStyle.emit()"></app-nav-style-toggle>
+        <app-animated-theme-toggler variant="circle"></app-animated-theme-toggler>
+        <button (click)="navigateLogin()" class="gn-cta-btn">
+           Try XD for Free 
+        </button>
+        <button
+          (click)="toggleMobile()"
+          class="gn-mobile-btn"
+          [ngClass]="isDark ? 'gn-mobile-btn--dark' : 'gn-mobile-btn--light'"
+          [attr.aria-label]="mobileOpen ? 'Close menu' : 'Open menu'"
+          [attr.aria-expanded]="mobileOpen"
+        >
+          <div class="gn-mobile-icon-wrap">
+            <lucide-icon [img]="Menu" class="gn-mobile-icon" [class.gn-icon-hidden]="mobileOpen" [class.gn-icon-rot]="mobileOpen"></lucide-icon>
+            <lucide-icon [img]="X" class="gn-mobile-icon" [class.gn-icon-hidden]="!mobileOpen" [class.gn-icon-rot-neg]="!mobileOpen"></lucide-icon>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile panel -->
+    @if (mobileOpen || mobileClosing) {
+      <div class="gn-mobile-panel" [ngClass]="mobileClosing ? 'mobile-exit' : 'mobile-enter'">
+        <div class="gn-mobile-body" [ngClass]="isDark ? 'gn-mobile-body--dark' : 'gn-mobile-body--light'">
+          @for (gid of mobileGroupOrder; track gid) {
+            @if (groupById(gid); as group) {
+              <div class="gn-mobile-group" [ngClass]="isDark ? 'gn-mobile-group--dark' : 'gn-mobile-group--light'">
+                <button
+                  (click)="toggleMobileGroup(group.id)"
+                  class="gn-mobile-group-btn"
+                  [ngClass]="isDark ? (mobileExpanded.has(group.id) ? 'gn-mobile-group-btn--dark-open' : 'gn-mobile-group-btn--dark-closed') : (mobileExpanded.has(group.id) ? 'gn-mobile-group-btn--light-open' : 'gn-mobile-group-btn--light-closed')"
+                >
+                  <span>{{ group.label }}</span>
+                  <lucide-icon [img]="ChevronDown" class="gn-mobile-group-chevron" [style.transform]="mobileExpanded.has(group.id) ? 'rotate(180deg)' : 'rotate(0deg)'"></lucide-icon>
+                </button>
+
+                @if (mobileExpanded.has(group.id)) {
+                  <div class="gn-mobile-links">
+                    @for (lnk of group.links; track lnk.label) {
+                      <button
+                        (click)="runAndCloseMobile(lnk.onClick)"
+                        class="gn-mobile-link"
+                        [ngClass]="isDark ? 'gn-mobile-link--dark' : 'gn-mobile-link--light'"
+                      >
+                        @if (lnk.icon) {
+                          <lucide-icon [img]="lnk.icon" class="gn-mobile-link-icon"></lucide-icon>
+                        }
+                        <div class="gn-mobile-link-copy">
+                          <span class="gn-mobile-link-label">{{ lnk.label }}</span>
+                          @if (lnk.desc) {
+                            <span class="gn-mobile-link-desc" [ngClass]="isDark ? 'gn-mobile-link-desc--dark' : 'gn-mobile-link-desc--light'">{{ lnk.desc }}</span>
+                          }
+                        </div>
+                        <lucide-icon [img]="ArrowUpRight" class="gn-mobile-link-arrow"></lucide-icon>
+                      </button>
+                    }
+                  </div>
+                }
+              </div>
+            }
+          }
+
+          <div class="gn-mobile-cta-wrap">
+            <button (click)="startProject()" class="gn-mobile-cta">
+              Start Project
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

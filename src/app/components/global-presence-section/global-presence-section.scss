@@ -1,0 +1,243 @@
+@use '../../../styles/design' as d;
+
+:host {
+  display: block;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Global Presence Section — semantic classes (extracted from utilities)
+   ───────────────────────────────────────────────────────────── */
+
+.gps-section {
+  @include d.section;
+  @include d.section-rule;
+  overflow: hidden;
+}
+
+.gps-glow-wrap {
+  @apply absolute inset-0 pointer-events-none;
+}
+
+.gps-glow {
+  @apply absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full blur-[140px] bg-blue-400/[0.05] dark:bg-blue-700/[0.06];
+}
+
+.gps-container {
+  @include d.container;
+}
+
+.gps-header {
+  @include d.heading-content-gap;
+  @apply text-center;
+}
+
+.gps-eyebrow {
+  @include d.heading-eyebrow;
+  @apply text-sm font-medium text-blue-600 dark:text-blue-400;
+}
+
+.gps-title {
+  @apply text-4xl md:text-[2.85rem] font-semibold leading-tight tracking-tight text-zinc-900 dark:text-white;
+}
+
+.gps-subtitle {
+  @include d.heading-lead;
+  @include d.heading-lead-type;
+  @apply max-w-lg mx-auto text-zinc-600 dark:text-zinc-400;
+}
+
+/* ── World map card ── */
+.gps-map-card {
+  @apply relative rounded-3xl border overflow-hidden mb-14 border-zinc-200 bg-white dark:border-white/[0.07] dark:bg-[#07070f];
+}
+
+.gps-live-dot {
+  @apply relative inline-flex rounded-full h-2 w-2 bg-blue-500;
+}
+
+.gps-map {
+  width: 100%;
+  height: 480px;
+  background: #232326;
+}
+
+/* ── Testimonials ── */
+.gps-testimonials {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-5 mb-14;
+}
+
+.gps-testimonial {
+  @apply relative flex flex-col p-6 rounded-2xl border transition-colors duration-200 bg-white border-zinc-200 hover:border-zinc-300 shadow-sm dark:bg-white/[0.025] dark:border-white/[0.07] dark:hover:bg-white/[0.04];
+}
+
+.gps-t-top {
+  @apply mb-4 flex items-center justify-between;
+}
+
+.gps-t-company {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-xl border transition-colors duration-200 bg-zinc-50 border-zinc-200 hover:bg-zinc-100 dark:bg-white/[0.04] dark:border-white/[0.09] dark:hover:bg-white/[0.07];
+}
+
+.gps-t-company-name {
+  @apply text-[12px] font-black uppercase tracking-[0.18em] text-zinc-800 dark:text-white;
+}
+
+.gps-t-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-blue-400 dark:bg-blue-500;
+}
+
+.gps-t-quote {
+  @apply w-5 h-5 mb-3 text-blue-400/50 dark:text-blue-500/35;
+}
+
+.gps-t-text {
+  @apply text-sm leading-[1.75] flex-1 mb-6 text-zinc-700 dark:text-zinc-300;
+}
+
+.gps-t-author {
+  @apply flex items-center gap-3;
+}
+
+.gps-t-avatar {
+  @apply w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-blue-300;
+}
+
+.gps-t-name {
+  @apply text-xs font-semibold leading-tight text-zinc-800 dark:text-zinc-200;
+}
+
+.gps-t-title {
+  @apply text-[10px] leading-tight mt-0.5 text-zinc-400 dark:text-zinc-500;
+}
+
+/* ── Stats bar ── */
+.gps-stats {
+  @apply grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x rounded-2xl border overflow-hidden border-zinc-200 divide-zinc-200 shadow-sm dark:border-white/[0.07] dark:divide-white/[0.07];
+  background-color: #2d2e2f;
+}
+
+.gps-stat {
+  @apply py-6 sm:py-8 px-4 sm:px-6 text-center;
+}
+
+.gps-stat-value {
+  /* The bar keeps its dark background in both themes, so the figure stays white */
+  @apply text-3xl md:text-[2.4rem] font-black mb-1.5 tracking-tight text-white;
+}
+
+.gps-stat-label {
+  @apply text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-500;
+}
+
+/* ── Scroll animations (unchanged) ── */
+.gps-fade {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+.gps-fade.gps-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gps-fade-scale {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.85s ease-out 0.15s, transform 0.85s ease-out 0.15s;
+}
+.gps-fade-scale.gps-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes gps-ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ── Leaflet overrides (unchanged) ── */
+:host ::ng-deep .custom-map-tooltip .gps-tooltip-title {
+  color: #09090b;
+}
+:host-context(.dark) ::ng-deep .custom-map-tooltip .gps-tooltip-title {
+  color: #fff;
+}
+
+:host ::ng-deep .custom-map-tooltip {
+  background: rgba(255, 255, 255, 0.97) !important;
+}
+:host-context(.dark) ::ng-deep .custom-map-tooltip {
+  background: rgba(8, 8, 18, 0.95) !important;
+}
+:host ::ng-deep .custom-map-tooltip::before {
+  border-top-color: rgba(255, 255, 255, 0.97) !important;
+}
+:host-context(.dark) ::ng-deep .custom-map-tooltip::before {
+  border-top-color: rgba(8, 8, 18, 0.95) !important;
+}
+
+/* Map explorer controls stay outside the map so every city remains accessible. */
+.gps-map-toolbar { @apply p-5 border-b border-zinc-200 dark:border-white/10; }
+.gps-explorer-heading { @apply flex flex-wrap items-center gap-2 text-sm font-semibold text-zinc-800 dark:text-white; }
+.gps-organization-count { @apply ml-auto text-xs font-normal text-zinc-600 dark:text-zinc-400; }
+.gps-regions { @apply static flex flex-wrap gap-2 mt-4; }
+.gps-region-badge { @apply border border-zinc-200 bg-zinc-100 text-zinc-700 dark:border-white/10 dark:bg-white/5 dark:text-zinc-300 rounded-lg px-3 py-2 text-xs font-medium min-h-10 transition-colors hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-300; }
+.gps-region-active { @apply border-blue-600 bg-blue-600 text-white hover:text-white dark:bg-blue-600 dark:border-blue-500 dark:text-white; }
+.gps-explorer-body { display: grid; grid-template-columns: minmax(0, 1fr) 260px; }
+.gps-map-wrap { position: relative; min-width: 0; isolation: isolate; background: #292a2b; }
+.gps-map { height: 450px; }
+.gps-map-controls { position: absolute; z-index: 800; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 4px; }
+.gps-map-controls button { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; min-width: 0; padding: 0; border: 1px solid #626772; border-radius: var(--r-control); background: #171b24; color: white; font-size: 15px; line-height: 1; box-shadow: 0 2px 6px #0003; }
+.gps-map-controls button:hover { background: #263859; }
+.gps-map-controls button:disabled { opacity: .45; cursor: not-allowed; }
+/* Reset is an icon now, so it matches the zoom buttons in the stack */
+.gps-map-controls .gps-reset { margin-top: 4px; }
+.gps-map-controls .gps-reset svg { width: 15px; height: 15px; }
+.gps-city-panel { @apply flex flex-col p-6 border-l border-zinc-200 bg-zinc-50 dark:border-white/10 dark:bg-[#101119]; }
+.gps-city-label { @apply text-xs font-semibold text-zinc-600 dark:text-zinc-300 mb-2; }
+.gps-city-panel select { @apply w-full min-h-11 rounded-lg px-3 border border-zinc-300 bg-white text-sm text-zinc-900 dark:border-white/20 dark:bg-[#1c1e28] dark:text-white; }
+.gps-city-details { @apply mt-8; }
+.gps-city-region { @apply text-[11px] uppercase tracking-widest font-semibold text-blue-600 dark:text-blue-400 mb-2; }
+.gps-city-details h3 { @apply text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white; }
+.gps-project-count { @apply mt-6 text-5xl font-semibold tracking-tight text-zinc-900 dark:text-white; }
+.gps-project-count span { @apply block text-sm font-normal tracking-normal text-zinc-600 dark:text-zinc-400 mt-2; }
+.gps-city-context { @apply text-xs leading-relaxed mt-5 text-zinc-600 dark:text-zinc-400; }
+.gps-visible-count { @apply text-[11px] pt-6 mt-auto text-zinc-600 dark:text-zinc-400; }
+.gps-map-status { position: absolute; z-index: 800; left: 16px; right: 16px; bottom: 30px; padding: 9px 12px; border-radius: var(--r-control); background: #171b24; color: #fff; font-size: 12px; }
+.gps-map-status button { text-decoration: underline; margin-left: 6px; }
+.gps-map-card button:focus-visible, .gps-map-card select:focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+:host ::ng-deep .gps-map .leaflet-control-container { display: block !important; }
+:host ::ng-deep .gps-map .leaflet-control-attribution { display: none; }
+:host ::ng-deep .gps-map .leaflet-control-attribution a { color: #93c5fd; }
+:host ::ng-deep .gps-pin { display: grid; place-items: center; border-radius: 50%; background: #3b82f626; border: 1px solid #60a5fa88; transition: background .18s, box-shadow .18s; }
+:host ::ng-deep .gps-pin-core { width: 10px; height: 10px; border-radius: 50%; background: #60a5fa; box-shadow: 0 0 12px #3b82f6aa; }
+:host ::ng-deep .gps-pin:hover, :host ::ng-deep .gps-pin-selected { background: #2563eb88; border-color: #bfdbfe; box-shadow: 0 0 0 5px #3b82f622; }
+:host ::ng-deep .gps-pin-selected .gps-pin-core { background: white; }
+:host ::ng-deep .gps-pin:focus-visible, :host ::ng-deep .gps-map:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+@media (max-width: 640px) {
+  /* Leaflet sizes the marker inline (32px, anchored at -16px), so override size and offset together */
+  :host ::ng-deep .gps-pin { width: 20px !important; height: 20px !important; margin-left: -10px !important; margin-top: -10px !important; }
+  :host ::ng-deep .gps-pin-core { width: 6px; height: 6px; box-shadow: 0 0 8px #3b82f6aa; }
+  :host ::ng-deep .gps-pin:hover, :host ::ng-deep .gps-pin-selected { box-shadow: 0 0 0 3px #3b82f622; }
+}
+:host ::ng-deep .custom-map-tooltip { color: #111827; padding: 6px 10px; border-radius: var(--r-control); border: 1px solid #60a5fa; }
+:host-context(.dark) ::ng-deep .custom-map-tooltip { color: #fff; }
+@media (max-width: 767px) {
+  .gps-explorer-body { grid-template-columns: minmax(0, 1fr); }
+  .gps-map { height: 330px; }
+  .gps-organization-count { width: 100%; margin-left: 16px; }
+  .gps-city-panel { border-left: 0; border-top: 1px solid #71717a44; padding: 20px; }
+  .gps-city-details { margin-top: 20px; }
+  .gps-project-count { margin-top: 16px; font-size: 36px; }
+  .gps-project-count span { display: inline; margin-left: 10px; }
+  .gps-city-context { margin-top: 12px; }
+  .gps-visible-count { padding-top: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gps-fade, .gps-fade-scale { transition: none; transform: none; }
+  .gps-live-ping { animation: none; }
+  :host ::ng-deep .gps-pin { transition: none; }
+}

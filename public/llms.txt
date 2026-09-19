@@ -1,0 +1,50 @@
+# AxisXD
+
+> AxisXD is a browser-based digital twin platform that brings IFC/BIM models, point clouds, CAD drawings, meshes and 360° panoramic reality capture into a single environment, with analysis tools for deviation, clash detection, rights of light and construction progress monitoring. No plugin or desktop install — everything streams in a WebGL browser session.
+
+## What it does
+
+- **Viewers**: IFC and federated BIM, point cloud, DWG/DXF CAD, mesh, 360° panorama, combined digital twin.
+- **Analysis**: deviation analysis (scan vs. design model, colour-coded deviation maps and tolerance reports), clash detection across federated models with BCF export, rights of light, construction progress monitoring.
+- **Integration**: REST API and SDK for pulling models, issues and analysis results into external dashboards. IoT and SCADA feeds can be bound to elements for live monitoring.
+
+## Supported file formats
+
+IFC (2x3, 4, 4x3), Revit, Navisworks NWD/NWC, DWG, DXF, ReCap RCP/RCS, E57, LAS, LAZ, PTS, PTX, XYZ, OBJ, FBX, glTF, GLB, PLY, STL. Files are read natively — no pre-conversion or export step is required, and geometry plus metadata are preserved. Federated models keep their structure, so a discipline or a level can be isolated straight after processing.
+
+## Scale
+
+Point clouds in the billions of points and multi-gigabyte federated BIM models stream in the browser. Data is streamed by level of detail, so only what is in view is fetched.
+
+## Data handling
+
+Projects are private to the owning organisation, with role-based access per project. Regional hosting is available. Enterprise plans can run on dedicated or on-premise infrastructure.
+
+## Pricing
+
+- **Pilot Sandbox** — $0, free forever. All viewers and analysis tools with usage limits, single user session, shareable project links, community support.
+- **Professional** — $199 per seat per month. Unlimited IFC/BIM uploads, team sharing and collaboration, priority email and chat support, API access, custom deviation tolerances, PDF/XLS/BCF report export.
+- **Enterprise** — custom pricing. Everything in Professional plus SSO/SAML, dedicated account manager, SLA with uptime guarantee, RBAC and audit logs, custom integrations and API.
+
+## Key pages
+
+- [Homepage](https://axisxd.com/): platform overview, formats, pricing, FAQ.
+- [IFC viewer](https://axisxd.com/viewer/ifc)
+- [Point cloud viewer](https://axisxd.com/viewer/point-cloud)
+- [CAD viewer](https://axisxd.com/viewer/cad)
+- [Mesh viewer](https://axisxd.com/viewer/mesh)
+- [360° panorama viewer](https://axisxd.com/viewer/pano)
+- [Digital twin viewer](https://axisxd.com/viewer/digital-twin)
+- [Deviation analysis](https://axisxd.com/analysis/deviation)
+- [Clash detection](https://axisxd.com/analysis/clash)
+- [Rights of light](https://axisxd.com/analysis/rol)
+- [Construction monitoring](https://axisxd.com/analysis/monitoring)
+- [Documentation](https://axisxd.com/docs)
+- [Glossary](https://axisxd.com/glossary)
+- [FAQ](https://axisxd.com/faq)
+- [Resources](https://axisxd.com/resources)
+- [Contact](https://axisxd.com/contact)
+
+## Contact
+
+Sales: contact@axisxd.com · +1-319-683-2735

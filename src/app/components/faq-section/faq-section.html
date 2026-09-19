@@ -1,0 +1,102 @@
+<section #sectionEl id="faqs" class="faq-section">
+  <div class="faq-container">
+    <div class="faq-head">
+      <span class="faq-eyebrow">Everything you need to know</span>
+      <h2 class="faq-title">Frequently asked questions</h2>
+    </div>
+
+    <div class="faq-body">
+      <!-- Isometric puzzle piece floating over its empty slots.
+           Everything is drawn in plan coordinates and projected by the same
+           matrix; each shape is paired with a copy offset down the screen to
+           give it thickness. -->
+      <div class="faq-art" aria-hidden="true">
+        <svg class="faq-svg" viewBox="0 0 520 400">
+          <defs>
+            <linearGradient id="faqFace" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#5b86ff" />
+              <stop offset="1" stop-color="#0645fb" />
+            </linearGradient>
+            <linearGradient id="faqBubble" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#6b93ff" />
+              <stop offset="1" stop-color="#0b4ae8" />
+            </linearGradient>
+          </defs>
+
+          <!-- Bento layout in plan units on one iso matrix. The piece (190 × 190) and the
+               three slots, separated by 14-unit gutters, fill one 280 × 280 square. -->
+          <g class="faq-slot faq-slot--a">
+            <g transform="translate(260 240) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-slot-side" x="-140" y="64" width="190" height="76" rx="20" />
+            </g>
+            <g transform="translate(260 230) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-slot-face" x="-140" y="64" width="190" height="76" rx="20" />
+            </g>
+          </g>
+          <g class="faq-slot faq-slot--b">
+            <g transform="translate(260 240) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-slot-side" x="64" y="64" width="76" height="76" rx="20" />
+            </g>
+            <g transform="translate(260 230) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-slot-face" x="64" y="64" width="76" height="76" rx="20" />
+            </g>
+          </g>
+          <g class="faq-slot faq-slot--c">
+            <g transform="translate(260 240) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-slot-side" x="64" y="-140" width="76" height="190" rx="20" />
+            </g>
+            <g transform="translate(260 230) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-slot-face" x="64" y="-140" width="76" height="190" rx="20" />
+            </g>
+          </g>
+
+          <!-- The piece, lifted just above the grid -->
+          <g class="faq-piece">
+            <g transform="translate(260 204) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-piece-side" x="-140" y="-140" width="190" height="190" rx="20" />
+            </g>
+            <g transform="translate(260 186) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <rect class="faq-piece-face" x="-140" y="-140" width="190" height="190" rx="20" />
+              <circle class="faq-piece-socket" cx="-103" cy="-103" r="24" />
+              <text class="faq-piece-text" x="-115" y="-31">
+                <tspan x="-115" dy="0">Frequently</tspan>
+                <tspan x="-115" dy="27">asked</tspan>
+                <tspan x="-115" dy="27">questions</tspan>
+              </text>
+            </g>
+          </g>
+
+          <!-- Question disc hovering above its socket, lying on the same plane -->
+          <g class="faq-bubble">
+            <g transform="translate(260 168) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <circle class="faq-bubble-side" cx="-103" cy="-103" r="30" />
+            </g>
+            <g transform="translate(260 156) matrix(0.866 0.5 -0.866 0.5 0 0)">
+              <circle class="faq-bubble-face" cx="-103" cy="-103" r="30" />
+              <text class="faq-bubble-text" x="-103" y="-92" text-anchor="middle">?</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="faq-list">
+        @for (item of faqs; track item.q; let i = $index) {
+          <div class="faq-row" [class.faq-row--open]="openIndex === i">
+            <button type="button" class="faq-q" [attr.aria-expanded]="openIndex === i" (click)="toggle(i)">
+              <span class="faq-q-text">{{ item.q }}</span>
+              <span class="faq-sign" aria-hidden="true">
+                <span class="faq-sign-bar"></span>
+                <span class="faq-sign-bar faq-sign-bar--v"></span>
+              </span>
+            </button>
+            <div class="faq-a">
+              <p class="faq-a-text">{{ item.a }}</p>
+            </div>
+          </div>
+        }
+
+        <a routerLink="/contact" class="faq-cta">Still have questions? Contact us</a>
+      </div>
+    </div>
+  </div>
+</section>

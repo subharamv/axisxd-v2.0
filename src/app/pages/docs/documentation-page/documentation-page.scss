@@ -1,0 +1,55 @@
+:host ::ng-deep .prose-custom {
+  h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: inherit;
+    scroll-margin-top: 120px;
+  }
+  h3 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+    scroll-margin-top: 120px;
+  }
+  p {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: #334155;
+    margin-bottom: 0.75rem;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  code {
+    font-family: ui-monospace, monospace;
+    font-size: 0.75rem;
+  }
+
+  /* Code block styling: light + dark variants */
+  pre {
+    background: #f8fafc;
+    color: #0f172a;
+    border-radius: 8px;
+  }
+}
+
+:host-context(.dark) ::ng-deep .prose-custom {
+  pre {
+    background: #0d0d0d;
+    color: #d1d5db;
+  }
+  h2 {
+    color: rgba(244, 244, 245, 0.95);
+  }
+  h3 {
+    color: rgba(228, 228, 231, 0.9);
+  }
+  p {
+    color: rgba(161, 161, 170, 1);
+  }
+}

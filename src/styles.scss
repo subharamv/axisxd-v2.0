@@ -1,0 +1,1178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────────────────────
+   Design tokens.
+
+   Radii collapse to three steps (control / card / pill) — the
+   Tailwind `rounded-*` scale in tailwind.config.js maps onto the
+   same three values, so utility classes and raw CSS agree.
+
+   `--page-*` drive one continuous top-to-bottom page wash on
+   .app-shell; individual sections paint no background of their
+   own, so the gradient is never chopped into bands.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  /* Sans/display face. Syne is the baseline and this default reproduces the
+     previous hardcoded value exactly. The font switcher in the header
+     overrides it via [data-font] below — a temporary type test, remove both
+     once a face is picked. Mono is deliberately excluded and stays JetBrains. */
+  --font-sans: 'Syne', sans-serif;
+
+  /* Radii — control, card, pill */
+  --r-control: 0.625rem;
+  --r-card: 1.25rem;
+  --r-pill: 9999px;
+
+  /* Page wash — light */
+  --page-top: #ffffff;
+  --page-mid: #f6f7f9;
+  --page-bottom: #edeff3;
+
+  /* Deliberate dark contrast band */
+  --band: #06060a;
+  --band-edge: #101017;
+
+  /* Hairlines */
+  --line: rgb(0 0 0 / 0.07);
+}
+
+.dark {
+  --page-top: #050507;
+  --page-mid: #0b0c11;
+  --page-bottom: #17181e;
+
+  /* The page wash is already dark — bands dissolve into it. */
+  --band: transparent;
+  --band-edge: transparent;
+
+  --line: rgb(255 255 255 / 0.07);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   TEMPORARY — header font switcher (FontSwitcherService).
+   Syne carries no attribute, so the default above is what ships
+   and the baseline rendering is untouched. Delete this block,
+   the service and the <app-font-switcher> usages once a face
+   has been chosen.
+   ───────────────────────────────────────────────────────────── */
+[data-font='manrope'] {
+  --font-sans: 'Manrope', sans-serif;
+}
+
+[data-font='ibm-plex-sans'] {
+  --font-sans: 'IBM Plex Sans', sans-serif;
+}
+
+[data-font='inter'] {
+  --font-sans: 'Inter', sans-serif;
+}
+
+[data-font='plus-jakarta-sans'] {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+}
+
+[data-font='satoshi'] {
+  /* Served by Fontshare, not Google Fonts — see the second font <link>. */
+  --font-sans: 'Satoshi', sans-serif;
+}
+
+[data-font='fira-sans'] {
+  --font-sans: 'Fira Sans', sans-serif;
+}
+
+/* Syne runs tighter and heavier than the alternatives; without this the
+   substitutes read a step too large and too loose in headings. */
+[data-font='manrope'] h1,
+[data-font='manrope'] h2,
+[data-font='ibm-plex-sans'] h1,
+[data-font='ibm-plex-sans'] h2,
+[data-font='inter'] h1,
+[data-font='inter'] h2,
+[data-font='plus-jakarta-sans'] h1,
+[data-font='plus-jakarta-sans'] h2,
+[data-font='satoshi'] h1,
+[data-font='satoshi'] h2,
+[data-font='fira-sans'] h1,
+[data-font='fira-sans'] h2 {
+  letter-spacing: -0.022em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Page shell — the single background surface.
+
+   The gradient is painted on the shell itself (not `fixed`) and
+   spans the full document, so it flows once from the top of the
+   hero to the bottom of the footer rather than repeating per
+   viewport or restarting per section.
+   ───────────────────────────────────────────────────────────── */
+.app-shell {
+  min-height: 100vh;
+  background-image: linear-gradient(
+    to bottom,
+    var(--page-top) 0%,
+    var(--page-mid) 45%,
+    var(--page-bottom) 100%
+  );
+  background-repeat: no-repeat;
+}
+
+/* Stops the wash cutting off early on short pages / over-scroll. */
+html,
+body {
+  background-color: var(--page-top);
+}
+
+.dark body {
+  background-color: var(--page-bottom);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Lucide icons — global sizing/alignment fix.
+
+   lucide-angular injects the <svg> at runtime via Renderer2, so the
+   inner svg never receives Angular's scoped [_ngcontent] attributes.
+   Component-scoped rules such as `.gn-nav-chevron { width: 14px }`
+   therefore only ever match the <lucide-icon> HOST element — the svg
+   stays at lucide's default 24px, which made every icon oversized and
+   misaligned (navbar, footer, hero, …). Sizing the host and letting
+   the svg fill it restores the intended dimensions everywhere.
+   ───────────────────────────────────────────────────────────── */
+lucide-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+lucide-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.font-syne {
+  font-family: var(--font-sans);
+}
+
+.font-space {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Infinite partner logo marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Seamless pulse glow for lidar scanning animations */
+@keyframes lidar-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+}
+
+.animate-lidar {
+  animation: lidar-pulse 4s infinite ease-in-out;
+}
+
+/* Custom thin scrollbar for specific containers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #2e62fc;
+  border-radius: 4px;
+}
+
+/* Thin brand-blue scrollbar. 2px was unusable as a drag target —
+   10px keeps it discreet while staying grabbable. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e62fc;
+  /* Transparent border + clip keeps the visible bar slim inside a
+     wide, easy-to-grab hit area. */
+  background-clip: content-box;
+  border: 3px solid transparent;
+  border-radius: var(--r-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6088fd;
+  background-clip: content-box;
+  border: 3px solid transparent;
+}
+
+/* Desktop passthrough — no effect on layout */
+.card-nav-scrollable {
+  height: 100%;
+}
+
+/* Hidden on desktop; shown only in mobile media query */
+.card-nav-mobile-footer {
+  display: none;
+}
+
+/* CardNav component base & layout animations */
+.card-nav-container {
+  position: fixed;
+  top: 15px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 80rem; /* matches the shared content column */
+  z-index: 99;
+  box-sizing: border-box;
+  padding: 0 1.5rem;
+}
+
+.card-nav {
+  display: block;
+  height: 60px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  will-change: height;
+  backdrop-filter: blur(16px);
+}
+
+.card-nav-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.35rem 0.35rem 0.8rem;
+  z-index: 2;
+}
+
+.hamburger-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 3px;
+  padding: 0 0.3rem;
+}
+
+.hamburger-menu:hover .hamburger-line {
+  opacity: 0.75;
+}
+
+.hamburger-line {
+  width: 20px;
+  height: 1.5px;
+  background-color: currentColor;
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s ease,
+    margin 0.3s ease;
+  transform-origin: 50% 50%;
+}
+
+.hamburger-menu.open .hamburger-line:first-child {
+  transform: translateY(2.5px) rotate(45deg);
+}
+
+.hamburger-menu.open .hamburger-line:last-child {
+  transform: translateY(-2.5px) rotate(-45deg);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo {
+  height: 26px;
+}
+
+.card-nav-cta-button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0 0.75rem;
+  height: 30px;
+  font-weight: 800;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-nav-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50px;
+  bottom: 0;
+  padding: 0.35rem;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-nav.open .card-nav-content {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ── Bento layout: mega left + cards right ── */
+.nav-bento {
+  display: flex;
+  gap: 8px;
+  height: 100%;
+}
+
+.nav-bento-mega {
+  flex: 0.85;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+}
+
+.nav-bento-mega .nav-card-mega {
+  height: 100%;
+  flex: 1;
+}
+
+.nav-bento-cards {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5px;
+}
+
+/* Analysis spans top two columns */
+.nav-bento-cards .nav-card--analysis {
+  grid-column: 1 / 3;
+  grid-row: 1 / 2;
+}
+
+/* Analysis links: 2×2 grid of item tiles */
+.nav-bento-cards .nav-card--analysis .nav-card-links {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 0;
+}
+
+.nav-bento-cards .nav-card--analysis .nav-card-link {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: 8px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  line-height: 1.3;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.nav-bento-cards .nav-card--analysis .nav-card-link:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+html.dark .nav-bento-cards .nav-card--analysis .nav-card-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-bento-cards .nav-card--analysis .nav-card-link .nav-card-link-icon {
+  flex-shrink: 0;
+}
+
+.nav-card-link-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-card-link-desc {
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  opacity: 0.45;
+  line-height: 1.35;
+  margin-top: 2px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Solutions top-right */
+.nav-bento-cards .nav-card--solutions {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+/* Resources bottom-left */
+.nav-bento-cards .nav-card--resources {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+/* Connect bottom col 2 */
+.nav-bento-cards .nav-card--connect {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 10px 10px 8px;
+}
+
+/* Follow Us card bottom col 3 */
+.nav-bento-cards .nav-card--follow-us {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.nav-bento-cards .nav-card--follow-us .nav-card-footer {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-bento-cards .nav-card {
+  height: auto;
+  flex: unset;
+  min-width: 0;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px 10px 8px;
+  gap: 5px;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-bento-cards .nav-card-label {
+  font-size: 12px;
+  letter-spacing: -0.2px;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.nav-bento-cards .nav-card .nav-card-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 0;
+}
+
+.nav-bento-cards .nav-card--connect .nav-card-links {
+  margin-top: 0;
+  gap: 2px;
+}
+
+.nav-bento-cards .nav-card--connect .nav-card-footer {
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.nav-card-blue:hover .nav-card-label {
+  color: #000000 !important;
+}
+
+.nav-card-blue:hover .nav-card-link-icon {
+  color: #000000 !important;
+}
+
+/* ── Mega-menu (Products) full-width column card ── */
+.nav-card-mega {
+  height: 100%;
+  flex: 0 0 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.nav-mega-top {
+  padding: 8px 12px 6px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.nav-mega-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+/* Last item spans full row when there's an odd number */
+.nav-mega-links-grid>.nav-mega-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.nav-mega-eyebrow {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.35;
+  margin-bottom: 4px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.nav-mega-item {
+  padding: 5px 8px;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.nav-mega-item:hover,
+.nav-mega-item.active {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+html.dark .nav-mega-item:hover,
+html.dark .nav-mega-item.active {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-mega-item-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  font-family: var(--font-sans);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-mega-item-desc {
+  font-size: 11px;
+  opacity: 0.4;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-top: 1px;
+}
+
+.nav-mega-badge {
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  padding: 1px 7px;
+  border-radius: 20px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.nav-mega-visual {
+  display: flex;
+  align-items: stretch;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  position: relative;
+  overflow: hidden;
+  height: 170px;
+  flex-shrink: 0;
+}
+
+.nav-mega-visual-svg {
+  flex: 0 0 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+}
+
+.nav-mega-visual-svg svg {
+  transition: opacity 0.2s ease;
+  max-height: 120px;
+}
+
+.nav-mega-visual-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 30%, rgba(0, 0, 0, 0.75) 58%, rgba(0, 0, 0, 0.92) 100%);
+  pointer-events: none;
+}
+
+.nav-mega-featured-overlay {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 58%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 14px 18px 14px 38px;
+  gap: 6px;
+  z-index: 1;
+}
+
+.nav-mega-featured-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  color: #60a5fa;
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  background: rgba(59, 130, 246, 0.12);
+  padding: 2px 8px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.nav-mega-featured-title {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  font-family: var(--font-sans);
+  color: #ffffff;
+  margin: 0;
+}
+
+.nav-mega-featured-desc {
+  font-size: 10px;
+  opacity: 0.55;
+  line-height: 1.45;
+  color: #ffffff;
+  margin: 0;
+}
+
+.nav-mega-featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #0645fb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  width: fit-content;
+  transition: background 0.18s ease;
+}
+
+.nav-mega-featured-cta:hover {
+  background: #0535d4;
+}
+
+.nav-card {
+  height: 100%;
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 1rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px;
+  gap: 10px;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-card-label {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+
+.nav-card-links {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-card-link {
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-card-link:hover {
+  opacity: 0.75;
+}
+
+.nav-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: auto;
+}
+
+.nav-card-social {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.nav-card-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  color: inherit;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.nav-card-social a:hover {
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.12);
+}
+
+.nav-card-book-demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  border-radius: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  background: rgba(128, 128, 128, 0.08);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: inherit;
+  font-family: var(--font-sans);
+  width: 100%;
+}
+
+.nav-card-book-demo:hover {
+  background: rgba(128, 128, 128, 0.16);
+  border-color: rgba(128, 128, 128, 0.35);
+}
+
+.nav-card-book-demo--blue {
+  background: #0645fb;
+  border-color: #0645fb;
+  color: #ffffff;
+}
+
+.nav-card-book-demo--blue:hover {
+  background: #0535d4;
+  border-color: #0535d4;
+}
+
+.nav-card-social--grid {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  gap: 4px;
+}
+
+.nav-follow-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 2px;
+}
+
+.nav-follow-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.5;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.18s ease;
+}
+
+.nav-follow-contact-item:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .card-nav-container {
+    width: 100%;
+    top: 15px;
+    padding: 0 0.5rem;
+  }
+
+  .card-nav-top {
+    padding: 0.5rem 1rem;
+    justify-content: space-between;
+  }
+
+  .card-nav-left {
+    order: 3;
+  }
+
+  .logo-container {
+    position: static;
+    transform: none;
+    order: 1;
+  }
+
+  .theme-cta-container {
+    order: 2;
+  }
+
+  .card-nav-cta-button {
+    display: flex !important;
+    font-size: 0.55rem;
+    padding: 0 0.6rem;
+    height: 44px;
+    border-radius: 0.4rem;
+  }
+
+  /* card-nav-content: flex column host for scrollable middle + fixed footer */
+  .card-nav-content {
+    position: relative;
+    top: 60px;
+    bottom: unset;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - 75px);
+    overflow: hidden;
+  }
+
+  /* scrollable middle section */
+  .card-nav-scrollable {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 0.5rem 0.25rem;
+  }
+
+  .nav-bento {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .nav-bento-mega {
+    flex: unset;
+    height: auto;
+  }
+
+  .nav-bento-mega .nav-card-mega {
+    height: auto;
+  }
+
+  /* 2-column grid; auto-rows so each row sizes to content */
+  .nav-bento-cards {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 5px;
+  }
+
+  /* Reset all desktop placements, then assign clean mobile positions */
+  .nav-bento-cards .nav-card--analysis {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .nav-bento-cards .nav-card--solutions {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .nav-bento-cards .nav-card--resources {
+    grid-column: 1 / 2;
+    grid-row: auto;
+  }
+
+  .nav-bento-cards .nav-card--connect {
+    grid-column: 2 / 3;
+    grid-row: auto;
+  }
+
+  /* Follow Us is now in card-nav-mobile-footer — hide from bento on mobile */
+  .nav-bento-cards .nav-card--follow-us {
+    display: none;
+  }
+
+  .nav-bento-cards .nav-card {
+    height: auto;
+    min-height: 60px;
+    flex: 1 1 auto;
+    max-height: none;
+  }
+
+  /* Keep analysis links in 2-col grid so tiles stay compact */
+  .nav-bento-cards .nav-card--analysis .nav-card-links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nav-card-mega {
+    height: auto;
+  }
+
+  .nav-mega-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-mega-visual {
+    display: none;
+  }
+
+  .nav-card-label {
+    font-size: 12px;
+  }
+
+  .nav-card-link {
+    font-size: 13px;
+  }
+
+  /* ─── Fixed Follow Us footer strip ─── */
+  .card-nav-mobile-footer {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    gap: 4px;
+    padding: 8px 12px 9px;
+    border-top: 1px solid rgba(128, 128, 128, 0.1);
+    border-radius: 0 0 1rem 1rem;
+  }
+
+  .card-nav-mobile-footer .nav-card-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    opacity: 0.4;
+    margin-bottom: 0;
+  }
+
+  .card-nav-mobile-footer .nav-card-footer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  /* Webinars button: auto-width, compact, left side */
+  .card-nav-mobile-footer .nav-card-book-demo {
+    width: auto;
+    flex-shrink: 0;
+    order: 1;
+    padding: 3px 12px;
+    height: 22px;
+    font-size: 7px;
+  }
+
+  /* Social icons: flex row, fills remaining space right-aligned */
+  .card-nav-mobile-footer .nav-card-social--grid {
+    display: flex;
+    flex-direction: row;
+    grid-template-columns: unset;
+    gap: 3px;
+    order: 2;
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  /* Contact: full-width row beneath button + icons */
+  .card-nav-mobile-footer .nav-follow-contact {
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 0;
+    order: 3;
+    flex: 0 0 100%;
+    flex-wrap: wrap;
+  }
+}
+
+/* View Transition Styles for AnimatedThemeToggler */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Scoped to AnimatedThemeToggler — the toggler sets the data-attribute and the variable only during a theme toggle. */
+html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--magicui-theme-toggle-vt-duration);
+}
+
+/* Fade the old snapshot out as the new theme circle expands */
+html[data-magicui-theme-vt="active"]::view-transition-old(root) {
+  animation: vt-theme-fade-out var(--magicui-theme-toggle-vt-duration, 800ms) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes vt-theme-fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  40% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Theme icon swap animation */
+@keyframes theme-icon-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-30deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.1) rotate(6deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-theme-icon-in {
+  animation: theme-icon-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Global utility for smooth transitions when changing themes */
+html {
+  background-color: #fafafa;
+  color: #09090b;
+  overflow-x: hidden;
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.dark {
+  background: linear-gradient(180deg, #000000 0%, #2d2e2f 100%);
+  background-attachment: fixed;
+  color: #f4f4f5;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Global motion + focus safety net.
+
+   Most sections animate (GSAP, marquees, canvas graphs, dock
+   magnification) but only a handful declared a reduced-motion
+   fallback. This blanket rule covers the rest.
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* One visible keyboard focus treatment for the whole site. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #0645fb;
+  outline-offset: 2px;
+  border-radius: var(--r-control);
+}

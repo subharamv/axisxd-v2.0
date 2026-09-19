@@ -1,0 +1,46 @@
+.text-rotate {
+  display: inline-flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.text-rotate-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.text-rotate-word {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  padding-bottom: 0.25rem;
+}
+
+.text-rotate-element {
+  display: inline-block;
+  will-change: transform, opacity;
+  animation: rotating-text-char-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rotating-text-char-in {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.text-rotate-space {
+  display: inline-block;
+  white-space: pre;
+}

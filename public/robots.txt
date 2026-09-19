@@ -1,0 +1,50 @@
+# AxisXD — https://axisxd.com
+
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /index.htm
+
+# Answer/generative engines. Listed explicitly so the crawl policy is a
+# deliberate choice rather than an accident of the wildcard rule above.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+Sitemap: https://axisxd.com/sitemap.xml

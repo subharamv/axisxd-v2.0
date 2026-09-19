@@ -1,0 +1,141 @@
+<!-- CHAT PANEL -->
+@if (open) {
+  <div
+    @panelInOut
+    class="cw-panel"
+    [style.max-height.px]="minimized ? 60 : 560"
+  >
+    <!-- Header -->
+    <div
+      class="cw-header"
+      [style.background]="isDark ? 'linear-gradient(135deg, rgba(6,69,251,0.55) 0%, rgba(30,100,255,0.45) 100%)' : 'rgba(0,0,0,0.88)'"
+    >
+      <div class="cw-header-left">
+        <div class="cw-avatar">
+          <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" class="cw-avatar-img" />
+        </div>
+        <div>
+          <p class="cw-title">AxisXD Assistant</p>
+          <p class="cw-status">
+            <span class="cw-status-dot"></span>
+            Online
+          </p>
+        </div>
+      </div>
+      <div class="cw-header-actions">
+        <button (click)="handleReset()" title="Reset conversation" class="cw-icon-btn">
+          <lucide-icon [img]="RotateCcw" class="cw-icon"></lucide-icon>
+        </button>
+        <button (click)="toggleMinimize()" class="cw-icon-btn">
+          <lucide-icon [img]="Minimize2" class="cw-icon"></lucide-icon>
+        </button>
+        <button (click)="closePanel()" class="cw-icon-btn">
+          <lucide-icon [img]="X" class="cw-icon"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    @if (!minimized) {
+      <!-- Messages -->
+      <div class="cw-messages">
+        @for (msg of messages; track msg.id) {
+          <div class="cw-msg" [class.cw-msg--user]="msg.role === 'user'">
+            <div
+              class="cw-bubble"
+              [class.cw-bubble--bot]="msg.role === 'assistant'"
+              [class.cw-bubble--user]="msg.role === 'user'"
+            >
+              @for (line of renderText(msg.text); track $index; let isLastLine = $last) {
+                @for (part of line; track $index) {
+                  @if (part.bold) {
+                    <strong class="cw-bubble-strong">{{ part.text }}</strong>
+                  } @else {
+                    <span>{{ part.text }}</span>
+                  }
+                }
+                @if (!isLastLine) {
+                  <br />
+                }
+              }
+            </div>
+            <span class="cw-time">{{ formatTime(msg.timestamp) }}</span>
+
+            @if (msg.role === 'assistant' && msg.quickReplies) {
+              <div class="cw-quick">
+                @for (qr of msg.quickReplies; track qr) {
+                  <button
+                    (click)="sendMessage(qr)"
+                    class="cw-quick-btn"
+                  >
+                    {{ qr }} <lucide-icon [img]="ChevronRight" class="cw-quick-icon"></lucide-icon>
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        }
+
+        @if (typing) {
+          <div class="cw-typing">
+            <div class="cw-typing-bubble">
+              @for (i of typingDots; track i) {
+                <span class="cw-typing-dot" [style.animation-delay.s]="i * 0.15"></span>
+              }
+            </div>
+          </div>
+        }
+        <div #messagesEnd></div>
+      </div>
+
+      <!-- Input -->
+      <form (submit)="handleSubmit($event)" class="cw-form">
+        <input
+          #chatInput
+          type="text"
+          [(ngModel)]="input"
+          name="chatInput"
+          placeholder="Ask me anything…"
+          class="cw-input"
+        />
+        <button
+          type="submit"
+          [disabled]="!input.trim() || typing"
+          class="cw-send"
+        >
+          <lucide-icon [img]="Send" class="cw-send-icon"></lucide-icon>
+        </button>
+      </form>
+    }
+  </div>
+}
+
+<!-- GREETING TAG -->
+@if (showTag && !open) {
+  <div
+    @tagInOut
+    class="cw-tag"
+  >
+    <div class="cw-tag-tail"></div>
+    <button (click)="dismissTag()" class="cw-tag-close">
+      <lucide-icon [img]="X" class="cw-tag-close-icon"></lucide-icon>
+    </button>
+    <p class="cw-tag-text">Got any questions? I'm happy to help. 👋</p>
+  </div>
+}
+
+<!-- BUBBLE BUTTON -->
+<button
+  (click)="toggleOpen()"
+  class="cw-fab"
+  aria-label="Open chat"
+>
+  @if (open) {
+    <lucide-icon [img]="X" class="cw-fab-icon"></lucide-icon>
+  } @else {
+    <lucide-icon [img]="MessageCircle" class="cw-fab-icon"></lucide-icon>
+  }
+
+  @if (unread > 0 && !open) {
+    <span class="cw-unread">{{ unread }}</span>
+  }
+</button>

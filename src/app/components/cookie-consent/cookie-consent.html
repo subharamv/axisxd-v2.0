@@ -1,0 +1,73 @@
+@if (!dismissed) {
+  <div #wrapper class="cc-wrapper">
+    <div class="cc-card">
+      <!-- Header with logo -->
+      <div class="cc-header">
+        <img src="assets/images/logos/xd_blue_logo.png" alt="AxisXD" class="cc-logo cc-logo--light" />
+        <img src="assets/images/logos/xd_white_logo.png" alt="AxisXD" class="cc-logo cc-logo--dark" />
+        <button (click)="close(false)" class="cc-close" aria-label="Close">
+          <lucide-icon [img]="X" class="cc-close-icon"></lucide-icon>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="cc-body">
+        <p class="cc-body-text">
+          This site uses cookies to improve your experience. Choose your preferences below.
+        </p>
+      </div>
+
+      <!-- Customize panel -->
+      <div #customizePanel class="cc-customize-panel">
+        @if (showCustomize) {
+          <div class="cc-customize-content">
+            <div class="cc-toggle-row">
+              <div>
+                <p class="cc-toggle-label">Necessary</p>
+                <p class="cc-toggle-sub">Required for basic functionality</p>
+              </div>
+              <div class="cc-switch cc-switch--disabled" [class.cc-switch--on]="prefs.necessary">
+                <div class="cc-switch-knob" [class.cc-switch-knob--on]="prefs.necessary"></div>
+              </div>
+            </div>
+            <div class="cc-toggle-row">
+              <div>
+                <p class="cc-toggle-label">Marketing</p>
+                <p class="cc-toggle-sub">Personalised ads &amp; content</p>
+              </div>
+              <button
+                (click)="toggleMarketing()"
+                class="cc-switch"
+                [class.cc-switch--on]="prefs.marketing"
+                aria-label="Toggle marketing cookies"
+              >
+                <div class="cc-switch-knob" [class.cc-switch-knob--on]="prefs.marketing"></div>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Actions -->
+      <div class="cc-actions">
+        <button (click)="close(true)" class="cc-btn cc-btn--primary">
+          {{ showCustomize ? 'Save Preferences' : 'Accept All' }}
+        </button>
+        @if (!showCustomize) {
+          <button (click)="close(false)" class="cc-btn cc-btn--ghost">
+            Reject All
+          </button>
+          <button (click)="openCustomize()" class="cc-btn cc-btn--ghost cc-btn--customize">
+            <lucide-icon [img]="Settings" class="cc-btn-icon"></lucide-icon>
+            Customize
+          </button>
+        }
+        @if (showCustomize) {
+          <button (click)="close(false)" class="cc-btn cc-btn--muted">
+            Decline All
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+}
