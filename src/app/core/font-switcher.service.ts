@@ -9,7 +9,8 @@ export type FontKey =
   | 'plus-jakarta-sans'
   | 'satoshi'
   | 'fira-sans'
-  | 'geist';
+  | 'geist'
+  | 'alibaba-puhuiti';
 
 export interface FontOption {
   key: FontKey;
@@ -63,6 +64,12 @@ export const FONT_OPTIONS: readonly FontOption[] = [
     label: 'Geist',
     note: 'Vercel — neutral grotesque, tight spacing',
     stack: "'Geist', sans-serif",
+  },
+  {
+    key: 'alibaba-puhuiti',
+    label: 'Alibaba PuHuiTi',
+    note: 'Latin subset — no Chinese glyphs',
+    stack: "'Alibaba PuHuiTi', sans-serif",
   },
   {
     key: 'fira-sans',

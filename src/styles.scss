@@ -1,3 +1,39 @@
+/* Alibaba PuHuiTi is free for commercial use but ships only as multi-MB
+   CJK .ttf (8.14 MB for Regular alone). These are Latin + Latin-1 +
+   Latin Extended-A subsets converted to woff2 — ~17 KB a weight. They
+   carry no Chinese glyphs; CJK text falls back to the system font. */
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/fonts/alibaba-puhuiti-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/fonts/alibaba-puhuiti-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/fonts/alibaba-puhuiti-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('/assets/fonts/alibaba-puhuiti-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -95,6 +131,13 @@
   --font-mono-num: 'Satoshi', sans-serif;
 }
 
+[data-font='alibaba-puhuiti'] {
+  /* Latin subset only — see the @font-face block at the top. */
+  --font-sans: 'Alibaba PuHuiTi', sans-serif;
+  --font-mono: 'Alibaba PuHuiTi', sans-serif;
+  --font-mono-num: 'Alibaba PuHuiTi', sans-serif;
+}
+
 [data-font='geist'] {
   --font-sans: 'Geist', sans-serif;
   --font-mono: 'Geist', sans-serif;
@@ -122,7 +165,9 @@
 [data-font='fira-sans'] h1,
 [data-font='fira-sans'] h2,
 [data-font='geist'] h1,
-[data-font='geist'] h2 {
+[data-font='geist'] h2,
+[data-font='alibaba-puhuiti'] h1,
+[data-font='alibaba-puhuiti'] h2 {
   letter-spacing: -0.022em;
 }
 
