@@ -51,7 +51,7 @@
    keeps its own top padding because it has to clear the fixed navbar. */
 .hero-section {
   @apply relative min-h-[100vh] w-full flex flex-col justify-center pt-32 lg:pt-40 overflow-hidden bg-transparent text-[#1c1917] dark:text-zinc-100;
-  padding-bottom: clamp(4rem, 7vh, 7rem);
+  padding-bottom: d.$section-pad;
 }
 
 .hero-svg-floorplan {

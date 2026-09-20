@@ -1,3 +1,4 @@
+@use '../../../styles/design' as d;
 
 :host {
   display: block;
@@ -165,7 +166,10 @@
 /* ── Desktop Layout ── */
 .vs-desktop {
   @apply hidden md:flex flex-col max-w-7xl mx-auto w-full gap-2;
-  @apply pt-[clamp(72px,7vh,112px)] pb-[clamp(0.75rem,1.5vh,1.5rem)];
+  /* Bottom stays tight on purpose: min-height below makes this a
+     full-viewport section, so its content already fills the band. */
+  @apply pb-[clamp(0.75rem,1.5vh,1.5rem)];
+  padding-top: d.$section-pad;
   /* Matches the shared container gutter so this section's edges line
      up with every other section on the page. */
   min-height: 100vh;

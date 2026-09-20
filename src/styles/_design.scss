@@ -12,11 +12,21 @@
 
 /// Full-bleed section shell: no background of its own, so the
 /// page gradient in app.html reads through as one continuous wash.
+/// Vertical rhythm between sections.
+///
+/// Was clamp(4rem, 7vh, 7rem). Keying the band off viewport HEIGHT
+/// meant it sat on its 4rem floor on every normal laptop (7vh of a
+/// ~900px viewport is 63px), so the clamp never actually scaled and
+/// the 7rem ceiling needed a 1600px-tall window to reach. Keyed off
+/// width instead: 64px on phones, 96px at 1440, 128px ceiling --
+/// all multiples of 8.
+$section-pad: clamp(4rem, 5vw + 1.5rem, 8rem);
+
 @mixin section {
   position: relative;
   display: block;
   background: transparent;
-  padding-block: clamp(4rem, 7vh, 7rem);
+  padding-block: $section-pad;
 }
 
 /// Centred content column. Pair with `section` on the wrapper.
