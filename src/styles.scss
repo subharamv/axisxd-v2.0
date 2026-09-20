@@ -17,8 +17,15 @@
   /* Sans/display face. Syne is the baseline and this default reproduces the
      previous hardcoded value exactly. The font switcher in the header
      overrides it via [data-font] below — a temporary type test, remove both
-     once a face is picked. Mono is deliberately excluded and stays JetBrains. */
+     once a face is picked. */
   --font-sans: 'Syne', sans-serif;
+
+  /* Mono roles. These carry the technical/data voice and default to
+     JetBrains Mono (Roboto Mono for numerals, for its plain zero). The
+     [data-font] blocks below repoint them at the selected face so the
+     switcher previews the whole page in one voice. */
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-mono-num: 'Roboto Mono', 'JetBrains Mono', monospace;
 
   /* Radii — control, card, pill */
   --r-control: 0.625rem;
@@ -59,27 +66,39 @@
    ───────────────────────────────────────────────────────────── */
 [data-font='manrope'] {
   --font-sans: 'Manrope', sans-serif;
+  --font-mono: 'Manrope', sans-serif;
+  --font-mono-num: 'Manrope', sans-serif;
 }
 
 [data-font='ibm-plex-sans'] {
   --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Sans', sans-serif;
+  --font-mono-num: 'IBM Plex Sans', sans-serif;
 }
 
 [data-font='inter'] {
   --font-sans: 'Inter', sans-serif;
+  --font-mono: 'Inter', sans-serif;
+  --font-mono-num: 'Inter', sans-serif;
 }
 
 [data-font='plus-jakarta-sans'] {
   --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Plus Jakarta Sans', sans-serif;
+  --font-mono-num: 'Plus Jakarta Sans', sans-serif;
 }
 
 [data-font='satoshi'] {
   /* Served by Fontshare, not Google Fonts — see the second font <link>. */
   --font-sans: 'Satoshi', sans-serif;
+  --font-mono: 'Satoshi', sans-serif;
+  --font-mono-num: 'Satoshi', sans-serif;
 }
 
 [data-font='fira-sans'] {
   --font-sans: 'Fira Sans', sans-serif;
+  --font-mono: 'Fira Sans', sans-serif;
+  --font-mono-num: 'Fira Sans', sans-serif;
 }
 
 /* Syne runs tighter and heavier than the alternatives; without this the

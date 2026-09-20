@@ -10,11 +10,13 @@ module.exports = {
         sans: ['var(--font-sans)'],
         syne: ['var(--font-sans)'],
         space: ['var(--font-sans)'],
-        mono: ['JetBrains Mono', 'monospace'],
+        // Mono resolves through its own token so the switcher moves these
+        // too. Defaults to JetBrains Mono; see styles.scss.
+        mono: ['var(--font-mono)'],
         // Display numerals. Roboto Mono matches JetBrains Mono's width and
         // weight but has a plain zero, where JetBrains Mono's only zeros are
         // dotted (default) or slashed (its `zero` feature) — neither wanted.
-        'mono-num': ['Roboto Mono', 'JetBrains Mono', 'monospace'],
+        'mono-num': ['var(--font-mono-num)'],
       },
       // Three shape steps, not ten. Tailwind's rounded-* utilities are
       // remapped onto them so the ~170 existing usage sites collapse to
