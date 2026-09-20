@@ -8,7 +8,8 @@ export type FontKey =
   | 'inter'
   | 'plus-jakarta-sans'
   | 'satoshi'
-  | 'fira-sans';
+  | 'fira-sans'
+  | 'geist';
 
 export interface FontOption {
   key: FontKey;
@@ -56,6 +57,12 @@ export const FONT_OPTIONS: readonly FontOption[] = [
     label: 'Satoshi',
     note: 'Fontshare — tight, modern grotesque',
     stack: "'Satoshi', sans-serif",
+  },
+  {
+    key: 'geist',
+    label: 'Geist',
+    note: 'Vercel — neutral grotesque, tight spacing',
+    stack: "'Geist', sans-serif",
   },
   {
     key: 'fira-sans',

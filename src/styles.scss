@@ -95,6 +95,12 @@
   --font-mono-num: 'Satoshi', sans-serif;
 }
 
+[data-font='geist'] {
+  --font-sans: 'Geist', sans-serif;
+  --font-mono: 'Geist', sans-serif;
+  --font-mono-num: 'Geist', sans-serif;
+}
+
 [data-font='fira-sans'] {
   --font-sans: 'Fira Sans', sans-serif;
   --font-mono: 'Fira Sans', sans-serif;
@@ -114,7 +120,9 @@
 [data-font='satoshi'] h1,
 [data-font='satoshi'] h2,
 [data-font='fira-sans'] h1,
-[data-font='fira-sans'] h2 {
+[data-font='fira-sans'] h2,
+[data-font='geist'] h1,
+[data-font='geist'] h2 {
   letter-spacing: -0.022em;
 }
 
