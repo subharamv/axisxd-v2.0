@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Input,
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -28,6 +29,13 @@ export class FontSwitcherComponent {
 
   private readonly host = inject(ElementRef<HTMLElement>);
   readonly fonts = inject(FontSwitcherService);
+
+  /**
+   * Inline mode drops the trigger and renders the options as a flat list.
+   * The mobile panel scrolls (overflow-y-auto), which would clip the
+   * absolutely positioned menu, so the header passes this there.
+   */
+  @Input() inline = false;
 
   open = false;
 

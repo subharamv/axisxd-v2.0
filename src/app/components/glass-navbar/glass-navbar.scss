@@ -530,6 +530,23 @@
   @apply text-sky-400; // was group-hover:text-sky-400
 }
 
+/* TEMPORARY typeface A/B control in the mobile panel. */
+.gn-mobile-fonts {
+  @apply border-t pt-3 mt-1;
+}
+
+.gn-mobile-fonts--dark {
+  @apply border-white/[0.06];
+}
+
+.gn-mobile-fonts--light {
+  @apply border-black/[0.06];
+}
+
+.gn-mobile-fonts-head {
+  @apply px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.09em] opacity-45;
+}
+
 .gn-mobile-cta-wrap {
   @apply pt-3 mt-1;
 }

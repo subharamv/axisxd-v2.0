@@ -161,3 +161,36 @@
 .fs-option-check {
   @apply w-4 h-4 shrink-0 text-blue-600;
 }
+
+/* ── Inline variant ──
+   Used in the mobile header panel, which scrolls (overflow-y-auto) and
+   would clip the floating menu. Strips the popover chrome and lets the
+   options sit in the panel's own flow at full width. */
+.fs-root--inline {
+  @apply w-full;
+}
+
+.fs-menu--inline {
+  @apply static w-full rounded-none border-0 p-0 overflow-visible;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  animation: none;
+  z-index: auto;
+}
+
+/* The panel already states what this is, so the popover's own head and
+   foot would only repeat it. */
+.fs-menu--inline .fs-menu-head {
+  @apply hidden;
+}
+
+.fs-menu--inline .fs-menu-foot {
+  @apply px-0 pt-2 pb-0;
+}
+
+/* No hover-nudge on touch — it just fights the scroll. */
+.fs-menu--inline .fs-option {
+  @apply px-3 py-3 hover:translate-x-0;
+}

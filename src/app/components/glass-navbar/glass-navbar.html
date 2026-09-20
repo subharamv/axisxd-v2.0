@@ -285,6 +285,12 @@
             }
           }
 
+          <!-- TEMPORARY typeface A/B control, mirrors the desktop one. -->
+          <div class="gn-mobile-fonts" [ngClass]="isDark ? 'gn-mobile-fonts--dark' : 'gn-mobile-fonts--light'">
+            <p class="gn-mobile-fonts-head">Typeface</p>
+            <app-font-switcher [inline]="true"></app-font-switcher>
+          </div>
+
           <div class="gn-mobile-cta-wrap">
             <button (click)="startProject()" class="gn-mobile-cta">
               Start Project

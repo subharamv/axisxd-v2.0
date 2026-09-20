@@ -1,4 +1,5 @@
-<div class="fs-root">
+<div class="fs-root" [class.fs-root--inline]="inline">
+  @if (!inline) {
   <button
     type="button"
     class="fs-trigger"
@@ -20,11 +21,13 @@
       [style.transform]="open ? 'rotate(180deg)' : 'rotate(0deg)'"
     ></lucide-icon>
   </button>
+  }
 
-  @if (open) {
+  @if (open || inline) {
     <div
       class="fs-menu"
-      [ngClass]="isDark ? 'fs-menu--dark' : 'fs-menu--light'"
+      [class.fs-menu--inline]="inline"
+      [ngClass]="inline ? '' : (isDark ? 'fs-menu--dark' : 'fs-menu--light')"
       role="listbox"
       aria-label="Typeface"
     >
