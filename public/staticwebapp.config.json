@@ -1,10 +1,53 @@
 {
+  "routes": [
+    { "route": "/IFC_viewer.html", "redirect": "/viewer/ifc", "statusCode": 301 },
+    { "route": "/portfolio/IFC_viewer.html", "redirect": "/viewer/ifc", "statusCode": 301 },
+    { "route": "/PC_viewer.html", "redirect": "/viewer/point-cloud", "statusCode": 301 },
+    { "route": "/portfolio/PC_viewer.html", "redirect": "/viewer/point-cloud", "statusCode": 301 },
+    { "route": "/deviation-report.html", "redirect": "/analysis/deviation", "statusCode": 301 },
+    { "route": "/portfolio/deviation-report.html", "redirect": "/analysis/deviation", "statusCode": 301 },
+    { "route": "/ROL/*", "redirect": "/analysis/rol", "statusCode": 301 },
+    { "route": "/portfolio/ROL/*", "redirect": "/analysis/rol", "statusCode": 301 },
+
+    { "route": "/Digital-Built/*", "redirect": "/viewer/ifc", "statusCode": 301 },
+    { "route": "/portfolio/Digital-Built/*", "redirect": "/viewer/ifc", "statusCode": 301 },
+    { "route": "/Digital-Reality/*", "redirect": "/viewer/digital-twin", "statusCode": 301 },
+    { "route": "/portfolio/Digital-Reality/*", "redirect": "/viewer/digital-twin", "statusCode": 301 },
+    { "route": "/Digital-Mapping/*", "redirect": "/viewer/point-cloud", "statusCode": 301 },
+    { "route": "/portfolio/Digital-Mapping/*", "redirect": "/viewer/point-cloud", "statusCode": 301 },
+    { "route": "/Digital-Construction/*", "redirect": "/analysis/monitoring", "statusCode": 301 },
+    { "route": "/portfolio/Digital-Construction/*", "redirect": "/analysis/monitoring", "statusCode": 301 },
+    { "route": "/Digital-Solutions/*", "redirect": "/", "statusCode": 301 },
+    { "route": "/portfolio/Digital-Solutions/*", "redirect": "/", "statusCode": 301 },
+
+    { "route": "/blog/", "redirect": "/resources", "statusCode": 301 },
+    { "route": "/portfolio/index.html", "redirect": "/resources", "statusCode": 301 },
+    { "route": "/portfolio/*", "redirect": "/resources", "statusCode": 301 },
+    { "route": "/portfolios/*", "redirect": "/resources", "statusCode": 301 },
+    { "route": "/projects/*", "redirect": "/resources", "statusCode": 301 },
+    { "route": "/contact.html", "redirect": "/contact", "statusCode": 301 },
+    { "route": "/careers/*", "redirect": "/careers", "statusCode": 301 },
+    { "route": "/sitemap.html", "redirect": "/sitemap", "statusCode": 301 },
+
+    { "route": "/about.html", "redirect": "/", "statusCode": 301 },
+    { "route": "/Privacy-Policy.html", "redirect": "/", "statusCode": 301 },
+    { "route": "/industries/*", "redirect": "/", "statusCode": 301 },
+    { "route": "/verticals/*", "redirect": "/", "statusCode": 301 },
+
+    { "route": "/login", "headers": { "X-Robots-Tag": "noindex, nofollow" } },
+    { "route": "/signup", "headers": { "X-Robots-Tag": "noindex, nofollow" } }
+  ],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
-      "/*.js",
-      "/*.css",
+      "/assets/*",
+      "/*.txt",
+      "/*.xml",
       "/*.json",
+      "/*.js",
+      "/*.mjs",
+      "/*.map",
+      "/*.css",
       "/*.ico",
       "/*.png",
       "/*.svg",
@@ -12,11 +55,33 @@
       "/*.jpeg",
       "/*.gif",
       "/*.webp",
+      "/*.avif",
       "/*.woff",
       "/*.woff2",
       "/*.ttf",
+      "/*.otf",
       "/*.eot",
-      "/assets/*"
+      "/*.mp4",
+      "/*.webm",
+      "/*.pdf",
+      "/*.wasm",
+      "/*.htm",
+      "/*.html"
     ]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 404
+    }
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff"
+  },
+  "mimeTypes": {
+    ".json": "application/json",
+    ".txt": "text/plain",
+    ".xml": "application/xml",
+    ".webmanifest": "application/manifest+json"
   }
 }

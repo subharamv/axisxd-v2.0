@@ -1,4 +1,4 @@
-# AxisXD — https://axisxd.com
+# AxisXD — https://www.axisxd.com
 
 User-agent: *
 Allow: /
@@ -47,4 +47,4 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
-Sitemap: https://axisxd.com/sitemap.xml
+Sitemap: https://www.axisxd.com/sitemap.xml

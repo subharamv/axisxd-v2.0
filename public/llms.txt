@@ -28,22 +28,22 @@ Projects are private to the owning organisation, with role-based access per proj
 
 ## Key pages
 
-- [Homepage](https://axisxd.com/): platform overview, formats, pricing, FAQ.
-- [IFC viewer](https://axisxd.com/viewer/ifc)
-- [Point cloud viewer](https://axisxd.com/viewer/point-cloud)
-- [CAD viewer](https://axisxd.com/viewer/cad)
-- [Mesh viewer](https://axisxd.com/viewer/mesh)
-- [360° panorama viewer](https://axisxd.com/viewer/pano)
-- [Digital twin viewer](https://axisxd.com/viewer/digital-twin)
-- [Deviation analysis](https://axisxd.com/analysis/deviation)
-- [Clash detection](https://axisxd.com/analysis/clash)
-- [Rights of light](https://axisxd.com/analysis/rol)
-- [Construction monitoring](https://axisxd.com/analysis/monitoring)
-- [Documentation](https://axisxd.com/docs)
-- [Glossary](https://axisxd.com/glossary)
-- [FAQ](https://axisxd.com/faq)
-- [Resources](https://axisxd.com/resources)
-- [Contact](https://axisxd.com/contact)
+- [Homepage](https://www.axisxd.com/): platform overview, formats, pricing, FAQ.
+- [IFC viewer](https://www.axisxd.com/viewer/ifc)
+- [Point cloud viewer](https://www.axisxd.com/viewer/point-cloud)
+- [CAD viewer](https://www.axisxd.com/viewer/cad)
+- [Mesh viewer](https://www.axisxd.com/viewer/mesh)
+- [360° panorama viewer](https://www.axisxd.com/viewer/pano)
+- [Digital twin viewer](https://www.axisxd.com/viewer/digital-twin)
+- [Deviation analysis](https://www.axisxd.com/analysis/deviation)
+- [Clash detection](https://www.axisxd.com/analysis/clash)
+- [Rights of light](https://www.axisxd.com/analysis/rol)
+- [Construction monitoring](https://www.axisxd.com/analysis/monitoring)
+- [Documentation](https://www.axisxd.com/docs)
+- [Glossary](https://www.axisxd.com/glossary)
+- [FAQ](https://www.axisxd.com/faq)
+- [Resources](https://www.axisxd.com/resources)
+- [Contact](https://www.axisxd.com/contact)
 
 ## Contact
 

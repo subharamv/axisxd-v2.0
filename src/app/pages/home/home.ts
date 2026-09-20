@@ -26,12 +26,12 @@ const SOFTWARE_JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'AxisXD',
-  url: 'https://axisxd.com',
+  url: 'https://www.axisxd.com',
   applicationCategory: 'DesignApplication',
   applicationSubCategory: 'BIM & Digital Twin Visualisation',
   operatingSystem: 'Web browser',
   description: HOME_DESC,
-  image: 'https://axisxd.com/assets/images/og/axisxd-og-card.png',
+  image: 'https://www.axisxd.com/assets/images/og/axisxd-og-card.png',
   softwareRequirements: 'Modern web browser with WebGL 2.0. No plugin or desktop install.',
   featureList: [
     'IFC and federated BIM model viewer',
@@ -45,7 +45,7 @@ const SOFTWARE_JSON_LD = {
     'Construction progress monitoring',
     'REST API and SDK',
   ],
-  publisher: { '@type': 'Organization', name: 'AxisXD', url: 'https://axisxd.com' },
+  publisher: { '@type': 'Organization', name: 'AxisXD', url: 'https://www.axisxd.com' },
   offers: [
     {
       '@type': 'Offer',

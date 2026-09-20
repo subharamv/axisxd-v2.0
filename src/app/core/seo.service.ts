@@ -3,7 +3,7 @@ import { DOCUMENT } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
 
 const SITE_NAME = 'AxisXD';
-const SITE_URL = 'https://axisxd.com';
+const SITE_URL = 'https://www.axisxd.com';
 const TWITTER_HANDLE = '@axissxd';
 const DEFAULT_DESC = 'View and analyse IFC, BIM, point cloud, CAD and 360° panorama data in one browser-based digital twin platform — with clash detection and deviation analysis.';
 // 1200x630 social card. Must stay an absolute URL: Facebook, LinkedIn, X and
